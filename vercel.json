@@ -1,0 +1,5 @@
+{
+  "buildCommand": "node generate.js",
+  "outputDirectory": "public",
+  "framework": null
+}

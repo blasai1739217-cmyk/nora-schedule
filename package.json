@@ -1,0 +1,12 @@
+{
+  "name": "nora-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node generate.js",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "vercel": "^39.0.0"
+  }
+}

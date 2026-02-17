@@ -1,0 +1,710 @@
+{
+  "jobs": [
+    {
+      "id": "ad2f9022-7b7b-4cee-ac8c-996d0b758b4e",
+      "agentId": "slack-generic-3",
+      "name": "PR Auto-Review & Merge - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771317325445,
+      "updatedAtMs": 1771367828515,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 600000,
+        "anchorMs": 1771317325445
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔄 PR AUTO-REVIEW & MERGE\n\nCheck open PRs in Watsi repo and take action based on Claude review comments.\n\n**Steps:**\n\n1. **List open PRs:**\n```bash\ncd ~/Documents/dev/watsi && gh pr list --state open --json number,title,headRefName,author\n```\n\n2. **For each PR, get the Claude review comment:**\n```bash\ngh pr view <number> --json comments --jq '.comments[] | select(.body | contains(\"Claude Code Review\")) | .body' | tail -1\n```\n\n3. **Parse the verdict** from the review:\n   - ✅ LGTM → Approve and merge\n   - ⚠️ Minor issues → Attempt to fix, then re-push\n   - ❌ Needs changes → Attempt to fix, then re-push\n   - No review yet → Skip (wait for CI)\n\n4. **Decision tree:**\n\n   **If ✅ LGTM:**\n   - Approve the PR: `gh pr review <number> --approve -b \"Auto-approved by Nora based on Claude review\"`\n   - Merge: `gh pr merge <number> --squash --auto`\n   - Post to Slack `#notif-linear-tickets-watsi`: \"✅ Merged PR #X: [title] → [ticket-id]\"\n   - Also post to `#notif-github-prs-watsi`: \"✅ Merged PR #X: [title]\"\n\n   **If ⚠️ Minor issues or ❌ Needs changes:**\n   - Checkout the branch\n   - Read the specific issues from the review\n   - Attempt to fix them using code edits\n   - Commit with message: \"fix: address Claude review feedback\"\n   - Push to trigger new review\n   - Post update to `#notif-linear-tickets-watsi` thread: \"🔧 Fixing review feedback for PR #X\"\n   - If fixes are unclear or too complex → Ping Blas on WhatsApp\n\n   **If critical/unclear:**\n   - Send WhatsApp to Blas: \"🚨 PR #X needs your decision: [brief summary]\"\n   - Post to `#notif-linear-tickets-watsi`: \"⚠️ PR #X needs human review\"\n\n5. **Logging:**\n   - Log actions to `memory/pr-auto-review.md`\n\n**Important:**\n- Don't merge PRs with failing CI checks\n- Don't merge PRs less than 5 minutes old (give CI time)\n- Be conservative - when in doubt, fix rather than merge\n- Only ping Blas for truly complex decisions (architecture changes, security concerns, unclear requirements)\n- Always post updates to `#notif-linear-tickets-watsi` for ticket visibility",
+        "timeoutSeconds": 600
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771368325445,
+        "lastRunAtMs": 1771367725459,
+        "lastStatus": "ok",
+        "lastDurationMs": 103056,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "860c27d0-5472-4f9a-8d39-e4519bbcaa2a",
+      "agentId": "slack-coding",
+      "name": "Linear Ticket Auto-Implementer",
+      "enabled": true,
+      "notify": true,
+      "createdAtMs": 1771312035777,
+      "updatedAtMs": 1771367438285,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0,30 * * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "## Linear Ticket Auto-Implementation\n\nFollow the linear-worker skill at `~/.openclaw/skills/linear-worker/SKILL.md`.\n\n### Workflow:\n\n1. **Check locks** — Read `~/.openclaw/workspace/locks/linear-worker.lock`. If exists and < 2h old, skip.\n\n2. **Get top ticket FIRST** — Run:\n   ```bash\n   claude -p \"Use Linear Watsi MCP to list issues with state Todo/Backlog, limit 1. Return: TICKET: [id] - [title]\" --allowedTools \"mcp__*\" --dangerously-skip-permissions\n   ```\n\n3. **Post to Slack with ticket ID AND LINK** — Send parent message to `C0AFA5TE7NH`:\n   ```\n   🔄 **<https://linear.app/watsiai/issue/[TICKET-ID]|[TICKET-ID]>: [Title]**\n   Starting implementation...\n   ```\n   **IMPORTANT:** \n   - Include the ticket ID as a clickable link to Linear!\n   - Format: `<https://linear.app/watsiai/issue/WAT-XX|WAT-XX>`\n   - Save the messageId for threading AND for reacting later.\n\n4. **Create lock** — Write `{sessionKey}|{ticketId}|{timestamp}` to lock file.\n\n5. **Implement** — Run Claude CLI with full tools:\n   ```bash\n   cd ~/Documents/dev/watsi && claude -p \"Implement [ticket-id]: [title]. Read CLAUDE.md. Commit as '[ticket-id]: description'. Update Linear status to In Review.\" --allowedTools \"mcp__*,Read,Write,Edit,Bash\" --dangerously-skip-permissions\n   ```\n\n6. **Create PR** — After commit, create a pull request:\n   ```bash\n   cd ~/Documents/dev/watsi && git push -u origin HEAD && gh pr create --title \"[ticket-id]: [brief description]\" --body \"Implements Linear ticket [ticket-id]\\n\\n[summary of changes]\" --head $(git branch --show-current)\n   ```\n   If already on main, create a branch first: `git checkout -b feat/[ticket-id]-[slug]`\n\n7. **Thread updates** — Reply to parent with:\n   - 📋 Files changed\n   - ✅ Commit message\n   - 🔗 PR link (GitHub)\n   - Linear status update\n\n8. **React to parent** — Add ✅ reaction to the original parent message:\n   ```\n   message action:react channel:slack target:C0AFA5TE7NH messageId:[parentMessageId] emoji:white_check_mark\n   ```\n\n9. **Cleanup** — Remove lock file.\n\n**On error:** Post ❌ with error to thread, don't update Linear status, don't react.\n\n**If no tickets:** Post \"📭 No tickets in queue\" and exit.",
+        "timeoutSeconds": 3600
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "notif-linear-tickets-watsi"
+      },
+      "state": {
+        "nextRunAtMs": 1771369200000,
+        "lastRunAtMs": 1771367400018,
+        "lastStatus": "ok",
+        "lastDurationMs": 38267,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "7eb8ff7f-23ad-43d6-94b2-8254dcba196e",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Tuesday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377514,
+      "updatedAtMs": 1771308140788,
+      "schedule": {
+        "kind": "cron",
+        "expr": "41 15 * * 2",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771371660000
+      }
+    },
+    {
+      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
+      "agentId": "main",
+      "name": "Nora Self-Improvement Session",
+      "enabled": true,
+      "createdAtMs": 1770614435519,
+      "updatedAtMs": 1771131685172,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 21 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771390800000,
+        "lastRunAtMs": 1771131600008,
+        "lastStatus": "ok",
+        "lastDurationMs": 85164,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "cb0f1591-685f-48bb-a4a9-dd711fbdf0aa",
+      "agentId": "slack-generic-3",
+      "name": "PostHog Stats Daily - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771268640426,
+      "updatedAtMs": 1771337808283,
+      "schedule": {
+        "kind": "cron",
+        "expr": "15 6 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📊 POSTHOG DAILY STATS\n\nPull key metrics from PostHog for the last 24 hours:\n\n**Access PostHog:**\n- Use browser to log into PostHog dashboard\n- Or use PostHog API if credentials are available\n\n**Metrics to capture:**\n- Total unique users (24h)\n- Total pageviews (24h)\n- Top pages by views\n- User signups/conversions\n- Key funnel metrics\n- Feature flag usage (if relevant)\n- Session recordings count\n- Any notable user behavior patterns\n\n**Compare to previous day:**\n- % change in key metrics\n- Highlight significant changes (>20%)\n\n**Deliverable:**\n📈 **PostHog Daily Digest**\n\n| Metric | Today | Yesterday | Change |\n|--------|-------|-----------|--------|\n| Unique Users | X | Y | +/-% |\n| Pageviews | X | Y | +/-% |\n| Signups | X | Y | +/-% |\n\n**Top Pages:** [list]\n**Notable:** [any interesting patterns]\n\nPost to Slack channel `notif-posthog-stats-daily-watsi`.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "notif-posthog-stats-daily-watsi"
+      },
+      "state": {
+        "nextRunAtMs": 1771424100000,
+        "lastRunAtMs": 1771337700011,
+        "lastStatus": "ok",
+        "lastDurationMs": 108272,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "ba20d0a8-5de8-47cb-945e-74e09f792324",
+      "agentId": "slack-generic-3",
+      "name": "Traffic Daily - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771268640431,
+      "updatedAtMs": 1771338636205,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 6 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🚦 DAILY TRAFFIC REPORT\n\nCompile traffic metrics from PostHog and Vercel for the last 24 hours:\n\n**PostHog Traffic:**\n- Unique visitors\n- Sessions\n- Avg session duration\n- Bounce rate\n- Traffic sources (direct, organic, referral, social)\n- Geographic breakdown (focus on LATAM)\n- Device breakdown (mobile vs desktop)\n\n**Vercel Analytics:**\n- Edge requests\n- Bandwidth usage\n- Response times (p50, p95)\n- Error rates\n- Top paths by requests\n\n**Deliverable:**\n🚦 **Traffic Report — Last 24h**\n\n**Summary:**\n- 👥 Visitors: X (+/-% vs yesterday)\n- 📱 Mobile: X% | 💻 Desktop: X%\n- 🌎 Top regions: [list]\n- ⏱️ Avg session: Xm Xs\n\n**Traffic Sources:**\n| Source | Visitors | % |\n|--------|----------|---|\n\n**Performance:**\n- Response time: p50 Xms, p95 Xms\n- Error rate: X%\n\n**Anomalies:** [any spikes or drops to note]\n\nPost to Slack channel `notif-traffic-daily-watsi`.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "notif-traffic-daily-watsi"
+      },
+      "state": {
+        "nextRunAtMs": 1771425000000,
+        "lastRunAtMs": 1771338600015,
+        "lastStatus": "ok",
+        "lastDurationMs": 36190,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "77f910f3-7f8e-4d11-9edd-777efc09d64f",
+      "agentId": "slack-generic-3",
+      "name": "Nora Daily Overview",
+      "enabled": true,
+      "createdAtMs": 1771292864460,
+      "updatedAtMs": 1771339559870,
+      "schedule": {
+        "kind": "cron",
+        "expr": "45 6 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📋 DAILY OVERVIEW\n\nCreate a comprehensive morning briefing for Blas.\n\n**1. Channel Rollup (Last 24h)**\nRead messages from the last 24 hours in these notification channels and summarize key updates:\n\n```\nmessage action:read channel:slack channelId:notif-linear-tickets-watsi limit:20\nmessage action:read channel:slack channelId:notif-github-prs-watsi limit:20\nmessage action:read channel:slack channelId:notif-blog-watsi limit:10\nmessage action:read channel:slack channelId:notif-ai-news-daily limit:10\nmessage action:read channel:slack channelId:notif-traffic-daily-watsi limit:5\nmessage action:read channel:slack channelId:notif-posthog-stats-daily-watsi limit:5\nmessage action:read channel:slack channelId:notif-signup-watsi limit:10\nmessage action:read channel:slack channelId:notif-sales-watsi limit:10\nmessage action:read channel:slack channelId:notif-deployments-watsi limit:10\nmessage action:read channel:slack channelId:0-notif-status-services-daily-watsi limit:5\n```\n\nFilter to only messages from the last 24 hours. Summarize:\n- 🎫 Linear: tickets completed, PRs merged\n- 📝 Content: blogs published\n- 📈 Growth: signups, sales\n- 🚀 Deploys: what shipped\n- ⚠️ Issues: any alerts or problems\n\n**2. Calendar**\nUse gog CLI to get today's calendar events:\n```bash\ngog calendar events primary --account blas@watsi.ai --from \"YYYY-MM-DD\" --to \"YYYY-MM-DD\"\n```\n\n**3. Email Snapshot**\nCheck for urgent/important emails from last 12h:\n```bash\ngog gmail search \"newer_than:12h is:unread\" --max 10 --account blas@watsi.ai\n```\n\n**4. Weather**\nGet San Diego weather for the day.\n\n**Deliverable:**\n🌅 **Good morning, Blas!**\n\n📊 **Last 24h Rollup:**\n[Bullet points of key activity across channels - keep it scannable]\n\n📅 **Today's Calendar:**\n[List events with times, or \"Clear day - no meetings\"]\n\n📧 **Inbox Highlights:**\n[Top 3 unread emails worth knowing about, or \"Inbox clear\"]\n\n🌤️ **Weather:** [San Diego weather summary]\n\n🎯 **Focus:** [One suggested priority based on what happened + what's ahead]\n\n**Delivery:**\n1. Post to Slack channel `0-notif-overview-daily`\n2. Send the same message to Blas on WhatsApp (+16197735958)",
+        "timeoutSeconds": 600
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "0-notif-overview-daily"
+      },
+      "state": {
+        "nextRunAtMs": 1771425900000,
+        "lastRunAtMs": 1771339500008,
+        "lastStatus": "ok",
+        "lastDurationMs": 59862,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "c83cb462-43e3-4ce2-b298-0877b47187c4",
+      "agentId": "main",
+      "name": "AI News Daily",
+      "enabled": true,
+      "createdAtMs": 1770614435503,
+      "updatedAtMs": 1771340527053,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 7 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY AI NEWS\n\nRun the morning AI news briefing:\n\n1. **X/Twitter**: Search for trending AI news from last 24h\n2. **Reddit**: Check r/MachineLearning, r/LocalLLaMA, r/artificial, r/singularity, r/ChatGPT for top posts\n3. **YouTube**: Find top 3 trending AI videos from the last 24h (major channels: Two Minute Papers, Fireship, AI Explained, Matt Wolfe, etc)\n\nCreate a summary with:\n- Top 5 AI developments (headline + 2-line summary + source link)\n- Top 3 YouTube videos (title + channel + link)\n\nPost the summary to Slack channel `notif-ai-news-daily`. Keep it scannable with emojis and clear sections.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "notif-ai-news-daily"
+      },
+      "state": {
+        "nextRunAtMs": 1771426800000,
+        "lastRunAtMs": 1771340400014,
+        "lastStatus": "ok",
+        "lastDurationMs": 127039,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "a6d567cb-934f-46ce-8c29-4e3681fb8d7a",
+      "agentId": "slack-generic-3",
+      "name": "Service Status Daily - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771268640413,
+      "updatedAtMs": 1771340584466,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 7 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔧 DAILY SERVICE HEALTH CHECK\n\nRun comprehensive health checks for Watsi infrastructure:\n\n**1. Website Workflow Tests (watsi.ai)**\nUse browser automation to:\n- Load watsi.ai and verify it loads correctly\n- Check key pages load (/, /pricing, /blog)\n- Test any public-facing forms or CTAs\n- Measure load times\n\n**2. GCP Status**\n- Check GCP status page for App Engine, Cloud Run, Cloud SQL\n- Note any incidents affecting us-central1 or our services\n\n**3. Supabase Status**\n- Check Supabase status page\n- Verify database connectivity if possible\n\n**4. Vercel Status**\n- Check Vercel status page\n- Note any deployment or edge network issues\n\n**Deliverable:**\n✅ **Daily Health Report**\n\n| Service | Status | Notes |\n|---------|--------|-------|\n| watsi.ai | ✅/⚠️/❌ | Load time, any errors |\n| GCP | ✅/⚠️/❌ | Incidents |\n| Supabase | ✅/⚠️/❌ | Incidents |\n| Vercel | ✅/⚠️/❌ | Incidents |\n\n**Issues Found:** (if any)\n**Action Items:** (if any)\n\nPost to Slack channel `0-notif-status-services-daily-watsi`.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "0-notif-status-services-daily-watsi"
+      },
+      "state": {
+        "nextRunAtMs": 1771426800000,
+        "lastRunAtMs": 1771340527053,
+        "lastStatus": "error",
+        "lastDurationMs": 57413,
+        "lastError": "Error: An API error occurred: channel_not_found",
+        "consecutiveErrors": 1
+      }
+    },
+    {
+      "id": "f8d70c29-a1bd-4423-9f59-e0ddd357519c",
+      "agentId": "slack-generic-3",
+      "name": "Features Daily - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771268640420,
+      "updatedAtMs": 1771344017929,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "💡 DAILY FEATURE IDEAS\n\nGenerate feature ideas based on the last 24 hours of customer feedback:\n\n**Sources to review:**\n1. Read Slack channel `notif-emails-watsi` for recent customer emails\n2. Read Slack channel `notif-call-summary-watsi` for recent call summaries\n3. Check any user feedback patterns\n\n**Analysis:**\n- What are users asking for?\n- What pain points keep coming up?\n- What competitors have that users mention?\n- Quick wins vs. strategic features\n\n**Deliverable:**\n🎯 **Daily Feature Report**\n\n**Top 3 Feature Opportunities:**\n1. [Feature] — Why: [user evidence] — Effort: Low/Med/High\n2. [Feature] — Why: [user evidence] — Effort: Low/Med/High\n3. [Feature] — Why: [user evidence] — Effort: Low/Med/High\n\n**Patterns Noticed:**\n- [Recurring themes from feedback]\n\n**Quick Wins:**\n- [Small improvements that came up]\n\nPost to Slack channel `notif-features-daily-watsi`.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "notif-features-daily-watsi"
+      },
+      "state": {
+        "nextRunAtMs": 1771430400000,
+        "lastRunAtMs": 1771344000013,
+        "lastStatus": "ok",
+        "lastDurationMs": 17916,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "d128552a-a74a-4fc9-b1e0-deb9824c4081",
+      "agentId": "main",
+      "name": "X Feed Daily - Blas",
+      "enabled": true,
+      "createdAtMs": 1770614435509,
+      "updatedAtMs": 1771345891783,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 8 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📱 BLAS X FEED DIGEST\n\nCheck Blas's X/Twitter feed - get the latest 50 posts from his timeline.\n\nFilter for AI-related content and give:\n- 1-line themes summary of what's trending\n- Top 3 AI tweets (handle + 1-line description + link)\n\nDeprioritize crypto/trading unless major AI intersection. Focus on AI, agents, building, GTM, interesting takes.\n\nPost to Slack channel `notif-x-feed-daily-blas`.",
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "notif-x-feed-daily-blas",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1771432200000,
+        "lastRunAtMs": 1771345800023,
+        "lastStatus": "ok",
+        "lastDurationMs": 91760,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "e40e2a55-851b-4239-a4b8-0b4c5d02c9c6",
+      "agentId": "slack-generic-3",
+      "name": "Content Analysis Daily - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771268369155,
+      "updatedAtMs": 1771268369155,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📊 DAILY CONTENT ANALYSIS\n\nResearch daily content opportunities for Watsi:\n\n**Sources to scan:**\n- Reddit: r/ecommerce, r/whatsapp, r/smallbusiness, r/entrepreneur, r/shopify\n- Web: Search for trending e-commerce news, WhatsApp business updates, AI chatbot developments\n- Industry blogs and news sites\n\n**Focus areas:**\n- E-commerce trends\n- WhatsApp Business updates\n- AI/chatbot innovations\n- LATAM business news\n- Conversational commerce\n\n**Deliverable:**\n🏆 **TOP HEADLINE OF THE DAY**\n- Headline + 3-line summary + why it matters for Watsi + source link\n\n📰 **Other Notable Stories** (3-5 items)\n- Brief summaries with links\n\n💡 **Content Opportunities**\n- 2-3 content ideas based on today's news\n\nPost to Slack channel `notif-content-analysis-daily-watsi`.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "notif-content-analysis-daily-watsi"
+      },
+      "state": {
+        "nextRunAtMs": 1771434000000
+      }
+    },
+    {
+      "id": "934cd04a-4d28-44bd-98aa-903ca9ee3b6e",
+      "agentId": "slack-generic-3",
+      "name": "Vambe News Weekly",
+      "enabled": true,
+      "createdAtMs": 1771268527533,
+      "updatedAtMs": 1771268527533,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 10 * * 3",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🎯 VAMBE WEEKLY TRACKER\n\nDeep dive on Vambe (vambe.ai) - Watsi's key competitor:\n\n**Track:**\n1. **Website changes** - Check vambe.ai for new features, pricing updates, landing page changes\n2. **Social media** - X/Twitter, LinkedIn, Instagram activity\n3. **Content** - New blog posts, case studies, videos\n4. **Product updates** - Any announcements, changelog, new integrations\n5. **Job postings** - What roles are they hiring for? (indicates focus areas)\n6. **Reviews** - G2, Capterra, app store reviews from this week\n7. **News mentions** - Any press coverage or partnerships\n\n**Deliverable:**\n📊 **Vambe Weekly Intel**\n- What's new this week (bullet points)\n- Notable social posts with engagement\n- Competitive positioning changes\n- What Watsi can learn/counter\n\nPost to Slack channel `notif-vambe-news-weekly-watsi`.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "notif-vambe-news-weekly-watsi"
+      },
+      "state": {
+        "nextRunAtMs": 1771437600000
+      }
+    },
+    {
+      "id": "70b94bff-194d-4846-a901-d9582545dfe0",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Wednesday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377555,
+      "updatedAtMs": 1771308140801,
+      "schedule": {
+        "kind": "cron",
+        "expr": "07 11 * * 3",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771441620000
+      }
+    },
+    {
+      "id": "3c686514-8995-4b22-b112-846b02f11872",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Thursday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377580,
+      "updatedAtMs": 1771308140812,
+      "schedule": {
+        "kind": "cron",
+        "expr": "53 14 * * 4",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771541580000,
+        "lastRunAtMs": 1770943860007,
+        "lastStatus": "ok",
+        "lastDurationMs": 106942,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "4e1a615b-fe2a-4853-9c41-44de00a25ddf",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Friday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377600,
+      "updatedAtMs": 1771308140822,
+      "schedule": {
+        "kind": "cron",
+        "expr": "19 16 * * 5",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771633140000,
+        "lastRunAtMs": 1771010760008,
+        "lastStatus": "ok",
+        "lastDurationMs": 79194,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "a3c7974e-3d47-4241-bf06-72cde79d33b6",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Saturday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377621,
+      "updatedAtMs": 1771308140830,
+      "schedule": {
+        "kind": "cron",
+        "expr": "37 10 * * 6",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771699020000,
+        "lastRunAtMs": 1771105320008,
+        "lastStatus": "ok",
+        "lastDurationMs": 52266,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "94caa9d4-d44e-4aba-a83f-e9e0475edc89",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Sunday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377644,
+      "updatedAtMs": 1771308140839,
+      "schedule": {
+        "kind": "cron",
+        "expr": "51 13 * * 0",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771797060000,
+        "lastRunAtMs": 1771197780011,
+        "lastStatus": "ok",
+        "lastDurationMs": 44635,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "97a01960-ff43-4215-9a7e-30c4078ac891",
+      "agentId": "main",
+      "name": "Weekly Cron Randomizer",
+      "enabled": true,
+      "createdAtMs": 1770935590809,
+      "updatedAtMs": 1771209048369,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 18 * * 0",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🎲 WEEKLY CRON RANDOMIZER\n\nRandomize all [RAND] tagged cron jobs for the coming week. Follow the cron-randomizer skill.\n\n**Steps:**\n\n1. **Load config** from `~/.openclaw/workspace/config/cron-randomizer.json`\n\n2. **List all cron jobs** using the cron tool (action: list)\n\n3. **Filter for [RAND] jobs** - only process jobs with `[RAND]` in their name\n\n4. **For each [RAND] job:**\n   - Parse the current cron expression to get the day-of-week\n   - Find matching pattern in config (check if job name contains any pattern key)\n   - Use pattern bounds if found, otherwise use default bounds\n   - Generate a random hour within minHour-maxHour (excluding avoidHours)\n   - Generate a random minute (0-59, avoiding :00, :15, :30, :45 if avoidRoundNumbers=true)\n   - Apply jitter (±jitterMinutes random offset, clamped to valid range)\n   - Ensure at least minGapMinutes between any two jobs on the same day\n   - Build new cron expression: `{minute} {hour} * * {dayOfWeek}`\n   - Update the job using cron tool (action: update, jobId, patch with new schedule)\n\n5. **Log changes** to `memory/cron-randomizer/{date}.md` with a table showing old vs new times\n\n6. **Report** - send brief summary to Blas on WhatsApp with the new schedule for the week\n\n**Anti-detection tips:**\n- Vary the hour significantly day-to-day (don't cluster around same time)\n- Use odd minutes (13, 27, 41, 53) - humans don't pick round numbers\n- Some days should be morning, some afternoon, some evening\n- Never use the exact same minute twice in the week",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771813800000,
+        "lastRunAtMs": 1771209000009,
+        "lastStatus": "ok",
+        "lastDurationMs": 48360,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "7e610ebd-2d3f-42b1-8a11-8654c97b0097",
+      "agentId": "main",
+      "name": "Watsi Blog Generation (Weekly)",
+      "enabled": true,
+      "createdAtMs": 1770935377447,
+      "updatedAtMs": 1771211394306,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 19 * * 0",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🖊️ WEEKLY BLOG GENERATION\n\nTime to create this week's Watsi blog content. Follow the watsi-blog-writer skill.\n\n1. **Research:** Check trending topics in WhatsApp commerce, AI agents, e-commerce automation, LATAM business. Look at competitor gaps (Vambe, Yavendio). Find 7 unique angles.\n\n2. **Generate 7 blog posts** - one for each day of the week:\n   - Follow the SEO template and brand voice\n   - Write EN version first, then ES translation\n   - Generate feature image for each using VAP API\n   - Upload images to Ghost\n\n3. **Save all as DRAFTS in Ghost** with proper tags (#lang-en, #lang-es, #pair-slug, plus a #scheduled-YYYY-MM-DD tag for the intended publish date)\n\n4. **Log the queue** - save the list of drafts and their scheduled dates to `memory/blog-queue.md`\n\n5. **Confirm completion** - send a brief summary to Blas on WhatsApp with the 7 topics queued.",
+        "timeoutSeconds": 900
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771815600000,
+        "lastRunAtMs": 1771210800015,
+        "lastStatus": "ok",
+        "lastDurationMs": 594291,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "ca49a24c-3481-4eee-a908-b8f5e7073de9",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Monday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377481,
+      "updatedAtMs": 1771308140771,
+      "schedule": {
+        "kind": "cron",
+        "expr": "23 9 * * 1",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771867380000,
+        "lastRunAtMs": 1771262580016,
+        "lastStatus": "ok",
+        "lastDurationMs": 128817,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "05b74c8a-69ac-4402-a71f-34b1e02a8e1c",
+      "agentId": "slack-generic-3",
+      "name": "Competitor Analysis Weekly - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771268369147,
+      "updatedAtMs": 1771268369147,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 10 * * 1",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔍 WEEKLY COMPETITOR ANALYSIS\n\nRun a comprehensive competitor analysis for Watsi:\n\n**Core Competitors:**\n1. Wati (wati.io)\n2. Vambe (vambe.ai)\n3. Dondy (dondy.net)\n\n**Research Top 10 Additional Competitors:**\n- Search for WhatsApp Business API platforms\n- AI chatbot solutions for e-commerce\n- Conversational commerce platforms in LATAM\n\n**For each competitor, analyze:**\n- New features/announcements this week\n- Pricing changes\n- Social media activity & engagement\n- Blog/content published\n- Job postings (indicates growth areas)\n- Customer reviews/complaints\n\n**Deliverable:**\n- Executive summary (3-5 bullet points)\n- Detailed breakdown by competitor\n- Opportunities/threats for Watsi\n- Action items\n\nPost to Slack channel `notif-competitor-analysis-weekly-watsi`.",
+        "timeoutSeconds": 600
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "notif-competitor-analysis-weekly-watsi"
+      },
+      "state": {
+        "nextRunAtMs": 1771869600000
+      }
+    }
+  ]
+}
