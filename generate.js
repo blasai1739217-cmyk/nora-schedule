@@ -6,7 +6,6 @@ const { execSync } = require('child_process');
 // Get cron jobs from OpenClaw
 let jobs = [];
 try {
-  // openclaw outputs doctor warnings before JSON, so we need to extract just the JSON
   const result = execSync('openclaw cron list --json 2>/dev/null | sed -n \'/^{/,$p\'', { 
     encoding: 'utf8', 
     timeout: 30000,
@@ -16,7 +15,6 @@ try {
   jobs = data.jobs || [];
 } catch (e) {
   console.error('Failed to fetch cron jobs:', e.message);
-  // Try reading from cached file
   try {
     const cached = fs.readFileSync(path.join(__dirname, 'jobs-cache.json'), 'utf8');
     jobs = JSON.parse(cached).jobs || [];
@@ -26,14 +24,92 @@ try {
   }
 }
 
-// Cache jobs for next time
+// Cache jobs
 fs.writeFileSync(path.join(__dirname, 'jobs-cache.json'), JSON.stringify({ jobs }, null, 2));
+
+// Categories and their patterns
+const categories = {
+  'Engineering': {
+    emoji: '⚙️',
+    patterns: ['Linear', 'PR Auto', 'GitHub', 'Service Status', 'Dry'],
+    description: 'Code, tickets, PRs, and infrastructure'
+  },
+  'Content': {
+    emoji: '✍️',
+    patterns: ['Blog'],
+    description: 'Blog generation and publishing'
+  },
+  'Analytics': {
+    emoji: '📊',
+    patterns: ['PostHog', 'Traffic', 'Content Analysis', 'Ad Analysis'],
+    description: 'Stats, metrics, and performance tracking'
+  },
+  'Research': {
+    emoji: '🔍',
+    patterns: ['AI News', 'X Feed', 'Competitor', 'Vambe', 'Feature'],
+    description: 'News, trends, and competitive intel'
+  },
+  'Operations': {
+    emoji: '🔧',
+    patterns: ['Cron Randomizer', 'Dashboard', 'Self-Improvement', 'Overview'],
+    description: 'System maintenance and daily briefings'
+  }
+};
+
+// Extract description from job message (first line or first sentence)
+function extractDescription(job) {
+  const msg = job.payload?.message || '';
+  // Try to get the first meaningful line after any emoji header
+  const lines = msg.split('\n').filter(l => l.trim());
+  for (const line of lines) {
+    const clean = line.replace(/^[#\s*]+/, '').replace(/^\p{Emoji}+\s*/u, '').trim();
+    if (clean.length > 10 && clean.length < 200 && !clean.startsWith('```')) {
+      // Return first sentence
+      const sentence = clean.split(/[.!]\s/)[0];
+      return sentence.length > 100 ? sentence.slice(0, 100) + '...' : sentence;
+    }
+  }
+  return job.name || 'Scheduled task';
+}
+
+// Categorize a job
+function categorizeJob(job) {
+  const name = job.name || '';
+  for (const [cat, config] of Object.entries(categories)) {
+    if (config.patterns.some(p => name.includes(p))) {
+      return cat;
+    }
+  }
+  return 'Other';
+}
 
 // Helper functions
 function formatSchedule(schedule) {
   if (!schedule) return 'Unknown';
   if (schedule.kind === 'cron') {
-    return `cron: ${schedule.expr}${schedule.tz ? ` (${schedule.tz})` : ''}`;
+    // Parse cron to human readable
+    const expr = schedule.expr;
+    const parts = expr.split(' ');
+    if (parts.length >= 5) {
+      const [min, hour, dom, mon, dow] = parts;
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      let time = '';
+      if (hour !== '*' && min !== '*') {
+        const h = parseInt(hour);
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        const h12 = h % 12 || 12;
+        time = `${h12}:${min.padStart(2, '0')} ${ampm}`;
+      }
+      if (dow !== '*') {
+        const dayNums = dow.split(',').map(d => days[parseInt(d)] || d);
+        return time ? `${dayNums.join(', ')} @ ${time}` : `${dayNums.join(', ')}`;
+      }
+      if (min.includes(',')) {
+        return `Every ${min.split(',').length}x/hour`;
+      }
+      return time ? `Daily @ ${time}` : expr;
+    }
+    return expr;
   }
   if (schedule.kind === 'every') {
     const mins = Math.round(schedule.everyMs / 60000);
@@ -42,7 +118,7 @@ function formatSchedule(schedule) {
     return `Every ${hours}h`;
   }
   if (schedule.kind === 'at') {
-    return `At: ${new Date(schedule.at).toLocaleString()}`;
+    return `Once: ${new Date(schedule.at).toLocaleString()}`;
   }
   return JSON.stringify(schedule);
 }
@@ -55,30 +131,57 @@ function formatNextRun(state) {
   if (diff < 0) return 'Overdue';
   if (diff < 60000) return 'Soon';
   if (diff < 3600000) return `${Math.round(diff / 60000)}m`;
-  if (diff < 86400000) return `${Math.round(diff / 3600000)}h`;
-  return next.toLocaleDateString();
+  if (diff < 86400000) {
+    const hours = Math.floor(diff / 3600000);
+    const mins = Math.round((diff % 3600000) / 60000);
+    return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
+  }
+  return `${Math.round(diff / 86400000)}d`;
 }
 
 function getStatusEmoji(state) {
-  if (!state) return '⏳';
+  if (!state?.lastStatus) return '⏳';
   if (state.lastStatus === 'ok') return '✅';
   if (state.lastStatus === 'error') return '❌';
   return '⏳';
 }
 
 function getStatusClass(state) {
-  if (!state) return 'pending';
+  if (!state?.lastStatus) return 'pending';
   if (state.lastStatus === 'ok') return 'success';
   if (state.lastStatus === 'error') return 'error';
   return 'pending';
 }
 
-// Sort jobs by next run
-jobs.sort((a, b) => {
-  const aNext = a.state?.nextRunAtMs || Infinity;
-  const bNext = b.state?.nextRunAtMs || Infinity;
-  return aNext - bNext;
-});
+function getStatusLabel(state) {
+  if (!state?.lastStatus) return 'Never run';
+  if (state.lastStatus === 'ok') return 'Last run OK';
+  if (state.lastStatus === 'error') return 'Last run failed';
+  return state.lastStatus;
+}
+
+// Group jobs by category
+const groupedJobs = {};
+for (const job of jobs) {
+  const cat = categorizeJob(job);
+  if (!groupedJobs[cat]) groupedJobs[cat] = [];
+  groupedJobs[cat].push({
+    ...job,
+    description: extractDescription(job)
+  });
+}
+
+// Sort jobs within each category by next run
+for (const cat of Object.keys(groupedJobs)) {
+  groupedJobs[cat].sort((a, b) => {
+    const aNext = a.state?.nextRunAtMs || Infinity;
+    const bNext = b.state?.nextRunAtMs || Infinity;
+    return aNext - bNext;
+  });
+}
+
+// Order categories
+const categoryOrder = ['Engineering', 'Content', 'Analytics', 'Research', 'Operations', 'Other'];
 
 // Generate HTML
 const html = `<!DOCTYPE html>
@@ -108,132 +211,132 @@ const html = `<!DOCTYPE html>
       min-height: 100vh;
       padding: 2rem;
     }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
-    .stats {
+    .container { max-width: 1000px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 2rem; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-muted); font-size: 1.1rem; }
+    
+    .legend {
       display: flex;
       gap: 2rem;
       justify-content: center;
-      margin: 2rem 0;
+      margin: 1.5rem 0 2rem;
+      flex-wrap: wrap;
+      padding: 1rem;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .legend-dot.success { background: var(--success); }
+    .legend-dot.error { background: var(--error); }
+    .legend-dot.pending { background: var(--warning); }
+    
+    .stats {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 1.5rem 0;
       flex-wrap: wrap;
     }
     .stat {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.5rem 2rem;
+      padding: 1rem 1.5rem;
       text-align: center;
-      min-width: 140px;
+      min-width: 100px;
     }
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent);
+    .stat-value { font-size: 1.75rem; font-weight: 700; color: var(--accent); }
+    .stat-label { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem; }
+    
+    .category {
+      margin-bottom: 2rem;
     }
-    .stat-label {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 0.25rem;
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
     }
-    .jobs {
-      display: grid;
-      gap: 1rem;
-    }
+    .category-emoji { font-size: 1.5rem; }
+    .category-title { font-size: 1.25rem; font-weight: 600; }
+    .category-desc { color: var(--text-muted); font-size: 0.85rem; margin-left: auto; }
+    
+    .jobs { display: grid; gap: 0.75rem; }
     .job {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
       display: grid;
-      grid-template-columns: auto 1fr auto auto auto;
+      grid-template-columns: 32px 1fr auto;
       gap: 1rem;
-      align-items: center;
+      align-items: start;
       transition: border-color 0.2s;
     }
-    .job:hover {
-      border-color: var(--accent);
-    }
-    .job.disabled {
-      opacity: 0.5;
-    }
-    .job-status {
-      font-size: 1.5rem;
-      width: 40px;
-      text-align: center;
-    }
-    .job-info {
-      min-width: 0;
-    }
-    .job-name {
-      font-weight: 600;
-      font-size: 1.05rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .job-schedule {
+    .job:hover { border-color: var(--accent); }
+    .job.disabled { opacity: 0.5; }
+    
+    .job-status { font-size: 1.25rem; text-align: center; padding-top: 0.1rem; }
+    .job-info { min-width: 0; }
+    .job-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .job-desc { color: var(--text-muted); font-size: 0.8rem; line-height: 1.4; margin-bottom: 0.5rem; }
+    .job-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.75rem;
       color: var(--text-muted);
-      font-size: 0.85rem;
-      font-family: 'SF Mono', Monaco, monospace;
-      margin-top: 0.25rem;
     }
-    .job-agent {
-      background: var(--border);
-      color: var(--text-muted);
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      white-space: nowrap;
+    .job-meta span { display: flex; align-items: center; gap: 0.25rem; }
+    
+    .job-right {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
     }
     .job-next {
-      color: var(--text-muted);
       font-size: 0.9rem;
-      text-align: right;
-      min-width: 60px;
+      font-weight: 500;
+      color: var(--accent);
     }
-    .job-last {
-      font-size: 0.8rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 6px;
-      text-align: center;
-      min-width: 70px;
+    .job-status-badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
     }
-    .job-last.success { background: rgba(63, 185, 80, 0.15); color: var(--success); }
-    .job-last.error { background: rgba(248, 81, 73, 0.15); color: var(--error); }
-    .job-last.pending { background: rgba(210, 153, 34, 0.15); color: var(--warning); }
+    .job-status-badge.success { background: rgba(63, 185, 80, 0.15); color: var(--success); }
+    .job-status-badge.error { background: rgba(248, 81, 73, 0.15); color: var(--error); }
+    .job-status-badge.pending { background: rgba(210, 153, 34, 0.15); color: var(--warning); }
     
     .updated {
       text-align: center;
       color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-top: 3rem;
+      font-size: 0.8rem;
+      margin-top: 2rem;
       padding-bottom: 2rem;
     }
     
-    @media (max-width: 768px) {
+    @media (max-width: 640px) {
       body { padding: 1rem; }
-      .job {
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto;
-      }
-      .job-agent, .job-next, .job-last {
-        grid-column: 2;
-        justify-self: start;
-      }
+      .job { grid-template-columns: 28px 1fr; }
+      .job-right { grid-column: 2; flex-direction: row; justify-content: space-between; width: 100%; }
+      .category-desc { display: none; }
     }
   </style>
 </head>
@@ -241,8 +344,23 @@ const html = `<!DOCTYPE html>
   <div class="container">
     <header>
       <h1>🦊 Nora's Schedule</h1>
-      <p class="subtitle">OpenClaw cron jobs dashboard</p>
+      <p class="subtitle">Automated tasks running on OpenClaw</p>
     </header>
+    
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-dot success"></div>
+        <span><strong>OK</strong> — Last run completed successfully</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot error"></div>
+        <span><strong>Error</strong> — Last run failed (will retry)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot pending"></div>
+        <span><strong>Pending</strong> — Never run yet or waiting</span>
+      </div>
+    </div>
     
     <div class="stats">
       <div class="stat">
@@ -263,20 +381,38 @@ const html = `<!DOCTYPE html>
       </div>
     </div>
     
-    <div class="jobs">
-      ${jobs.map(job => `
-      <div class="job${job.enabled ? '' : ' disabled'}">
-        <div class="job-status">${getStatusEmoji(job.state)}</div>
-        <div class="job-info">
-          <div class="job-name">${job.name || job.id}</div>
-          <div class="job-schedule">${formatSchedule(job.schedule)}</div>
-        </div>
-        <div class="job-agent">${job.agentId || 'main'}</div>
-        <div class="job-next">in ${formatNextRun(job.state)}</div>
-        <div class="job-last ${getStatusClass(job.state)}">${job.state?.lastStatus || 'pending'}</div>
+    ${categoryOrder.filter(cat => groupedJobs[cat]?.length > 0).map(cat => {
+      const config = categories[cat] || { emoji: '📋', description: '' };
+      const catJobs = groupedJobs[cat];
+      return `
+    <div class="category">
+      <div class="category-header">
+        <span class="category-emoji">${config.emoji}</span>
+        <span class="category-title">${cat}</span>
+        <span class="category-desc">${config.description}</span>
       </div>
-      `).join('')}
+      <div class="jobs">
+        ${catJobs.map(job => `
+        <div class="job${job.enabled ? '' : ' disabled'}">
+          <div class="job-status">${getStatusEmoji(job.state)}</div>
+          <div class="job-info">
+            <div class="job-name">${job.name || job.id}</div>
+            <div class="job-desc">${job.description}</div>
+            <div class="job-meta">
+              <span>🕐 ${formatSchedule(job.schedule)}</span>
+              <span>🤖 ${job.agentId || 'main'}</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in ${formatNextRun(job.state)}</div>
+            <div class="job-status-badge ${getStatusClass(job.state)}">${getStatusLabel(job.state)}</div>
+          </div>
+        </div>
+        `).join('')}
+      </div>
     </div>
+      `;
+    }).join('')}
     
     <p class="updated">Last updated: ${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })} PST</p>
   </div>
@@ -288,4 +424,4 @@ const outDir = path.join(__dirname, 'public');
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, 'index.html'), html);
 
-console.log(`✅ Generated dashboard with ${jobs.length} jobs`);
+console.log(`✅ Generated dashboard with ${jobs.length} jobs in ${Object.keys(groupedJobs).length} categories`);
