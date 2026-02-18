@@ -1,73 +1,13 @@
 {
   "jobs": [
     {
-      "id": "ad2f9022-7b7b-4cee-ac8c-996d0b758b4e",
-      "agentId": "slack-generic-3",
-      "name": "PR Auto-Review & Merge - Watsi",
-      "enabled": true,
-      "createdAtMs": 1771317325445,
-      "updatedAtMs": 1771371142775,
-      "schedule": {
-        "kind": "every",
-        "everyMs": 600000,
-        "anchorMs": 1771317325445
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🔄 PR AUTO-REVIEW & MERGE\n\nCheck open PRs in Watsi repo and take action based on Claude review comments.\n\n**Steps:**\n\n1. **List open PRs:**\n```bash\ncd ~/Documents/dev/watsi && gh pr list --state open --json number,title,headRefName,author\n```\n\n2. **For each PR, get the Claude review comment:**\n```bash\ngh pr view <number> --json comments --jq '.comments[] | select(.body | contains(\"Claude Code Review\")) | .body' | tail -1\n```\n\n3. **Parse the verdict** from the review:\n   - ✅ LGTM → Approve and merge\n   - ⚠️ Minor issues → Attempt to fix, then re-push\n   - ❌ Needs changes → Attempt to fix, then re-push\n   - No review yet → Skip (wait for CI)\n\n4. **Decision tree:**\n\n   **If ✅ LGTM:**\n   - Approve the PR: `gh pr review <number> --approve -b \"Auto-approved by Nora based on Claude review\"`\n   - Merge: `gh pr merge <number> --squash --auto`\n   - Post to Slack `#notif-linear-tickets-watsi`: \"✅ Merged PR #X: [title] → [ticket-id]\"\n   - Also post to `#notif-github-prs-watsi`: \"✅ Merged PR #X: [title]\"\n\n   **If ⚠️ Minor issues or ❌ Needs changes:**\n   - Checkout the branch\n   - Read the specific issues from the review\n   - Attempt to fix them using code edits\n   - Commit with message: \"fix: address Claude review feedback\"\n   - Push to trigger new review\n   - Post update to `#notif-linear-tickets-watsi` thread: \"🔧 Fixing review feedback for PR #X\"\n   - If fixes are unclear or too complex → Ping Blas on WhatsApp\n\n   **If critical/unclear:**\n   - Send WhatsApp to Blas: \"🚨 PR #X needs your decision: [brief summary]\"\n   - Post to `#notif-linear-tickets-watsi`: \"⚠️ PR #X needs human review\"\n\n5. **Logging:**\n   - Log actions to `memory/pr-auto-review.md`\n\n**Important:**\n- Don't merge PRs with failing CI checks\n- Don't merge PRs less than 5 minutes old (give CI time)\n- Be conservative - when in doubt, fix rather than merge\n- Only ping Blas for truly complex decisions (architecture changes, security concerns, unclear requirements)\n- Always post updates to `#notif-linear-tickets-watsi` for ticket visibility",
-        "timeoutSeconds": 600
-      },
-      "delivery": {
-        "mode": "none"
-      },
-      "state": {
-        "nextRunAtMs": 1771371325445,
-        "lastRunAtMs": 1771370725459,
-        "lastStatus": "ok",
-        "lastDurationMs": 417316,
-        "consecutiveErrors": 0
-      }
-    },
-    {
-      "id": "7eb8ff7f-23ad-43d6-94b2-8254dcba196e",
-      "agentId": "main",
-      "name": "Watsi Blog Publish - Tuesday [RAND]",
-      "enabled": true,
-      "createdAtMs": 1770935377514,
-      "updatedAtMs": 1771308140788,
-      "schedule": {
-        "kind": "cron",
-        "expr": "41 15 * * 2",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1771371660000
-      }
-    },
-    {
       "id": "860c27d0-5472-4f9a-8d39-e4519bbcaa2a",
       "agentId": "slack-coding",
       "name": "Linear Ticket Auto-Implementer",
       "enabled": true,
       "notify": true,
       "createdAtMs": 1771312035777,
-      "updatedAtMs": 1771369234970,
+      "updatedAtMs": 1771417830591,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 * * * *",
@@ -86,44 +26,12 @@
         "to": "notif-linear-tickets-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771372800000,
-        "lastRunAtMs": 1771369200016,
+        "nextRunAtMs": 1771419600000,
+        "lastRunAtMs": 1771417800007,
         "lastStatus": "ok",
-        "lastDurationMs": 34954,
-        "consecutiveErrors": 0
-      }
-    },
-    {
-      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
-      "agentId": "main",
-      "name": "Nora Self-Improvement Session",
-      "enabled": true,
-      "createdAtMs": 1770614435519,
-      "updatedAtMs": 1771131685172,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 21 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1771390800000,
-        "lastRunAtMs": 1771131600008,
-        "lastStatus": "ok",
-        "lastDurationMs": 85164,
-        "consecutiveErrors": 0
+        "lastDurationMs": 30584,
+        "consecutiveErrors": 0,
+        "runningAtMs": 1771419600008
       }
     },
     {
@@ -149,7 +57,39 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771419600000
+        "nextRunAtMs": 1771419600000,
+        "runningAtMs": 1771419600008
+      }
+    },
+    {
+      "id": "ad2f9022-7b7b-4cee-ac8c-996d0b758b4e",
+      "agentId": "slack-generic-3",
+      "name": "PR Auto-Review & Merge - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771317325445,
+      "updatedAtMs": 1771419342147,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 600000,
+        "anchorMs": 1771317325445
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔄 PR AUTO-REVIEW & MERGE\n\nCheck open PRs in Watsi repo and take action based on Claude review comments.\n\n**Steps:**\n\n1. **List open PRs:**\n```bash\ncd ~/Documents/dev/watsi && gh pr list --state open --json number,title,headRefName,author\n```\n\n2. **For each PR, get the Claude review comment:**\n```bash\ngh pr view <number> --json comments --jq '.comments[] | select(.body | contains(\"Claude Code Review\")) | .body' | tail -1\n```\n\n3. **Parse the verdict** from the review:\n   - ✅ LGTM → Approve and merge\n   - ⚠️ Minor issues → Attempt to fix, then re-push\n   - ❌ Needs changes → Attempt to fix, then re-push\n   - No review yet → Skip (wait for CI)\n\n4. **Decision tree:**\n\n   **If ✅ LGTM:**\n   - Approve the PR: `gh pr review <number> --approve -b \"Auto-approved by Nora based on Claude review\"`\n   - Merge: `gh pr merge <number> --squash --auto`\n   - Post to Slack `#notif-linear-tickets-watsi`: \"✅ Merged PR #X: [title] → [ticket-id]\"\n   - Also post to `#notif-github-prs-watsi`: \"✅ Merged PR #X: [title]\"\n\n   **If ⚠️ Minor issues or ❌ Needs changes:**\n   - Checkout the branch\n   - Read the specific issues from the review\n   - Attempt to fix them using code edits\n   - Commit with message: \"fix: address Claude review feedback\"\n   - Push to trigger new review\n   - Post update to `#notif-linear-tickets-watsi` thread: \"🔧 Fixing review feedback for PR #X\"\n   - If fixes are unclear or too complex → Ping Blas on WhatsApp\n\n   **If critical/unclear:**\n   - Send WhatsApp to Blas: \"🚨 PR #X needs your decision: [brief summary]\"\n   - Post to `#notif-linear-tickets-watsi`: \"⚠️ PR #X needs human review\"\n\n5. **Logging:**\n   - Log actions to `memory/pr-auto-review.md`\n\n**Important:**\n- Don't merge PRs with failing CI checks\n- Don't merge PRs less than 5 minutes old (give CI time)\n- Be conservative - when in doubt, fix rather than merge\n- Only ping Blas for truly complex decisions (architecture changes, security concerns, unclear requirements)\n- Always post updates to `#notif-linear-tickets-watsi` for ticket visibility",
+        "timeoutSeconds": 600
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771419925445,
+        "lastRunAtMs": 1771419325450,
+        "lastStatus": "ok",
+        "lastDurationMs": 16697,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -473,6 +413,39 @@
       }
     },
     {
+      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
+      "agentId": "main",
+      "name": "Nora Self-Improvement Session",
+      "enabled": true,
+      "createdAtMs": 1770614435519,
+      "updatedAtMs": 1771131685172,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 21 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771477200000,
+        "lastRunAtMs": 1771131600008,
+        "lastStatus": "ok",
+        "lastDurationMs": 85164,
+        "consecutiveErrors": 0
+      }
+    },
+    {
       "id": "3c686514-8995-4b22-b112-846b02f11872",
       "agentId": "main",
       "name": "Watsi Blog Publish - Thursday [RAND]",
@@ -730,6 +703,39 @@
       },
       "state": {
         "nextRunAtMs": 1771869600000
+      }
+    },
+    {
+      "id": "7eb8ff7f-23ad-43d6-94b2-8254dcba196e",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Tuesday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377514,
+      "updatedAtMs": 1771371760606,
+      "schedule": {
+        "kind": "cron",
+        "expr": "41 15 * * 2",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771976460000,
+        "lastRunAtMs": 1771371660019,
+        "lastStatus": "ok",
+        "lastDurationMs": 100587,
+        "consecutiveErrors": 0
       }
     }
   ]
