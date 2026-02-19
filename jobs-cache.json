@@ -7,7 +7,7 @@
       "enabled": true,
       "notify": true,
       "createdAtMs": 1771312035777,
-      "updatedAtMs": 1771417830591,
+      "updatedAtMs": 1771504237641,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 * * * *",
@@ -26,12 +26,12 @@
         "to": "notif-linear-tickets-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771419600000,
-        "lastRunAtMs": 1771417800007,
+        "nextRunAtMs": 1771506000000,
+        "lastRunAtMs": 1771504200014,
         "lastStatus": "ok",
-        "lastDurationMs": 30584,
+        "lastDurationMs": 37627,
         "consecutiveErrors": 0,
-        "runningAtMs": 1771419600008
+        "runningAtMs": 1771506000013
       }
     },
     {
@@ -40,7 +40,7 @@
       "name": "Nora Dashboard Update",
       "enabled": true,
       "createdAtMs": 1771368310982,
-      "updatedAtMs": 1771368310982,
+      "updatedAtMs": 1771419674713,
       "schedule": {
         "kind": "cron",
         "expr": "0 5 * * *",
@@ -57,8 +57,12 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771419600000,
-        "runningAtMs": 1771419658719
+        "nextRunAtMs": 1771506000000,
+        "lastRunAtMs": 1771419658719,
+        "lastStatus": "ok",
+        "lastDurationMs": 15994,
+        "consecutiveErrors": 0,
+        "runningAtMs": 1771506043716
       }
     },
     {
@@ -67,7 +71,7 @@
       "name": "PR Auto-Review & Merge - Watsi",
       "enabled": true,
       "createdAtMs": 1771317325445,
-      "updatedAtMs": 1771419342147,
+      "updatedAtMs": 1771505744652,
       "schedule": {
         "kind": "every",
         "everyMs": 600000,
@@ -85,10 +89,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771419925445,
-        "lastRunAtMs": 1771419325450,
+        "nextRunAtMs": 1771506325445,
+        "lastRunAtMs": 1771505725459,
         "lastStatus": "ok",
-        "lastDurationMs": 16697,
+        "lastDurationMs": 19193,
         "consecutiveErrors": 0
       }
     },
@@ -98,7 +102,7 @@
       "name": "PostHog Stats Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640426,
-      "updatedAtMs": 1771337808283,
+      "updatedAtMs": 1771424159481,
       "schedule": {
         "kind": "cron",
         "expr": "15 6 * * *",
@@ -118,11 +122,12 @@
         "to": "notif-posthog-stats-daily-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771424100000,
-        "lastRunAtMs": 1771337700011,
-        "lastStatus": "ok",
-        "lastDurationMs": 108272,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771510500000,
+        "lastRunAtMs": 1771424100008,
+        "lastStatus": "error",
+        "lastDurationMs": 59473,
+        "consecutiveErrors": 1,
+        "lastError": "cron announce delivery failed"
       }
     },
     {
@@ -131,7 +136,7 @@
       "name": "Traffic Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640431,
-      "updatedAtMs": 1771338636205,
+      "updatedAtMs": 1771425039665,
       "schedule": {
         "kind": "cron",
         "expr": "30 6 * * *",
@@ -151,11 +156,12 @@
         "to": "notif-traffic-daily-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771425000000,
-        "lastRunAtMs": 1771338600015,
-        "lastStatus": "ok",
-        "lastDurationMs": 36190,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771511400000,
+        "lastRunAtMs": 1771425000009,
+        "lastStatus": "error",
+        "lastDurationMs": 39656,
+        "consecutiveErrors": 1,
+        "lastError": "cron announce delivery failed"
       }
     },
     {
@@ -164,7 +170,7 @@
       "name": "Nora Daily Overview",
       "enabled": true,
       "createdAtMs": 1771292864460,
-      "updatedAtMs": 1771339559870,
+      "updatedAtMs": 1771425988263,
       "schedule": {
         "kind": "cron",
         "expr": "45 6 * * *",
@@ -184,10 +190,10 @@
         "to": "0-notif-overview-daily"
       },
       "state": {
-        "nextRunAtMs": 1771425900000,
-        "lastRunAtMs": 1771339500008,
+        "nextRunAtMs": 1771512300000,
+        "lastRunAtMs": 1771425900006,
         "lastStatus": "ok",
-        "lastDurationMs": 59862,
+        "lastDurationMs": 88257,
         "consecutiveErrors": 0
       }
     },
@@ -197,7 +203,7 @@
       "name": "AI News Daily",
       "enabled": true,
       "createdAtMs": 1770614435503,
-      "updatedAtMs": 1771340527053,
+      "updatedAtMs": 1771426929117,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * *",
@@ -217,11 +223,12 @@
         "to": "notif-ai-news-daily"
       },
       "state": {
-        "nextRunAtMs": 1771426800000,
-        "lastRunAtMs": 1771340400014,
-        "lastStatus": "ok",
-        "lastDurationMs": 127039,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771513200000,
+        "lastRunAtMs": 1771426800009,
+        "lastStatus": "error",
+        "lastDurationMs": 129108,
+        "consecutiveErrors": 1,
+        "lastError": "cron announce delivery failed"
       }
     },
     {
@@ -230,7 +237,7 @@
       "name": "Service Status Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640413,
-      "updatedAtMs": 1771340584466,
+      "updatedAtMs": 1771426984670,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * *",
@@ -250,12 +257,12 @@
         "to": "0-notif-status-services-daily-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771426800000,
-        "lastRunAtMs": 1771340527053,
+        "nextRunAtMs": 1771513200000,
+        "lastRunAtMs": 1771426929117,
         "lastStatus": "error",
-        "lastDurationMs": 57413,
-        "lastError": "Error: An API error occurred: channel_not_found",
-        "consecutiveErrors": 1
+        "lastDurationMs": 55553,
+        "consecutiveErrors": 2,
+        "lastError": "cron announce delivery failed"
       }
     },
     {
@@ -264,7 +271,7 @@
       "name": "Features Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640420,
-      "updatedAtMs": 1771344017929,
+      "updatedAtMs": 1771430433716,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -284,10 +291,10 @@
         "to": "notif-features-daily-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771430400000,
-        "lastRunAtMs": 1771344000013,
+        "nextRunAtMs": 1771516800000,
+        "lastRunAtMs": 1771430400005,
         "lastStatus": "ok",
-        "lastDurationMs": 17916,
+        "lastDurationMs": 33711,
         "consecutiveErrors": 0
       }
     },
@@ -297,7 +304,7 @@
       "name": "X Feed Daily - Blas",
       "enabled": true,
       "createdAtMs": 1770614435509,
-      "updatedAtMs": 1771345891783,
+      "updatedAtMs": 1771432380013,
       "schedule": {
         "kind": "cron",
         "expr": "30 8 * * *",
@@ -318,11 +325,12 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771432200000,
-        "lastRunAtMs": 1771345800023,
-        "lastStatus": "ok",
-        "lastDurationMs": 91760,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771518600000,
+        "lastRunAtMs": 1771432200006,
+        "lastStatus": "error",
+        "lastDurationMs": 180007,
+        "consecutiveErrors": 1,
+        "lastError": "Error: cron: job execution timed out"
       }
     },
     {
@@ -331,7 +339,7 @@
       "name": "Content Analysis Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268369155,
-      "updatedAtMs": 1771268369155,
+      "updatedAtMs": 1771434123280,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -351,98 +359,12 @@
         "to": "notif-content-analysis-daily-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771434000000
-      }
-    },
-    {
-      "id": "934cd04a-4d28-44bd-98aa-903ca9ee3b6e",
-      "agentId": "slack-generic-3",
-      "name": "Vambe News Weekly",
-      "enabled": true,
-      "createdAtMs": 1771268527533,
-      "updatedAtMs": 1771268527533,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 10 * * 3",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🎯 VAMBE WEEKLY TRACKER\n\nDeep dive on Vambe (vambe.ai) - Watsi's key competitor:\n\n**Track:**\n1. **Website changes** - Check vambe.ai for new features, pricing updates, landing page changes\n2. **Social media** - X/Twitter, LinkedIn, Instagram activity\n3. **Content** - New blog posts, case studies, videos\n4. **Product updates** - Any announcements, changelog, new integrations\n5. **Job postings** - What roles are they hiring for? (indicates focus areas)\n6. **Reviews** - G2, Capterra, app store reviews from this week\n7. **News mentions** - Any press coverage or partnerships\n\n**Deliverable:**\n📊 **Vambe Weekly Intel**\n- What's new this week (bullet points)\n- Notable social posts with engagement\n- Competitive positioning changes\n- What Watsi can learn/counter\n\nPost to Slack channel `notif-vambe-news-weekly-watsi`.",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "notif-vambe-news-weekly-watsi"
-      },
-      "state": {
-        "nextRunAtMs": 1771437600000
-      }
-    },
-    {
-      "id": "70b94bff-194d-4846-a901-d9582545dfe0",
-      "agentId": "main",
-      "name": "Watsi Blog Publish - Wednesday [RAND]",
-      "enabled": true,
-      "createdAtMs": 1770935377555,
-      "updatedAtMs": 1771308140801,
-      "schedule": {
-        "kind": "cron",
-        "expr": "07 11 * * 3",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1771441620000
-      }
-    },
-    {
-      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
-      "agentId": "main",
-      "name": "Nora Self-Improvement Session",
-      "enabled": true,
-      "createdAtMs": 1770614435519,
-      "updatedAtMs": 1771131685172,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 21 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1771477200000,
-        "lastRunAtMs": 1771131600008,
-        "lastStatus": "ok",
-        "lastDurationMs": 85164,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771520400000,
+        "lastRunAtMs": 1771434000005,
+        "lastStatus": "error",
+        "lastDurationMs": 123275,
+        "lastError": "cron announce delivery failed",
+        "consecutiveErrors": 1
       }
     },
     {
@@ -475,6 +397,39 @@
         "lastRunAtMs": 1770943860007,
         "lastStatus": "ok",
         "lastDurationMs": 106942,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
+      "agentId": "main",
+      "name": "Nora Self-Improvement Session",
+      "enabled": true,
+      "createdAtMs": 1770614435519,
+      "updatedAtMs": 1771486233160,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 21 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message to +16197735958 with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771563600000,
+        "lastRunAtMs": 1771479072109,
+        "lastStatus": "ok",
+        "lastDurationMs": 37153,
         "consecutiveErrors": 0
       }
     },
@@ -736,6 +691,74 @@
         "lastStatus": "ok",
         "lastDurationMs": 100587,
         "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "934cd04a-4d28-44bd-98aa-903ca9ee3b6e",
+      "agentId": "slack-generic-3",
+      "name": "Vambe News Weekly",
+      "enabled": true,
+      "createdAtMs": 1771268527533,
+      "updatedAtMs": 1771437720447,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 10 * * 3",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🎯 VAMBE WEEKLY TRACKER\n\nDeep dive on Vambe (vambe.ai) - Watsi's key competitor:\n\n**Track:**\n1. **Website changes** - Check vambe.ai for new features, pricing updates, landing page changes\n2. **Social media** - X/Twitter, LinkedIn, Instagram activity\n3. **Content** - New blog posts, case studies, videos\n4. **Product updates** - Any announcements, changelog, new integrations\n5. **Job postings** - What roles are they hiring for? (indicates focus areas)\n6. **Reviews** - G2, Capterra, app store reviews from this week\n7. **News mentions** - Any press coverage or partnerships\n\n**Deliverable:**\n📊 **Vambe Weekly Intel**\n- What's new this week (bullet points)\n- Notable social posts with engagement\n- Competitive positioning changes\n- What Watsi can learn/counter\n\nPost to Slack channel `notif-vambe-news-weekly-watsi`.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "notif-vambe-news-weekly-watsi"
+      },
+      "state": {
+        "nextRunAtMs": 1772042400000,
+        "lastRunAtMs": 1771437600009,
+        "lastStatus": "error",
+        "lastDurationMs": 120438,
+        "lastError": "cron announce delivery failed",
+        "consecutiveErrors": 1
+      }
+    },
+    {
+      "id": "70b94bff-194d-4846-a901-d9582545dfe0",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Wednesday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377555,
+      "updatedAtMs": 1771441847341,
+      "schedule": {
+        "kind": "cron",
+        "expr": "07 11 * * 3",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1772046420000,
+        "lastRunAtMs": 1771441620008,
+        "lastStatus": "error",
+        "lastDurationMs": 227333,
+        "lastError": "cron announce delivery failed",
+        "consecutiveErrors": 1
       }
     }
   ]
