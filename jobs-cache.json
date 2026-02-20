@@ -1,13 +1,75 @@
 {
   "jobs": [
     {
+      "id": "17a7c84e-666a-4c92-a717-ad745df831ac",
+      "agentId": "main",
+      "name": "Nora Dashboard Update",
+      "enabled": true,
+      "createdAtMs": 1771368310982,
+      "updatedAtMs": 1771506067502,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 5 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "🔄 DASHBOARD UPDATE\n\nRegenerate and deploy the Nora cron dashboard:\n\n1. Navigate to dashboard directory:\n   ```bash\n   cd ~/.openclaw/workspace/nora-dashboard\n   ```\n\n2. Regenerate the dashboard:\n   ```bash\n   node generate.js\n   ```\n\n3. Copy to root and commit:\n   ```bash\n   cp public/index.html .\n   git add .\n   git commit -m \"Update dashboard - $(date '+%Y-%m-%d %H:%M')\" || true\n   git push\n   ```\n\nNo notification needed unless there's an error.",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771592400000,
+        "lastRunAtMs": 1771506043716,
+        "lastStatus": "ok",
+        "lastDurationMs": 23786,
+        "consecutiveErrors": 0,
+        "runningAtMs": 1771592400014
+      }
+    },
+    {
+      "id": "ad2f9022-7b7b-4cee-ac8c-996d0b758b4e",
+      "agentId": "slack-generic-3",
+      "name": "PR Auto-Review & Merge - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771317325445,
+      "updatedAtMs": 1771592135179,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 600000,
+        "anchorMs": 1771317325445
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔄 PR AUTO-REVIEW & MERGE\n\nCheck open PRs in Watsi repo and take action based on Claude review comments.\n\n**Steps:**\n\n1. **List open PRs:**\n```bash\ncd ~/Documents/dev/watsi && gh pr list --state open --json number,title,headRefName,author\n```\n\n2. **For each PR, get the Claude review comment:**\n```bash\ngh pr view <number> --json comments --jq '.comments[] | select(.body | contains(\"Claude Code Review\")) | .body' | tail -1\n```\n\n3. **Parse the verdict** from the review:\n   - ✅ LGTM → Approve and merge\n   - ⚠️ Minor issues → Attempt to fix, then re-push\n   - ❌ Needs changes → Attempt to fix, then re-push\n   - No review yet → Skip (wait for CI)\n\n4. **Decision tree:**\n\n   **If ✅ LGTM:**\n   - Approve the PR: `gh pr review <number> --approve -b \"Auto-approved by Nora based on Claude review\"`\n   - Merge: `gh pr merge <number> --squash --auto`\n   - Post to Slack `#notif-linear-tickets-watsi`: \"✅ Merged PR #X: [title] → [ticket-id]\"\n   - Also post to `#notif-github-prs-watsi`: \"✅ Merged PR #X: [title]\"\n\n   **If ⚠️ Minor issues or ❌ Needs changes:**\n   - Checkout the branch\n   - Read the specific issues from the review\n   - Attempt to fix them using code edits\n   - Commit with message: \"fix: address Claude review feedback\"\n   - Push to trigger new review\n   - Post update to `#notif-linear-tickets-watsi` thread: \"🔧 Fixing review feedback for PR #X\"\n   - If fixes are unclear or too complex → Ping Blas on WhatsApp\n\n   **If critical/unclear:**\n   - Send WhatsApp to Blas: \"🚨 PR #X needs your decision: [brief summary]\"\n   - Post to `#notif-linear-tickets-watsi`: \"⚠️ PR #X needs human review\"\n\n5. **Logging:**\n   - Log actions to `memory/pr-auto-review.md`\n\n**Important:**\n- Don't merge PRs with failing CI checks\n- Don't merge PRs less than 5 minutes old (give CI time)\n- Be conservative - when in doubt, fix rather than merge\n- Only ping Blas for truly complex decisions (architecture changes, security concerns, unclear requirements)\n- Always post updates to `#notif-linear-tickets-watsi` for ticket visibility",
+        "timeoutSeconds": 600
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771592725445,
+        "lastRunAtMs": 1771592125460,
+        "lastStatus": "ok",
+        "lastDurationMs": 9719,
+        "consecutiveErrors": 0
+      }
+    },
+    {
       "id": "860c27d0-5472-4f9a-8d39-e4519bbcaa2a",
       "agentId": "slack-coding",
       "name": "Linear Ticket Auto-Implementer",
       "enabled": true,
       "notify": true,
       "createdAtMs": 1771312035777,
-      "updatedAtMs": 1771504237641,
+      "updatedAtMs": 1771590821599,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 * * * *",
@@ -26,74 +88,12 @@
         "to": "notif-linear-tickets-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771506000000,
-        "lastRunAtMs": 1771504200014,
-        "lastStatus": "ok",
-        "lastDurationMs": 37627,
-        "consecutiveErrors": 0,
-        "runningAtMs": 1771506000013
-      }
-    },
-    {
-      "id": "17a7c84e-666a-4c92-a717-ad745df831ac",
-      "agentId": "main",
-      "name": "Nora Dashboard Update",
-      "enabled": true,
-      "createdAtMs": 1771368310982,
-      "updatedAtMs": 1771419674713,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 5 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "🔄 DASHBOARD UPDATE\n\nRegenerate and deploy the Nora cron dashboard:\n\n1. Navigate to dashboard directory:\n   ```bash\n   cd ~/.openclaw/workspace/nora-dashboard\n   ```\n\n2. Regenerate the dashboard:\n   ```bash\n   node generate.js\n   ```\n\n3. Copy to root and commit:\n   ```bash\n   cp public/index.html .\n   git add .\n   git commit -m \"Update dashboard - $(date '+%Y-%m-%d %H:%M')\" || true\n   git push\n   ```\n\nNo notification needed unless there's an error.",
-        "timeoutSeconds": 120
-      },
-      "delivery": {
-        "mode": "none"
-      },
-      "state": {
-        "nextRunAtMs": 1771506000000,
-        "lastRunAtMs": 1771419658719,
-        "lastStatus": "ok",
-        "lastDurationMs": 15994,
-        "consecutiveErrors": 0,
-        "runningAtMs": 1771506043716
-      }
-    },
-    {
-      "id": "ad2f9022-7b7b-4cee-ac8c-996d0b758b4e",
-      "agentId": "slack-generic-3",
-      "name": "PR Auto-Review & Merge - Watsi",
-      "enabled": true,
-      "createdAtMs": 1771317325445,
-      "updatedAtMs": 1771505744652,
-      "schedule": {
-        "kind": "every",
-        "everyMs": 600000,
-        "anchorMs": 1771317325445
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🔄 PR AUTO-REVIEW & MERGE\n\nCheck open PRs in Watsi repo and take action based on Claude review comments.\n\n**Steps:**\n\n1. **List open PRs:**\n```bash\ncd ~/Documents/dev/watsi && gh pr list --state open --json number,title,headRefName,author\n```\n\n2. **For each PR, get the Claude review comment:**\n```bash\ngh pr view <number> --json comments --jq '.comments[] | select(.body | contains(\"Claude Code Review\")) | .body' | tail -1\n```\n\n3. **Parse the verdict** from the review:\n   - ✅ LGTM → Approve and merge\n   - ⚠️ Minor issues → Attempt to fix, then re-push\n   - ❌ Needs changes → Attempt to fix, then re-push\n   - No review yet → Skip (wait for CI)\n\n4. **Decision tree:**\n\n   **If ✅ LGTM:**\n   - Approve the PR: `gh pr review <number> --approve -b \"Auto-approved by Nora based on Claude review\"`\n   - Merge: `gh pr merge <number> --squash --auto`\n   - Post to Slack `#notif-linear-tickets-watsi`: \"✅ Merged PR #X: [title] → [ticket-id]\"\n   - Also post to `#notif-github-prs-watsi`: \"✅ Merged PR #X: [title]\"\n\n   **If ⚠️ Minor issues or ❌ Needs changes:**\n   - Checkout the branch\n   - Read the specific issues from the review\n   - Attempt to fix them using code edits\n   - Commit with message: \"fix: address Claude review feedback\"\n   - Push to trigger new review\n   - Post update to `#notif-linear-tickets-watsi` thread: \"🔧 Fixing review feedback for PR #X\"\n   - If fixes are unclear or too complex → Ping Blas on WhatsApp\n\n   **If critical/unclear:**\n   - Send WhatsApp to Blas: \"🚨 PR #X needs your decision: [brief summary]\"\n   - Post to `#notif-linear-tickets-watsi`: \"⚠️ PR #X needs human review\"\n\n5. **Logging:**\n   - Log actions to `memory/pr-auto-review.md`\n\n**Important:**\n- Don't merge PRs with failing CI checks\n- Don't merge PRs less than 5 minutes old (give CI time)\n- Be conservative - when in doubt, fix rather than merge\n- Only ping Blas for truly complex decisions (architecture changes, security concerns, unclear requirements)\n- Always post updates to `#notif-linear-tickets-watsi` for ticket visibility",
-        "timeoutSeconds": 600
-      },
-      "delivery": {
-        "mode": "none"
-      },
-      "state": {
-        "nextRunAtMs": 1771506325445,
-        "lastRunAtMs": 1771505725459,
-        "lastStatus": "ok",
-        "lastDurationMs": 19193,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771594421599,
+        "lastRunAtMs": 1771590792692,
+        "lastStatus": "error",
+        "lastDurationMs": 28907,
+        "consecutiveErrors": 10,
+        "lastError": "cron announce delivery failed"
       }
     },
     {
@@ -102,7 +102,7 @@
       "name": "PostHog Stats Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640426,
-      "updatedAtMs": 1771424159481,
+      "updatedAtMs": 1771510577734,
       "schedule": {
         "kind": "cron",
         "expr": "15 6 * * *",
@@ -122,11 +122,11 @@
         "to": "notif-posthog-stats-daily-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771510500000,
-        "lastRunAtMs": 1771424100008,
+        "nextRunAtMs": 1771596900000,
+        "lastRunAtMs": 1771510500014,
         "lastStatus": "error",
-        "lastDurationMs": 59473,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 77720,
+        "consecutiveErrors": 2,
         "lastError": "cron announce delivery failed"
       }
     },
@@ -136,7 +136,7 @@
       "name": "Traffic Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640431,
-      "updatedAtMs": 1771425039665,
+      "updatedAtMs": 1771511431763,
       "schedule": {
         "kind": "cron",
         "expr": "30 6 * * *",
@@ -156,12 +156,11 @@
         "to": "notif-traffic-daily-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771511400000,
-        "lastRunAtMs": 1771425000009,
-        "lastStatus": "error",
-        "lastDurationMs": 39656,
-        "consecutiveErrors": 1,
-        "lastError": "cron announce delivery failed"
+        "nextRunAtMs": 1771597800000,
+        "lastRunAtMs": 1771511400012,
+        "lastStatus": "ok",
+        "lastDurationMs": 31751,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -170,7 +169,7 @@
       "name": "Nora Daily Overview",
       "enabled": true,
       "createdAtMs": 1771292864460,
-      "updatedAtMs": 1771425988263,
+      "updatedAtMs": 1771512362432,
       "schedule": {
         "kind": "cron",
         "expr": "45 6 * * *",
@@ -190,11 +189,12 @@
         "to": "0-notif-overview-daily"
       },
       "state": {
-        "nextRunAtMs": 1771512300000,
-        "lastRunAtMs": 1771425900006,
-        "lastStatus": "ok",
-        "lastDurationMs": 88257,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771598700000,
+        "lastRunAtMs": 1771512300017,
+        "lastStatus": "error",
+        "lastDurationMs": 62415,
+        "consecutiveErrors": 1,
+        "lastError": "cron announce delivery failed"
       }
     },
     {
@@ -203,7 +203,7 @@
       "name": "AI News Daily",
       "enabled": true,
       "createdAtMs": 1770614435503,
-      "updatedAtMs": 1771426929117,
+      "updatedAtMs": 1771513330754,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * *",
@@ -223,11 +223,11 @@
         "to": "notif-ai-news-daily"
       },
       "state": {
-        "nextRunAtMs": 1771513200000,
-        "lastRunAtMs": 1771426800009,
+        "nextRunAtMs": 1771599600000,
+        "lastRunAtMs": 1771513200018,
         "lastStatus": "error",
-        "lastDurationMs": 129108,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 130736,
+        "consecutiveErrors": 2,
         "lastError": "cron announce delivery failed"
       }
     },
@@ -237,7 +237,7 @@
       "name": "Service Status Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640413,
-      "updatedAtMs": 1771426984670,
+      "updatedAtMs": 1771513405679,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * *",
@@ -257,11 +257,11 @@
         "to": "0-notif-status-services-daily-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771513200000,
-        "lastRunAtMs": 1771426929117,
+        "nextRunAtMs": 1771599600000,
+        "lastRunAtMs": 1771513330754,
         "lastStatus": "error",
-        "lastDurationMs": 55553,
-        "consecutiveErrors": 2,
+        "lastDurationMs": 74925,
+        "consecutiveErrors": 3,
         "lastError": "cron announce delivery failed"
       }
     },
@@ -271,7 +271,7 @@
       "name": "Features Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640420,
-      "updatedAtMs": 1771430433716,
+      "updatedAtMs": 1771516830207,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -291,10 +291,10 @@
         "to": "notif-features-daily-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771516800000,
-        "lastRunAtMs": 1771430400005,
+        "nextRunAtMs": 1771603200000,
+        "lastRunAtMs": 1771516800014,
         "lastStatus": "ok",
-        "lastDurationMs": 33711,
+        "lastDurationMs": 30193,
         "consecutiveErrors": 0
       }
     },
@@ -304,7 +304,7 @@
       "name": "X Feed Daily - Blas",
       "enabled": true,
       "createdAtMs": 1770614435509,
-      "updatedAtMs": 1771432380013,
+      "updatedAtMs": 1771518741898,
       "schedule": {
         "kind": "cron",
         "expr": "30 8 * * *",
@@ -325,12 +325,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771518600000,
-        "lastRunAtMs": 1771432200006,
-        "lastStatus": "error",
-        "lastDurationMs": 180007,
-        "consecutiveErrors": 1,
-        "lastError": "Error: cron: job execution timed out"
+        "nextRunAtMs": 1771605000000,
+        "lastRunAtMs": 1771518600016,
+        "lastStatus": "ok",
+        "lastDurationMs": 141882,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -339,7 +338,7 @@
       "name": "Content Analysis Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268369155,
-      "updatedAtMs": 1771434123280,
+      "updatedAtMs": 1771520530377,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -359,77 +358,10 @@
         "to": "notif-content-analysis-daily-watsi"
       },
       "state": {
-        "nextRunAtMs": 1771520400000,
-        "lastRunAtMs": 1771434000005,
-        "lastStatus": "error",
-        "lastDurationMs": 123275,
-        "lastError": "cron announce delivery failed",
-        "consecutiveErrors": 1
-      }
-    },
-    {
-      "id": "3c686514-8995-4b22-b112-846b02f11872",
-      "agentId": "main",
-      "name": "Watsi Blog Publish - Thursday [RAND]",
-      "enabled": true,
-      "createdAtMs": 1770935377580,
-      "updatedAtMs": 1771308140812,
-      "schedule": {
-        "kind": "cron",
-        "expr": "53 14 * * 4",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1771541580000,
-        "lastRunAtMs": 1770943860007,
+        "nextRunAtMs": 1771606800000,
+        "lastRunAtMs": 1771520400009,
         "lastStatus": "ok",
-        "lastDurationMs": 106942,
-        "consecutiveErrors": 0
-      }
-    },
-    {
-      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
-      "agentId": "main",
-      "name": "Nora Self-Improvement Session",
-      "enabled": true,
-      "createdAtMs": 1770614435519,
-      "updatedAtMs": 1771486233160,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 21 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message to +16197735958 with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1771563600000,
-        "lastRunAtMs": 1771479072109,
-        "lastStatus": "ok",
-        "lastDurationMs": 37153,
+        "lastDurationMs": 130368,
         "consecutiveErrors": 0
       }
     },
@@ -463,6 +395,39 @@
         "lastRunAtMs": 1771010760008,
         "lastStatus": "ok",
         "lastDurationMs": 79194,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
+      "agentId": "main",
+      "name": "Nora Self-Improvement Session",
+      "enabled": true,
+      "createdAtMs": 1770614435519,
+      "updatedAtMs": 1771486233160,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 21 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message to +16197735958 with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771650000000,
+        "lastRunAtMs": 1771479072109,
+        "lastStatus": "ok",
+        "lastDurationMs": 37153,
         "consecutiveErrors": 0
       }
     },
@@ -759,6 +724,39 @@
         "lastDurationMs": 227333,
         "lastError": "cron announce delivery failed",
         "consecutiveErrors": 1
+      }
+    },
+    {
+      "id": "3c686514-8995-4b22-b112-846b02f11872",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Thursday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377580,
+      "updatedAtMs": 1771541679301,
+      "schedule": {
+        "kind": "cron",
+        "expr": "53 14 * * 4",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post:\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or the oldest unpublished draft\n3. Publish the EN post (set status to 'published')\n4. Publish the matching ES post\n5. Update `memory/blog-queue.md` to mark as published\n6. **Notify Slack** - Post to `#notif-blog-watsi`:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n   **IMPORTANT:** Use the Ghost post ID in the URL (e.g. `69940308697edf0001f82599`), NOT the slug.\n7. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with the ID-based link",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1772146380000,
+        "lastRunAtMs": 1771541580009,
+        "lastStatus": "ok",
+        "lastDurationMs": 99292,
+        "consecutiveErrors": 0
       }
     }
   ]
