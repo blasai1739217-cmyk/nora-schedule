@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nora's Schedule | Avocado Labs</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --yellow: #d29922;
+      --purple: #a371f7;
+      --pink: #f778ba;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-muted); font-size: 1.1rem; }
+    .last-updated { color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem; }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--accent); }
+    
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    .card-title { font-size: 1.1rem; font-weight: 600; }
+    .card-schedule {
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      background: rgba(88, 166, 255, 0.1);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+    .card-desc { color: var(--text-muted); font-size: 0.95rem; }
+    .card-delivery {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--green);
+    }
+    
+    .icon-daily { background: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%); }
+    .icon-weekly { background: linear-gradient(135deg, #a371f7 0%, #8957e5 100%); }
+    .icon-frequent { background: linear-gradient(135deg, #3fb950 0%, #238636 100%); }
+    .icon-random { background: linear-gradient(135deg, #f778ba 0%, #db61a2 100%); }
+    
+    .section-title {
+      font-size: 1.5rem;
+      margin: 2.5rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .timeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .time-slot {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.85rem;
+      background: rgba(88, 166, 255, 0.1);
+      border: 1px solid transparent;
+    }
+    .time-slot:hover { border-color: var(--accent); }
+    
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🦎 Nora's Schedule</h1>
+      <p class="subtitle">Personal assistant & skill partner at Avocado Labs</p>
+      <p class="last-updated">Last updated: <span id="updated"></span></p>
+    </header>
+
+    <h2 class="section-title">📅 Daily Jobs</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-daily">🌅</div>
+          <div class="card-title">AI Morning Briefing</div>
+        </div>
+        <div class="card-schedule">7:00 AM PST</div>
+        <p class="card-desc">Search Reddit & X for top 3 AI developments from last 24h</p>
+        <p class="card-delivery">→ WhatsApp to Blas</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-daily">📋</div>
+          <div class="card-title">Daily Check-in Planner</div>
+        </div>
+        <div class="card-schedule">7:15 AM PST</div>
+        <p class="card-desc">Review calendar, generate 4 randomized check-in times for the day</p>
+        <p class="card-delivery">→ Internal (creates daily cron jobs)</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-random">💬</div>
+          <div class="card-title">Blas Check-ins</div>
+        </div>
+        <div class="card-schedule">4x daily [RAND]</div>
+        <p class="card-desc">Natural friend check-in. Topics: day progress, Watsi, gym, Sora</p>
+        <p class="card-delivery">→ WhatsApp to Blas</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-daily">🐦</div>
+          <div class="card-title">X Feed Digest</div>
+        </div>
+        <div class="card-schedule">7:03 AM, 3:17 PM, 9:11 PM PST</div>
+        <p class="card-desc">Check X timeline (50 posts), summarize themes, surface top 3 tweets</p>
+        <p class="card-delivery">→ WhatsApp to Blas</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-daily">🧠</div>
+          <div class="card-title">Self-Improvement Session</div>
+        </div>
+        <div class="card-schedule">9:00 PM PST</div>
+        <p class="card-desc">Search X for AI tips, review bottleneck log, run openclaw update</p>
+        <p class="card-delivery">→ WhatsApp to Blas</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-daily">📊</div>
+          <div class="card-title">Dashboard Update</div>
+        </div>
+        <div class="card-schedule">5:00 AM PST</div>
+        <p class="card-desc">Regenerate this dashboard and push to GitHub Pages</p>
+        <p class="card-delivery">→ blasai1739217-cmyk.github.io/nora-schedule</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">🔄 Frequent Jobs</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-frequent">🎫</div>
+          <div class="card-title">Linear Ticket Auto-Implementer</div>
+        </div>
+        <div class="card-schedule">Every 30 minutes</div>
+        <p class="card-desc">Spawn Claude CLI to implement top Linear ticket, commit changes</p>
+        <p class="card-delivery">→ Slack #notif-linear-tickets-watsi</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">📆 Weekly Jobs</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-weekly">🎲</div>
+          <div class="card-title">Cron Randomizer</div>
+        </div>
+        <div class="card-schedule">Sundays 6:30 PM PST</div>
+        <p class="card-desc">Randomize all [RAND] tagged cron jobs for the coming week</p>
+        <p class="card-delivery">→ WhatsApp to Blas</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-weekly">✍️</div>
+          <div class="card-title">Watsi Blog Generation</div>
+        </div>
+        <div class="card-schedule">Sundays 7:00 PM PST</div>
+        <p class="card-desc">Research 7 trending topics, generate EN + ES blog posts with images</p>
+        <p class="card-delivery">→ WhatsApp to Blas</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-random">📝</div>
+          <div class="card-title">Watsi Blog Publish</div>
+        </div>
+        <div class="card-schedule">Daily [RAND] 9am-5pm</div>
+        <p class="card-desc">Publish one scheduled blog post from the weekly batch</p>
+        <p class="card-delivery">→ WhatsApp "✅ Published: [Title]"</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">⏰ Today's Timeline</h2>
+    <div class="timeline">
+      <div class="time-slot">5:00 AM — Dashboard Update</div>
+      <div class="time-slot">7:00 AM — AI Briefing</div>
+      <div class="time-slot">7:03 AM — X Feed #1</div>
+      <div class="time-slot">7:15 AM — Check-in Planner</div>
+      <div class="time-slot">~8-10 AM — Check-in #1 [RAND]</div>
+      <div class="time-slot">~12-3 PM — Check-in #2 [RAND]</div>
+      <div class="time-slot">3:17 PM — X Feed #2</div>
+      <div class="time-slot">~5-8 PM — Check-in #3 [RAND]</div>
+      <div class="time-slot">9:00 PM — Self-Improvement</div>
+      <div class="time-slot">9:11 PM — X Feed #3</div>
+      <div class="time-slot">~9-11 PM — Check-in #4 [RAND]</div>
+    </div>
+
+    <footer>
+      <p>Built by Nora 🦎 for <a href="https://watsi.ai">Avocado Labs</a></p>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem;">Powered by <a href="https://openclaw.ai">OpenClaw</a></p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('updated').textContent = new Date().toLocaleString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short'
+    });
+  </script>
+</body>
+</html>
