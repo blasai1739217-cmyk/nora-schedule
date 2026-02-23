@@ -3,279 +3,699 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nora's Schedule | Avocado Labs</title>
+  <title>Nora's Schedule</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦊</text></svg>">
   <style>
     :root {
       --bg: #0d1117;
       --card-bg: #161b22;
       --border: #30363d;
-      --text: #c9d1d9;
+      --text: #e6edf3;
       --text-muted: #8b949e;
       --accent: #58a6ff;
-      --green: #3fb950;
-      --yellow: #d29922;
-      --purple: #a371f7;
-      --pink: #f778ba;
+      --success: #3fb950;
+      --error: #f85149;
+      --warning: #d29922;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
-      padding: 2rem;
       min-height: 100vh;
+      padding: 2rem;
     }
-    .container { max-width: 1200px; margin: 0 auto; }
-    header {
-      text-align: center;
-      margin-bottom: 3rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-    }
+    .container { max-width: 1000px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 2rem; }
     h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
     .subtitle { color: var(--text-muted); font-size: 1.1rem; }
-    .last-updated { color: var(--text-muted); font-size: 0.9rem; margin-top: 1rem; }
     
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 1.5rem;
+    .legend {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin: 1.5rem 0 2rem;
+      flex-wrap: wrap;
+      padding: 1rem;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
     }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .legend-dot.success { background: var(--success); }
+    .legend-dot.error { background: var(--error); }
+    .legend-dot.pending { background: var(--warning); }
     
-    .card {
+    .stats {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .stat {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.5rem;
-      transition: border-color 0.2s;
+      padding: 1rem 1.5rem;
+      text-align: center;
+      min-width: 100px;
     }
-    .card:hover { border-color: var(--accent); }
+    .stat-value { font-size: 1.75rem; font-weight: 700; color: var(--accent); }
+    .stat-label { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem; }
     
-    .card-header {
+    .category {
+      margin-bottom: 2rem;
+    }
+    .category-header {
       display: flex;
       align-items: center;
       gap: 0.75rem;
       margin-bottom: 1rem;
-    }
-    .card-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-    }
-    .card-title { font-size: 1.1rem; font-weight: 600; }
-    .card-schedule {
-      font-family: 'SF Mono', Monaco, monospace;
-      font-size: 0.85rem;
-      color: var(--accent);
-      background: rgba(88, 166, 255, 0.1);
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      display: inline-block;
-      margin-bottom: 0.75rem;
-    }
-    .card-desc { color: var(--text-muted); font-size: 0.95rem; }
-    .card-delivery {
-      margin-top: 0.75rem;
-      font-size: 0.85rem;
-      color: var(--green);
-    }
-    
-    .icon-daily { background: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%); }
-    .icon-weekly { background: linear-gradient(135deg, #a371f7 0%, #8957e5 100%); }
-    .icon-frequent { background: linear-gradient(135deg, #3fb950 0%, #238636 100%); }
-    .icon-random { background: linear-gradient(135deg, #f778ba 0%, #db61a2 100%); }
-    
-    .section-title {
-      font-size: 1.5rem;
-      margin: 2.5rem 0 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--border);
     }
+    .category-emoji { font-size: 1.5rem; }
+    .category-title { font-size: 1.25rem; font-weight: 600; }
+    .category-desc { color: var(--text-muted); font-size: 0.85rem; margin-left: auto; }
     
-    .timeline {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 2rem;
-      padding: 1.5rem;
+    .jobs { display: grid; gap: 0.75rem; }
+    .job {
       background: var(--card-bg);
-      border-radius: 12px;
       border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: border-color 0.2s;
     }
-    .time-slot {
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-family: 'SF Mono', Monaco, monospace;
-      font-size: 0.85rem;
-      background: rgba(88, 166, 255, 0.1);
-      border: 1px solid transparent;
-    }
-    .time-slot:hover { border-color: var(--accent); }
+    .job:hover { border-color: var(--accent); }
+    .job.disabled { opacity: 0.5; }
     
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
+    .job-status { font-size: 1.25rem; text-align: center; padding-top: 0.1rem; }
+    .job-info { min-width: 0; }
+    .job-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .job-desc { color: var(--text-muted); font-size: 0.8rem; line-height: 1.4; margin-bottom: 0.5rem; }
+    .job-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.75rem;
       color: var(--text-muted);
     }
-    footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    .job-meta span { display: flex; align-items: center; gap: 0.25rem; }
+    
+    .job-right {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+    .job-next {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .job-status-badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+    .job-status-badge.success { background: rgba(63, 185, 80, 0.15); color: var(--success); }
+    .job-status-badge.error { background: rgba(248, 81, 73, 0.15); color: var(--error); }
+    .job-status-badge.pending { background: rgba(210, 153, 34, 0.15); color: var(--warning); }
+    
+    .updated {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    
+    @media (max-width: 640px) {
+      body { padding: 1rem; }
+      .job { grid-template-columns: 28px 1fr; }
+      .job-right { grid-column: 2; flex-direction: row; justify-content: space-between; width: 100%; }
+      .category-desc { display: none; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>🦎 Nora's Schedule</h1>
-      <p class="subtitle">Personal assistant & skill partner at Avocado Labs</p>
-      <p class="last-updated">Last updated: <span id="updated"></span></p>
+      <h1>🦊 Nora's Schedule</h1>
+      <p class="subtitle">Automated tasks running on OpenClaw</p>
     </header>
-
-    <h2 class="section-title">📅 Daily Jobs</h2>
-    <div class="grid">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon icon-daily">🌅</div>
-          <div class="card-title">AI Morning Briefing</div>
-        </div>
-        <div class="card-schedule">7:00 AM PST</div>
-        <p class="card-desc">Search Reddit & X for top 3 AI developments from last 24h</p>
-        <p class="card-delivery">→ WhatsApp to Blas</p>
+    
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-dot success"></div>
+        <span><strong>OK</strong> — Last run completed successfully</span>
       </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon icon-daily">📋</div>
-          <div class="card-title">Daily Check-in Planner</div>
-        </div>
-        <div class="card-schedule">7:15 AM PST</div>
-        <p class="card-desc">Review calendar, generate 4 randomized check-in times for the day</p>
-        <p class="card-delivery">→ Internal (creates daily cron jobs)</p>
+      <div class="legend-item">
+        <div class="legend-dot error"></div>
+        <span><strong>Error</strong> — Last run failed (will retry)</span>
       </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon icon-random">💬</div>
-          <div class="card-title">Blas Check-ins</div>
-        </div>
-        <div class="card-schedule">4x daily [RAND]</div>
-        <p class="card-desc">Natural friend check-in. Topics: day progress, Watsi, gym, Sora</p>
-        <p class="card-delivery">→ WhatsApp to Blas</p>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon icon-daily">🐦</div>
-          <div class="card-title">X Feed Digest</div>
-        </div>
-        <div class="card-schedule">7:03 AM, 3:17 PM, 9:11 PM PST</div>
-        <p class="card-desc">Check X timeline (50 posts), summarize themes, surface top 3 tweets</p>
-        <p class="card-delivery">→ WhatsApp to Blas</p>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon icon-daily">🧠</div>
-          <div class="card-title">Self-Improvement Session</div>
-        </div>
-        <div class="card-schedule">9:00 PM PST</div>
-        <p class="card-desc">Search X for AI tips, review bottleneck log, run openclaw update</p>
-        <p class="card-delivery">→ WhatsApp to Blas</p>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon icon-daily">📊</div>
-          <div class="card-title">Dashboard Update</div>
-        </div>
-        <div class="card-schedule">5:00 AM PST</div>
-        <p class="card-desc">Regenerate this dashboard and push to GitHub Pages</p>
-        <p class="card-delivery">→ blasai1739217-cmyk.github.io/nora-schedule</p>
+      <div class="legend-item">
+        <div class="legend-dot pending"></div>
+        <span><strong>Pending</strong> — Never run yet or waiting</span>
       </div>
     </div>
-
-    <h2 class="section-title">🔄 Frequent Jobs</h2>
-    <div class="grid">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon icon-frequent">🎫</div>
-          <div class="card-title">Linear Ticket Auto-Implementer</div>
-        </div>
-        <div class="card-schedule">Every 30 minutes</div>
-        <p class="card-desc">Spawn Claude CLI to implement top Linear ticket, commit changes</p>
-        <p class="card-delivery">→ Slack #notif-linear-tickets-watsi</p>
+    
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">27</div>
+        <div class="stat-label">Total Jobs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">27</div>
+        <div class="stat-label">Active</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">19</div>
+        <div class="stat-label">Healthy</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">6</div>
+        <div class="stat-label">Errors</div>
       </div>
     </div>
-
-    <h2 class="section-title">📆 Weekly Jobs</h2>
-    <div class="grid">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon icon-weekly">🎲</div>
-          <div class="card-title">Cron Randomizer</div>
-        </div>
-        <div class="card-schedule">Sundays 6:30 PM PST</div>
-        <p class="card-desc">Randomize all [RAND] tagged cron jobs for the coming week</p>
-        <p class="card-delivery">→ WhatsApp to Blas</p>
+    
+    
+    <div class="category">
+      <div class="category-header">
+        <span class="category-emoji">⚙️</span>
+        <span class="category-title">Engineering</span>
+        <span class="category-desc">Code, tickets, PRs, and infrastructure</span>
       </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon icon-weekly">✍️</div>
-          <div class="card-title">Watsi Blog Generation</div>
+      <div class="jobs">
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Linear Ticket Auto-Implementer</div>
+            <div class="job-desc">Linear Ticket Auto-Implementation</div>
+            <div class="job-meta">
+              <span>🕐 Every 2x/hour</span>
+              <span>🤖 slack-coding</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in Overdue</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
         </div>
-        <div class="card-schedule">Sundays 7:00 PM PST</div>
-        <p class="card-desc">Research 7 trending topics, generate EN + ES blog posts with images</p>
-        <p class="card-delivery">→ WhatsApp to Blas</p>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon icon-random">📝</div>
-          <div class="card-title">Watsi Blog Publish</div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">PR Auto-Review & Merge - Watsi</div>
+            <div class="job-desc">PR AUTO-REVIEW & MERGE</div>
+            <div class="job-meta">
+              <span>🕐 Every 10 min</span>
+              <span>🤖 slack-generic-3</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 4m</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
         </div>
-        <div class="card-schedule">Daily [RAND] 9am-5pm</div>
-        <p class="card-desc">Publish one scheduled blog post from the weekly batch</p>
-        <p class="card-delivery">→ WhatsApp "✅ Published: [Title]"</p>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Service Status Daily - Watsi</div>
+            <div class="job-desc">DAILY SERVICE HEALTH CHECK</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 7:00 AM</span>
+              <span>🤖 slack-generic-3</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 1h 59m</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
       </div>
     </div>
-
-    <h2 class="section-title">⏰ Today's Timeline</h2>
-    <div class="timeline">
-      <div class="time-slot">5:00 AM — Dashboard Update</div>
-      <div class="time-slot">7:00 AM — AI Briefing</div>
-      <div class="time-slot">7:03 AM — X Feed #1</div>
-      <div class="time-slot">7:15 AM — Check-in Planner</div>
-      <div class="time-slot">~8-10 AM — Check-in #1 [RAND]</div>
-      <div class="time-slot">~12-3 PM — Check-in #2 [RAND]</div>
-      <div class="time-slot">3:17 PM — X Feed #2</div>
-      <div class="time-slot">~5-8 PM — Check-in #3 [RAND]</div>
-      <div class="time-slot">9:00 PM — Self-Improvement</div>
-      <div class="time-slot">9:11 PM — X Feed #3</div>
-      <div class="time-slot">~9-11 PM — Check-in #4 [RAND]</div>
+      
+    <div class="category">
+      <div class="category-header">
+        <span class="category-emoji">✍️</span>
+        <span class="category-title">Content</span>
+        <span class="category-desc">Blog generation and publishing</span>
+      </div>
+      <div class="jobs">
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Blog Post Tester</div>
+            <div class="job-desc">BLOG POST TESTER</div>
+            <div class="job-meta">
+              <span>🕐 Every 30 min</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 28m</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Watsi Blog Publish - Monday [RAND]</div>
+            <div class="job-desc">DAILY BLOG PUBLISH</div>
+            <div class="job-meta">
+              <span>🕐 Mon @ 10:44 AM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 5h 43m</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Watsi Blog Publish - Tuesday [RAND]</div>
+            <div class="job-desc">DAILY BLOG PUBLISH</div>
+            <div class="job-meta">
+              <span>🕐 Tue @ 2:11 PM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 1d</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">❌</div>
+          <div class="job-info">
+            <div class="job-name">Watsi Blog Publish - Wednesday [RAND]</div>
+            <div class="job-desc">DAILY BLOG PUBLISH</div>
+            <div class="job-meta">
+              <span>🕐 Wed @ 9:38 AM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 2d</div>
+            <div class="job-status-badge error">Last run failed</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Watsi Blog Publish - Thursday [RAND]</div>
+            <div class="job-desc">DAILY BLOG PUBLISH</div>
+            <div class="job-meta">
+              <span>🕐 Thu @ 9:49 AM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 3d</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">❌</div>
+          <div class="job-info">
+            <div class="job-name">Watsi Blog Publish - Friday [RAND]</div>
+            <div class="job-desc">DAILY BLOG PUBLISH</div>
+            <div class="job-meta">
+              <span>🕐 Fri @ 10:24 AM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 4d</div>
+            <div class="job-status-badge error">Last run failed</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">❌</div>
+          <div class="job-info">
+            <div class="job-name">Watsi Blog Publish - Saturday [RAND]</div>
+            <div class="job-desc">DAILY BLOG PUBLISH</div>
+            <div class="job-meta">
+              <span>🕐 Sat @ 4:51 PM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 5d</div>
+            <div class="job-status-badge error">Last run failed</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">❌</div>
+          <div class="job-info">
+            <div class="job-name">Watsi Blog Publish - Sunday [RAND]</div>
+            <div class="job-desc">DAILY BLOG PUBLISH</div>
+            <div class="job-meta">
+              <span>🕐 Sun @ 5:19 PM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 7d</div>
+            <div class="job-status-badge error">Last run failed</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">❌</div>
+          <div class="job-info">
+            <div class="job-name">Watsi Blog Generation (Weekly)</div>
+            <div class="job-desc">️ WEEKLY BLOG GENERATION</div>
+            <div class="job-meta">
+              <span>🕐 Sun @ 7:00 PM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 7d</div>
+            <div class="job-status-badge error">Last run failed</div>
+          </div>
+        </div>
+        
+      </div>
     </div>
-
-    <footer>
-      <p>Built by Nora 🦎 for <a href="https://watsi.ai">Avocado Labs</a></p>
-      <p style="margin-top: 0.5rem; font-size: 0.85rem;">Powered by <a href="https://openclaw.ai">OpenClaw</a></p>
-    </footer>
+      
+    <div class="category">
+      <div class="category-header">
+        <span class="category-emoji">📊</span>
+        <span class="category-title">Analytics</span>
+        <span class="category-desc">Stats, metrics, and performance tracking</span>
+      </div>
+      <div class="jobs">
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">PostHog Stats Daily - Watsi</div>
+            <div class="job-desc">POSTHOG DAILY STATS</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 6:15 AM</span>
+              <span>🤖 slack-generic-3</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 1h 14m</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Traffic Daily - Watsi</div>
+            <div class="job-desc">DAILY TRAFFIC REPORT</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 6:30 AM</span>
+              <span>🤖 slack-generic-3</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 1h 29m</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Content Analysis Daily - Watsi</div>
+            <div class="job-desc">DAILY CONTENT ANALYSIS</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 9:00 AM</span>
+              <span>🤖 slack-generic-3</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 3h 59m</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+      
+    <div class="category">
+      <div class="category-header">
+        <span class="category-emoji">🔍</span>
+        <span class="category-title">Research</span>
+        <span class="category-desc">News, trends, and competitive intel</span>
+      </div>
+      <div class="jobs">
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Features Daily - Watsi</div>
+            <div class="job-desc">DAILY FEATURE IDEAS</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 8:00 AM</span>
+              <span>🤖 slack-generic-3</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 2h 59m</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">⏳</div>
+          <div class="job-info">
+            <div class="job-name">Competitor Analysis Weekly - Watsi</div>
+            <div class="job-desc">WEEKLY COMPETITOR ANALYSIS</div>
+            <div class="job-meta">
+              <span>🕐 Mon @ 10:00 AM</span>
+              <span>🤖 slack-generic-3</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 4h 59m</div>
+            <div class="job-status-badge pending">Never run</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">❌</div>
+          <div class="job-info">
+            <div class="job-name">Vambe News Weekly</div>
+            <div class="job-desc">VAMBE WEEKLY TRACKER</div>
+            <div class="job-meta">
+              <span>🕐 Wed @ 10:00 AM</span>
+              <span>🤖 slack-generic-3</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 2d</div>
+            <div class="job-status-badge error">Last run failed</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+      
+    <div class="category">
+      <div class="category-header">
+        <span class="category-emoji">🔧</span>
+        <span class="category-title">Operations</span>
+        <span class="category-desc">System maintenance and daily briefings</span>
+      </div>
+      <div class="jobs">
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Nora Dashboard Update</div>
+            <div class="job-desc">DASHBOARD UPDATE</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 5:00 AM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in Overdue</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Nora Self-Improvement Session</div>
+            <div class="job-desc">SELF-IMPROVEMENT SESSION</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 9:00 PM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 15h 59m</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Weekly Cron Randomizer</div>
+            <div class="job-desc">WEEKLY CRON RANDOMIZER</div>
+            <div class="job-meta">
+              <span>🕐 Sun @ 6:30 PM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 7d</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+      
+    <div class="category">
+      <div class="category-header">
+        <span class="category-emoji">📋</span>
+        <span class="category-title">Other</span>
+        <span class="category-desc"></span>
+      </div>
+      <div class="jobs">
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">Morning Briefing</div>
+            <div class="job-desc">️ MORNING BRIEFING</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 7:00 AM</span>
+              <span>🤖 slack-generic-3</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 1h 59m</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">⏳</div>
+          <div class="job-info">
+            <div class="job-name">Daily Dev QA Testing</div>
+            <div class="job-desc">Run daily QA testing on watsi.dev for all tickets completed today.</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 6:00 PM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 12h 59m</div>
+            <div class="job-status-badge pending">Never run</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">checkin-sun-morning</div>
+            <div class="job-desc">Send WhatsApp check-in to Blas (+16197735958)</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 9:17 AM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 364d</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">checkin-sun-midday</div>
+            <div class="job-desc">Send WhatsApp check-in to Blas (+16197735958)</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 1:42 PM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 364d</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">checkin-sun-afternoon</div>
+            <div class="job-desc">Send WhatsApp check-in to Blas (+16197735958)</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 6:28 PM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 365d</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+        <div class="job">
+          <div class="job-status">✅</div>
+          <div class="job-info">
+            <div class="job-name">checkin-sun-night</div>
+            <div class="job-desc">Send WhatsApp check-in to Blas (+16197735958)</div>
+            <div class="job-meta">
+              <span>🕐 Daily @ 10:05 PM</span>
+              <span>🤖 main</span>
+            </div>
+          </div>
+          <div class="job-right">
+            <div class="job-next">in 365d</div>
+            <div class="job-status-badge success">Last run OK</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+      
+    
+    <p class="updated">Last updated: 2/23/2026, 5:01:08 AM PST</p>
   </div>
-
-  <script>
-    document.getElementById('updated').textContent = new Date().toLocaleString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZoneName: 'short'
-    });
-  </script>
 </body>
 </html>
