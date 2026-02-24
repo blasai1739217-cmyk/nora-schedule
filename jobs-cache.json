@@ -1,13 +1,47 @@
 {
   "jobs": [
     {
+      "id": "17a7c84e-666a-4c92-a717-ad745df831ac",
+      "agentId": "main",
+      "name": "Nora Dashboard Update",
+      "enabled": true,
+      "createdAtMs": 1771368310982,
+      "updatedAtMs": 1771851672083,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 5 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "🔄 DASHBOARD UPDATE\n\nRegenerate and deploy the Nora cron dashboard:\n\n1. Navigate to dashboard directory:\n   ```bash\n   cd ~/.openclaw/workspace/nora-dashboard\n   ```\n\n2. Regenerate the dashboard:\n   ```bash\n   node generate.js\n   ```\n\n3. Copy to root and commit:\n   ```bash\n   cp public/index.html .\n   git add .\n   git commit -m \"Update dashboard - $(date '+%Y-%m-%d %H:%M')\" || true\n   git push\n   ```\n\nNo notification needed unless there's an error.",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771938000000,
+        "lastRunAtMs": 1771851662133,
+        "lastStatus": "ok",
+        "lastDurationMs": 9950,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered",
+        "runningAtMs": 1771938037065
+      }
+    },
+    {
       "id": "860c27d0-5472-4f9a-8d39-e4519bbcaa2a",
       "agentId": "slack-coding",
       "name": "Linear Ticket Auto-Implementer",
       "enabled": true,
       "notify": true,
       "createdAtMs": 1771312035777,
-      "updatedAtMs": 1771849855994,
+      "updatedAtMs": 1771936232634,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 * * * *",
@@ -26,46 +60,15 @@
         "to": "C0AF3H3QV37"
       },
       "state": {
-        "nextRunAtMs": 1771851600000,
-        "lastRunAtMs": 1771849818747,
+        "nextRunAtMs": 1771938000000,
+        "lastRunAtMs": 1771936200025,
         "lastStatus": "ok",
-        "lastDurationMs": 37247,
+        "lastDurationMs": 32609,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
-        "runningAtMs": 1771851631978
-      }
-    },
-    {
-      "id": "17a7c84e-666a-4c92-a717-ad745df831ac",
-      "agentId": "main",
-      "name": "Nora Dashboard Update",
-      "enabled": true,
-      "createdAtMs": 1771368310982,
-      "updatedAtMs": 1771765240456,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 5 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "🔄 DASHBOARD UPDATE\n\nRegenerate and deploy the Nora cron dashboard:\n\n1. Navigate to dashboard directory:\n   ```bash\n   cd ~/.openclaw/workspace/nora-dashboard\n   ```\n\n2. Regenerate the dashboard:\n   ```bash\n   node generate.js\n   ```\n\n3. Copy to root and commit:\n   ```bash\n   cp public/index.html .\n   git add .\n   git commit -m \"Update dashboard - $(date '+%Y-%m-%d %H:%M')\" || true\n   git push\n   ```\n\nNo notification needed unless there's an error.",
-        "timeoutSeconds": 120
-      },
-      "delivery": {
-        "mode": "none"
-      },
-      "state": {
-        "nextRunAtMs": 1771851600000,
-        "lastRunAtMs": 1771765232103,
-        "lastStatus": "ok",
-        "lastDurationMs": 8353,
-        "consecutiveErrors": 0,
-        "runningAtMs": 1771851662133
+        "runningAtMs": 1771938000023
       }
     },
     {
@@ -74,7 +77,7 @@
       "name": "PR Auto-Review & Merge - Watsi",
       "enabled": true,
       "createdAtMs": 1771317325445,
-      "updatedAtMs": 1771851337966,
+      "updatedAtMs": 1771937849601,
       "schedule": {
         "kind": "every",
         "everyMs": 600000,
@@ -92,10 +95,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771851926284,
-        "lastRunAtMs": 1771851326284,
+        "nextRunAtMs": 1771938443655,
+        "lastRunAtMs": 1771937843655,
         "lastStatus": "ok",
-        "lastDurationMs": 11682,
+        "lastDurationMs": 5946,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
@@ -109,7 +112,7 @@
       "name": "Blog Post Tester",
       "enabled": true,
       "createdAtMs": 1771793966301,
-      "updatedAtMs": 1771851631966,
+      "updatedAtMs": 1771937985758,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -129,10 +132,10 @@
         "to": "C0AF2KMB2G5"
       },
       "state": {
-        "nextRunAtMs": 1771853366608,
-        "lastRunAtMs": 1771851566608,
+        "nextRunAtMs": 1771939767410,
+        "lastRunAtMs": 1771937967410,
         "lastStatus": "ok",
-        "lastDurationMs": 65358,
+        "lastDurationMs": 18348,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": true,
@@ -142,10 +145,10 @@
     {
       "id": "cb0f1591-685f-48bb-a4a9-dd711fbdf0aa",
       "agentId": "slack-generic-3",
-      "name": "PostHog Stats Daily - Watsi",
+      "name": "PostHog Daily Report - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640426,
-      "updatedAtMs": 1771781526405,
+      "updatedAtMs": 1771862998191,
       "schedule": {
         "kind": "cron",
         "expr": "15 6 * * *",
@@ -156,7 +159,7 @@
       "payload": {
         "kind": "agentTurn",
         "model": "anthropic/claude-opus-4-5",
-        "message": "📊 POSTHOG DAILY STATS\n\nPull key metrics from PostHog using Claude CLI with MCP:\n\n**Get PostHog Data:**\n```bash\nclaude -p \"Use PostHog MCP to get comprehensive stats for the last 24 hours. Include: 1) Total unique users and pageviews, 2) Average session duration, 3) Bounce rate if available, 4) Top 5 pages by views, 5) User signups/conversions if tracked, 6) Session recordings count, 7) Any errors logged. Compare to previous day if possible and highlight % changes.\" --allowedTools \"mcp__posthog__*\" --dangerously-skip-permissions\n```\n\n**Deliverable:**\n📈 **PostHog Daily — Watsi**\n_Date_\n\nLast 24h:\n• X visitors, Y pageviews, Z sessions\n• Avg session: Xm Xs\n• Bounce: X%\n\nTop pages: [list]\n\nSession recordings: X\n\nErrors: [count or 'none']\n\n**vs Yesterday:** [key changes]\n\nThe report will be automatically delivered to Slack.",
+        "message": "📊 POSTHOG DAILY REPORT (watsi.ai only)\n\nPull key metrics from PostHog using Claude CLI with MCP. **IMPORTANT: Filter to watsi.ai traffic only — exclude localhost and watsi.dev.**\n\n**Get PostHog Data:**\n```bash\nclaude -p \"Use PostHog MCP to get stats for the last 24 hours. CRITICAL: Filter to domain watsi.ai only (exclude localhost, watsi.dev, any non-production traffic).\n\nInclude:\n1) Unique users and pageviews (watsi.ai only)\n2) Sessions count\n3) Average session duration\n4) Top 5 pages by views\n5) Geographic breakdown (focus on LATAM)\n6) Device breakdown (mobile vs desktop)\n7) Traffic sources/referrers if available\n8) User signups/conversions if tracked\n9) Any errors logged\n10) Session recordings count\n\nCompare to previous day and highlight % changes.\" --allowedTools \"mcp__posthog__*\" --dangerously-skip-permissions\n```\n\n**Deliverable:**\n📊 **PostHog Daily — watsi.ai**\n_Date_\n\n**Traffic (Last 24h):**\n• 👥 Visitors: X\n• 📄 Pageviews: Y\n• 🔄 Sessions: Z\n• ⏱️ Avg session: Xm Xs\n• 📱 Mobile: X% | 💻 Desktop: X%\n\n**Top Pages:**\n| Page | Views |\n|------|-------|\n\n**Geography (LATAM focus):**\n[top countries]\n\n**Sources:**\n[traffic sources]\n\n**Recordings:** X\n**Errors:** [count or 'none']\n\n**vs Yesterday:** [key changes with %]\n\nThe report will be automatically delivered to Slack.",
         "timeoutSeconds": 300
       },
       "delivery": {
@@ -166,79 +169,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771856100000,
-        "lastRunAtMs": 1771769700016,
+        "nextRunAtMs": 1771942500000,
+        "lastRunAtMs": 1771856100013,
         "lastStatus": "ok",
-        "lastDurationMs": 277884,
-        "consecutiveErrors": 0
-      }
-    },
-    {
-      "id": "ba20d0a8-5de8-47cb-945e-74e09f792324",
-      "agentId": "slack-generic-3",
-      "name": "Traffic Daily - Watsi",
-      "enabled": true,
-      "createdAtMs": 1771268640431,
-      "updatedAtMs": 1771781514427,
-      "schedule": {
-        "kind": "cron",
-        "expr": "30 6 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🚦 DAILY TRAFFIC REPORT\n\nPull traffic metrics using Claude CLI with PostHog MCP:\n\n**Step 1: PostHog Data**\nRun this command to get traffic stats:\n```bash\nclaude -p \"Use PostHog MCP to get traffic data for the last 24 hours. Include: unique users, sessions, pageviews, top pages by views, geographic breakdown (focus on LATAM countries), device breakdown (mobile vs desktop). Format as a clean summary.\" --allowedTools \"mcp__posthog__*\" --dangerously-skip-permissions\n```\n\n**Step 2: Vercel Analytics (if available)**\nCheck Vercel analytics:\n```bash\ncd ~/Documents/dev/watsi && vercel analytics 2>/dev/null || echo \"Vercel analytics not available via CLI\"\n```\n\n**Deliverable:**\n🚦 **Traffic Report — Last 24h**\n\n**Summary:**\n- 👥 Visitors: X\n- 📱 Mobile: X% | 💻 Desktop: X%\n- 🌎 Top regions: [list with LATAM focus]\n- ⏱️ Sessions: X\n\n**Top Pages:**\n| Page | Views |\n|------|-------|\n\n**Anomalies:** [any spikes or drops to note]\n\nThe report will be automatically delivered to Slack.",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AG14KJPNC",
-        "bestEffort": true
-      },
-      "state": {
-        "nextRunAtMs": 1771857000000,
-        "lastRunAtMs": 1771770600014,
-        "lastStatus": "ok",
-        "lastDurationMs": 67334,
-        "consecutiveErrors": 0
-      }
-    },
-    {
-      "id": "a6d567cb-934f-46ce-8c29-4e3681fb8d7a",
-      "agentId": "slack-generic-3",
-      "name": "Service Status Daily - Watsi",
-      "enabled": true,
-      "createdAtMs": 1771268640413,
-      "updatedAtMs": 1771772552373,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 7 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🔧 DAILY SERVICE HEALTH CHECK\n\nRun comprehensive health checks for Watsi infrastructure:\n\n**1. Website Workflow Tests (watsi.ai)**\nUse browser automation to:\n- Load watsi.ai and verify it loads correctly\n- Check key pages load (/, /pricing, /blog)\n- Test any public-facing forms or CTAs\n- Measure load times\n\n**2. GCP Status**\n- Check GCP status page for App Engine, Cloud Run, Cloud SQL\n- Note any incidents affecting us-central1 or our services\n\n**3. Supabase Status**\n- Check Supabase status page\n- Verify database connectivity if possible\n\n**4. Vercel Status**\n- Check Vercel status page\n- Note any deployment or edge network issues\n\n**Deliverable:**\n✅ **Daily Health Report**\n\n| Service | Status | Notes |\n|---------|--------|-------|\n| watsi.ai | ✅/⚠️/❌ | Load time, any errors |\n| GCP | ✅/⚠️/❌ | Incidents |\n| Supabase | ✅/⚠️/❌ | Incidents |\n| Vercel | ✅/⚠️/❌ | Incidents |\n\n**Issues Found:** (if any)\n**Action Items:** (if any)\n\nThe report will be automatically delivered to Slack.",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AF4R40NDC",
-        "bestEffort": true
-      },
-      "state": {
-        "nextRunAtMs": 1771858800000,
-        "lastRunAtMs": 1771772497349,
-        "lastStatus": "ok",
-        "lastDurationMs": 55024,
-        "consecutiveErrors": 0
+        "lastDurationMs": 141344,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
       }
     },
     {
@@ -247,7 +185,7 @@
       "name": "Morning Briefing",
       "enabled": true,
       "createdAtMs": 1771292864460,
-      "updatedAtMs": 1771781664959,
+      "updatedAtMs": 1771859030090,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * *",
@@ -268,11 +206,51 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771858800000,
-        "lastRunAtMs": 1771771500015,
+        "nextRunAtMs": 1771945200000,
+        "lastRunAtMs": 1771858927022,
         "lastStatus": "ok",
-        "lastDurationMs": 79673,
-        "consecutiveErrors": 0
+        "lastDurationMs": 103068,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
+      }
+    },
+    {
+      "id": "a6d567cb-934f-46ce-8c29-4e3681fb8d7a",
+      "agentId": "slack-generic-3",
+      "name": "Service Status Daily - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771268640413,
+      "updatedAtMs": 1771858927022,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 7 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔧 DAILY SERVICE HEALTH CHECK\n\nRun comprehensive health checks for Watsi infrastructure:\n\n**1. Website Workflow Tests (watsi.ai)**\nUse browser automation to:\n- Load watsi.ai and verify it loads correctly\n- Check key pages load (/, /pricing, /blog)\n- Test any public-facing forms or CTAs\n- Measure load times\n\n**2. GCP Status**\n- Check GCP status page for App Engine, Cloud Run, Cloud SQL\n- Note any incidents affecting us-central1 or our services\n\n**3. Supabase Status**\n- Check Supabase status page\n- Verify database connectivity if possible\n\n**4. Vercel Status**\n- Check Vercel status page\n- Note any deployment or edge network issues\n\n**Deliverable:**\n✅ **Daily Health Report**\n\n| Service | Status | Notes |\n|---------|--------|-------|\n| watsi.ai | ✅/⚠️/❌ | Load time, any errors |\n| GCP | ✅/⚠️/❌ | Incidents |\n| Supabase | ✅/⚠️/❌ | Incidents |\n| Vercel | ✅/⚠️/❌ | Incidents |\n\n**Issues Found:** (if any)\n**Action Items:** (if any)\n\nThe report will be automatically delivered to Slack.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "C0AF4R40NDC",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1771945200000,
+        "lastRunAtMs": 1771858854534,
+        "lastStatus": "ok",
+        "lastDurationMs": 72488,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
       }
     },
     {
@@ -281,7 +259,7 @@
       "name": "Features Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640420,
-      "updatedAtMs": 1771776040318,
+      "updatedAtMs": 1771862543603,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -302,11 +280,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771862400000,
-        "lastRunAtMs": 1771776000011,
+        "nextRunAtMs": 1771948800000,
+        "lastRunAtMs": 1771862521740,
         "lastStatus": "ok",
-        "lastDurationMs": 40307,
-        "consecutiveErrors": 0
+        "lastDurationMs": 21863,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
       }
     },
     {
@@ -315,7 +296,7 @@
       "name": "Content Analysis Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268369155,
-      "updatedAtMs": 1771779687825,
+      "updatedAtMs": 1771866131248,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -336,130 +317,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771866000000,
-        "lastRunAtMs": 1771779600012,
+        "nextRunAtMs": 1771952400000,
+        "lastRunAtMs": 1771866030393,
         "lastStatus": "ok",
-        "lastDurationMs": 87813,
-        "consecutiveErrors": 0
-      }
-    },
-    {
-      "id": "05b74c8a-69ac-4402-a71f-34b1e02a8e1c",
-      "agentId": "slack-generic-3",
-      "name": "Competitor Analysis Weekly - Watsi",
-      "enabled": true,
-      "createdAtMs": 1771268369147,
-      "updatedAtMs": 1771691598409,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 10 * * 1",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🔍 WEEKLY COMPETITOR ANALYSIS\n\nRun a comprehensive competitor analysis for Watsi:\n\n**Core Competitors:**\n1. Wati (wati.io)\n2. Vambe (vambe.ai)\n3. Dondy (dondy.net)\n\n**Research Top 10 Additional Competitors:**\n- Search for WhatsApp Business API platforms\n- AI chatbot solutions for e-commerce\n- Conversational commerce platforms in LATAM\n\n**For each competitor, analyze:**\n- New features/announcements this week\n- Pricing changes\n- Social media activity & engagement\n- Blog/content published\n- Job postings (indicates growth areas)\n- Customer reviews/complaints\n\n**Deliverable:**\n- Executive summary (3-5 bullet points)\n- Detailed breakdown by competitor\n- Opportunities/threats for Watsi\n- Action items\n\nThe analysis will be automatically delivered to Slack.",
-        "timeoutSeconds": 600
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AG18E3XUY"
-      },
-      "state": {
-        "nextRunAtMs": 1771869600000
-      }
-    },
-    {
-      "id": "ca49a24c-3481-4eee-a908-b8f5e7073de9",
-      "agentId": "main",
-      "name": "Watsi Blog Publish - Monday [RAND]",
-      "enabled": true,
-      "createdAtMs": 1770935377481,
-      "updatedAtMs": 1771813877003,
-      "schedule": {
-        "kind": "cron",
-        "expr": "44 10 * * 1"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post with feature image.\n\n**Steps:**\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or oldest unpublished draft\n3. **Generate feature image if missing:**\n   - Use OpenAI DALL-E 3 API (key in ~/.openclaw/openclaw.json under skills.entries.openai-image-gen.apiKey)\n   - Prompt: \"Professional business illustration showing [POST TOPIC], warm green white WhatsApp colors, modern flat design, soft gradients, clean minimal, no text no words no letters\"\n   - Upload to Ghost and set as feature_image\n4. Publish the EN post (set status to 'published')\n5. Publish the matching ES post\n6. Update `memory/blog-queue.md` to mark as published\n7. **Notify Slack** - Post to channel C0AF2KMB2G5:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n8. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with link\n\n**Ghost Admin Key:** 698ae4d81ba8bd00010a87d9:8ebd5dabfae2535a879a4ebb3ac5b3f691d99dd2f19f055b8f603fdb3214a53b",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1771872240000,
-        "lastRunAtMs": 1771262580016,
-        "lastStatus": "ok",
-        "lastDurationMs": 128817,
-        "consecutiveErrors": 0
-      }
-    },
-    {
-      "id": "98a54e69-879f-4e6f-955f-80bdab136d97",
-      "name": "Daily Dev QA Testing",
-      "description": "Daily QA testing of features deployed to watsi.dev",
-      "enabled": true,
-      "createdAtMs": 1771813503236,
-      "updatedAtMs": 1771813503236,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 18 * * *"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run daily QA testing on watsi.dev for all tickets completed today.\n\nTASK:\n1. Query Linear via Claude MCP for all tickets moved to 'Done' status today\n2. For each ticket:\n   - Open watsi.dev in browser\n   - Navigate to the relevant feature/page based on ticket description\n   - Verify the feature works as described\n   - Record: pass/fail + brief test description (1 sentence)\n3. Compile QA report\n\nREPORT FORMAT (send to Slack #0-nora):\n🧪 Daily QA Report - [DATE]\n\n✅ WAT-XX: [Title] - PASSED\n   Test: [Brief description of how it was tested]\n\n❌ WAT-YY: [Title] - FAILED  \n   Test: [Brief description]\n   Issue: [What went wrong]\n\nSummary: X/Y tests passed\n\nAlso save the report to memory/qa-reports/YYYY-MM-DD.md"
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack"
-      },
-      "state": {
-        "nextRunAtMs": 1771898400000
-      }
-    },
-    {
-      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
-      "agentId": "main",
-      "name": "Nora Self-Improvement Session",
-      "enabled": true,
-      "createdAtMs": 1770614435519,
-      "updatedAtMs": 1771486233160,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 21 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message to +16197735958 with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1771909200000,
-        "lastRunAtMs": 1771479072109,
-        "lastStatus": "ok",
-        "lastDurationMs": 37153,
-        "consecutiveErrors": 0
+        "lastDurationMs": 100855,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
       }
     },
     {
@@ -491,6 +356,71 @@
         "lastRunAtMs": 1771371660019,
         "lastStatus": "ok",
         "lastDurationMs": 100587,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "98a54e69-879f-4e6f-955f-80bdab136d97",
+      "name": "Daily Dev QA Testing",
+      "description": "Daily QA testing of features deployed to watsi.dev",
+      "enabled": true,
+      "createdAtMs": 1771813503236,
+      "updatedAtMs": 1771898568634,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 18 * * *"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run daily QA testing on watsi.dev for all tickets completed today.\n\nTASK:\n1. Query Linear via Claude MCP for all tickets moved to 'Done' status today\n2. For each ticket:\n   - Open watsi.dev in browser\n   - Navigate to the relevant feature/page based on ticket description\n   - Verify the feature works as described\n   - Record: pass/fail + brief test description (1 sentence)\n3. Compile QA report\n\nREPORT FORMAT (send to Slack #0-nora):\n🧪 Daily QA Report - [DATE]\n\n✅ WAT-XX: [Title] - PASSED\n   Test: [Brief description of how it was tested]\n\n❌ WAT-YY: [Title] - FAILED  \n   Test: [Brief description]\n   Issue: [What went wrong]\n\nSummary: X/Y tests passed\n\nAlso save the report to memory/qa-reports/YYYY-MM-DD.md"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack"
+      },
+      "state": {
+        "nextRunAtMs": 1771984800000,
+        "lastRunAtMs": 1771898481775,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 86859,
+        "lastError": "cron delivery target is missing",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
+      }
+    },
+    {
+      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
+      "agentId": "main",
+      "name": "Nora Self-Improvement Session",
+      "enabled": true,
+      "createdAtMs": 1770614435519,
+      "updatedAtMs": 1771486233160,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 21 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message to +16197735958 with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1771995600000,
+        "lastRunAtMs": 1771479072109,
+        "lastStatus": "ok",
+        "lastDurationMs": 37153,
         "consecutiveErrors": 0
       }
     },
@@ -761,6 +691,77 @@
         "lastDurationMs": 900023,
         "consecutiveErrors": 1,
         "lastError": "Error: cron: job execution timed out"
+      }
+    },
+    {
+      "id": "05b74c8a-69ac-4402-a71f-34b1e02a8e1c",
+      "agentId": "slack-generic-3",
+      "name": "Competitor Analysis Weekly - Watsi",
+      "enabled": true,
+      "createdAtMs": 1771268369147,
+      "updatedAtMs": 1771869801022,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 10 * * 1",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔍 WEEKLY COMPETITOR ANALYSIS\n\nRun a comprehensive competitor analysis for Watsi:\n\n**Core Competitors:**\n1. Wati (wati.io)\n2. Vambe (vambe.ai)\n3. Dondy (dondy.net)\n\n**Research Top 10 Additional Competitors:**\n- Search for WhatsApp Business API platforms\n- AI chatbot solutions for e-commerce\n- Conversational commerce platforms in LATAM\n\n**For each competitor, analyze:**\n- New features/announcements this week\n- Pricing changes\n- Social media activity & engagement\n- Blog/content published\n- Job postings (indicates growth areas)\n- Customer reviews/complaints\n\n**Deliverable:**\n- Executive summary (3-5 bullet points)\n- Detailed breakdown by competitor\n- Opportunities/threats for Watsi\n- Action items\n\nThe analysis will be automatically delivered to Slack.",
+        "timeoutSeconds": 600
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "C0AG18E3XUY"
+      },
+      "state": {
+        "nextRunAtMs": 1772474400000,
+        "lastRunAtMs": 1771869600011,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 201011,
+        "lastError": "cron announce delivery failed",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
+      }
+    },
+    {
+      "id": "ca49a24c-3481-4eee-a908-b8f5e7073de9",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Monday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377481,
+      "updatedAtMs": 1771872429326,
+      "schedule": {
+        "kind": "cron",
+        "expr": "44 10 * * 1"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post with feature image.\n\n**Steps:**\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or oldest unpublished draft\n3. **Generate feature image if missing:**\n   - Use OpenAI DALL-E 3 API (key in ~/.openclaw/openclaw.json under skills.entries.openai-image-gen.apiKey)\n   - Prompt: \"Professional business illustration showing [POST TOPIC], warm green white WhatsApp colors, modern flat design, soft gradients, clean minimal, no text no words no letters\"\n   - Upload to Ghost and set as feature_image\n4. Publish the EN post (set status to 'published')\n5. Publish the matching ES post\n6. Update `memory/blog-queue.md` to mark as published\n7. **Notify Slack** - Post to channel C0AF2KMB2G5:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n8. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with link\n\n**Ghost Admin Key:** 698ae4d81ba8bd00010a87d9:8ebd5dabfae2535a879a4ebb3ac5b3f691d99dd2f19f055b8f603fdb3214a53b",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1772477040000,
+        "lastRunAtMs": 1771872240014,
+        "lastStatus": "ok",
+        "lastDurationMs": 189312,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
       }
     },
     {
