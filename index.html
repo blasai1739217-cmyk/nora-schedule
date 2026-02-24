@@ -64,28 +64,20 @@
       margin-bottom: 1rem;
     }
     .card-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
     }
-    .card-title { font-weight: 600; font-size: 1.1rem; }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
     .card-schedule {
       display: inline-block;
-      background: rgba(88, 166, 255, 0.15);
-      color: var(--accent);
+      background: var(--border);
+      color: var(--text);
       padding: 0.25rem 0.75rem;
       border-radius: 20px;
       font-size: 0.8rem;
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-    .card-schedule.random {
-      background: rgba(163, 113, 247, 0.15);
-      color: var(--purple);
+      margin-bottom: 0.75rem;
     }
     .card-description {
       color: var(--text-muted);
@@ -99,20 +91,22 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
-    .delivery-badge {
-      padding: 0.2rem 0.5rem;
+    .tag {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
       border-radius: 4px;
       font-size: 0.75rem;
       font-weight: 500;
     }
-    .delivery-whatsapp { background: rgba(37, 211, 102, 0.2); color: #25d366; }
-    .delivery-slack { background: rgba(74, 21, 75, 0.3); color: #e01e5a; }
-    .delivery-internal { background: rgba(139, 148, 158, 0.2); color: var(--text-muted); }
+    .tag-daily { background: rgba(63, 185, 80, 0.2); color: var(--green); }
+    .tag-weekly { background: rgba(163, 113, 247, 0.2); color: var(--purple); }
+    .tag-interval { background: rgba(240, 136, 62, 0.2); color: var(--orange); }
+    .tag-rand { background: rgba(219, 97, 162, 0.2); color: var(--pink); }
     
     .section-title {
       font-size: 1.3rem;
       font-weight: 600;
-      margin: 2.5rem 0 1.5rem;
+      margin: 2rem 0 1rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -125,35 +119,48 @@
       padding-top: 2rem;
       border-top: 1px solid var(--border);
     }
-    .timeline h2 { margin-bottom: 1.5rem; }
-    .timeline-row {
-      display: flex;
-      align-items: center;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .timeline-time {
-      width: 100px;
+    .timeline-title {
+      font-size: 1.5rem;
       font-weight: 600;
-      color: var(--accent);
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
-    .timeline-event { flex: 1; }
-    .timeline-badge {
-      font-size: 0.75rem;
-      padding: 0.2rem 0.5rem;
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(24, 1fr);
+      gap: 2px;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-hour {
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      padding: 0.25rem 0;
+    }
+    .timeline-bar {
+      height: 8px;
       border-radius: 4px;
-      margin-left: 0.5rem;
+      background: var(--border);
+    }
+    .timeline-bar.active {
+      background: var(--accent);
+    }
+    .timeline-bar.rand {
+      background: linear-gradient(90deg, var(--pink), var(--purple));
     }
     
     footer {
-      margin-top: 4rem;
       text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
+      margin-top: 3rem;
       padding-top: 2rem;
       border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
     }
-    footer a { color: var(--accent); text-decoration: none; }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
     footer a:hover { text-decoration: underline; }
   </style>
 </head>
@@ -161,256 +168,239 @@
   <div class="container">
     <header>
       <h1>🗓️ Nora's Schedule</h1>
-      <p class="subtitle">Automated tasks & cron jobs dashboard</p>
-      <p class="last-updated">Last updated: Tuesday, February 24, 2026 at 5:00 AM PST</p>
+      <p class="subtitle">Automated tasks running on OpenClaw</p>
+      <p class="last-updated">Last updated: Tuesday, February 24, 2026 at 5:30 AM PST</p>
     </header>
 
-    <section>
-      <h2 class="section-title">📅 Daily Jobs</h2>
-      <div class="grid">
-        
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(88, 166, 255, 0.15);">📊</div>
-            <span class="card-title">Nora Dashboard Update</span>
-          </div>
-          <span class="card-schedule">5:00 AM PST</span>
-          <p class="card-description">Regenerate this cron dashboard and push to GitHub Pages.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-internal">Internal</span>
-            <span>→ GitHub Pages</span>
-          </div>
+    <h2 class="section-title">☀️ Morning Jobs</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📊</span>
+          <span class="card-title">Nora Dashboard Update</span>
         </div>
+        <span class="card-schedule">5:00 AM PST</span>
+        <span class="tag tag-daily">Daily</span>
+        <p class="card-description">Regenerate this cron dashboard and push to GitHub Pages.</p>
+        <div class="card-delivery">📍 GitHub Pages</div>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(63, 185, 80, 0.15);">📈</div>
-            <span class="card-title">PostHog Daily Report</span>
-          </div>
-          <span class="card-schedule">6:15 AM PST</span>
-          <p class="card-description">Pull PostHog metrics for watsi.ai: visitors, pageviews, sessions, top pages, geography, devices, sources, errors. Compares to previous day.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-slack">Slack</span>
-            <span>→ #notif-posthog-stats-daily-watsi</span>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📈</span>
+          <span class="card-title">PostHog Daily Report</span>
         </div>
+        <span class="card-schedule">6:15 AM PST</span>
+        <span class="tag tag-daily">Daily</span>
+        <p class="card-description">Pull PostHog metrics for watsi.ai: visitors, pageviews, sessions, top pages, geography, device breakdown, sources, errors, recordings. Compares to previous day.</p>
+        <div class="card-delivery">📍 Slack #notif-posthog-stats-daily-watsi</div>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(240, 136, 62, 0.15);">🤖</div>
-            <span class="card-title">AI Morning Briefing</span>
-          </div>
-          <span class="card-schedule">7:00 AM PST</span>
-          <p class="card-description">Search Reddit (r/MachineLearning, r/LocalLLaMA, r/artificial, r/singularity, r/ChatGPT) and X/Twitter for top 3 AI developments from last 24h.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-whatsapp">WhatsApp</span>
-            <span>→ Blas</span>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🤖</span>
+          <span class="card-title">AI Morning Briefing</span>
         </div>
+        <span class="card-schedule">7:00 AM PST</span>
+        <span class="tag tag-daily">Daily</span>
+        <p class="card-description">Search Reddit (r/MachineLearning, r/LocalLLaMA, r/artificial, r/singularity, r/ChatGPT) and X/Twitter for top 3 AI developments from last 24h.</p>
+        <div class="card-delivery">📍 WhatsApp to Blas</div>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(88, 166, 255, 0.15);">🐦</div>
-            <span class="card-title">X Feed Digest</span>
-          </div>
-          <span class="card-schedule">7:03 AM, 3:17 PM, 9:11 PM PST</span>
-          <p class="card-description">Check Blas's X timeline (latest 50 posts), summarize themes, surface top 3 tweets.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-whatsapp">WhatsApp</span>
-            <span>→ Blas</span>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📋</span>
+          <span class="card-title">Daily Check-in Planner</span>
         </div>
+        <span class="card-schedule">7:15 AM PST</span>
+        <span class="tag tag-daily">Daily</span>
+        <p class="card-description">Review Blas's calendar, check context file, generate 4 randomized check-in times for the day, create cron jobs with natural varied messages.</p>
+        <div class="card-delivery">📍 Internal (creates daily crons)</div>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(163, 113, 247, 0.15);">📋</div>
-            <span class="card-title">Daily Check-in Planner</span>
-          </div>
-          <span class="card-schedule">7:15 AM PST</span>
-          <p class="card-description">Review Blas's calendar, check context, generate 4 randomized check-in times for the day within defined windows.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-internal">Internal</span>
-            <span>→ Creates daily check-in crons</span>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📰</span>
+          <span class="card-title">X Feed Digest (Morning)</span>
         </div>
+        <span class="card-schedule">7:03 AM PST</span>
+        <span class="tag tag-daily">Daily</span>
+        <p class="card-description">Check Blas's X timeline (latest 50 posts), summarize themes, surface top 3 tweets.</p>
+        <div class="card-delivery">📍 WhatsApp to Blas</div>
+      </div>
+    </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(163, 113, 247, 0.15);">💬</div>
-            <span class="card-title">Blas Check-ins</span>
-          </div>
-          <span class="card-schedule random">🎲 4x Daily (Randomized)</span>
-          <p class="card-description">Natural friend check-ins via WhatsApp. Topics: day progress, Watsi blockers, gym, Sora, whatever's relevant. Proactive on Watsi needs.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-whatsapp">WhatsApp</span>
-            <span>→ Blas</span>
-          </div>
+    <h2 class="section-title">🌤️ Daytime Jobs</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">👋</span>
+          <span class="card-title">Blas Check-ins</span>
         </div>
+        <span class="card-schedule">8am-10am, 12pm-3pm, 5pm-8pm, 9pm-11pm</span>
+        <span class="tag tag-rand">Randomized</span>
+        <p class="card-description">Natural friend check-ins via WhatsApp. Topics: day progress, Watsi blockers, gym, Sora. Proactive about Watsi needs.</p>
+        <div class="card-delivery">📍 WhatsApp to Blas (+16197735958)</div>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(219, 97, 162, 0.15);">🧪</div>
-            <span class="card-title">Daily Dev QA Testing</span>
-          </div>
-          <span class="card-schedule">6:00 PM PST</span>
-          <p class="card-description">Query Linear for tickets moved to "Done" today, open watsi.dev, verify each feature works, add comments to Linear tickets with test outcomes.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-slack">Slack</span>
-            <span>→ #0-notif-overview-daily + Linear comments</span>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📰</span>
+          <span class="card-title">X Feed Digest (Afternoon)</span>
         </div>
+        <span class="card-schedule">3:17 PM PST</span>
+        <span class="tag tag-daily">Daily</span>
+        <p class="card-description">Check Blas's X timeline (latest 50 posts), summarize themes, surface top 3 tweets.</p>
+        <div class="card-delivery">📍 WhatsApp to Blas</div>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(63, 185, 80, 0.15);">🧠</div>
-            <span class="card-title">Nora Self-Improvement Session</span>
-          </div>
-          <span class="card-schedule">9:00 PM PST</span>
-          <p class="card-description">Search X for AI assistant tips, review bottleneck log, research OpenClaw community for solutions, run openclaw update, report suggestions.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-whatsapp">WhatsApp</span>
-            <span>→ Blas</span>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">✍️</span>
+          <span class="card-title">Watsi Blog Publish</span>
         </div>
+        <span class="card-schedule">9am-5pm (varies daily)</span>
+        <span class="tag tag-rand">Randomized Weekly</span>
+        <p class="card-description">Publish one scheduled blog post from Ghost drafts and notify Blas.</p>
+        <div class="card-delivery">📍 WhatsApp "✅ Published: [Title]"</div>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(240, 136, 62, 0.15);">✍️</div>
-            <span class="card-title">Watsi Blog Publish</span>
-          </div>
-          <span class="card-schedule random">🎲 Daily (9am-5pm, Randomized)</span>
-          <p class="card-description">Publish one scheduled blog post from Ghost drafts, notify Blas with the link.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-whatsapp">WhatsApp</span>
-            <span>→ Blas</span>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🔧</span>
+          <span class="card-title">Linear Ticket Auto-Implementer</span>
         </div>
-
+        <span class="card-schedule">Every 30 minutes</span>
+        <span class="tag tag-interval">Interval</span>
+        <p class="card-description">Check for active workers, spawn Claude CLI to get top Linear ticket, implement in ~/Documents/dev/watsi/, commit changes, update Linear status.</p>
+        <div class="card-delivery">📍 Slack #notif-linear-tickets-watsi</div>
       </div>
-    </section>
+    </div>
 
-    <section>
-      <h2 class="section-title">⚡ Frequent Jobs</h2>
-      <div class="grid">
-        
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(210, 153, 34, 0.15);">🎫</div>
-            <span class="card-title">Linear Ticket Auto-Implementer</span>
-          </div>
-          <span class="card-schedule">Every 30 minutes</span>
-          <p class="card-description">Check for active workers, spawn Claude CLI to get top Linear ticket, implement in ~/Documents/dev/watsi/, commit changes, update Linear status.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-slack">Slack</span>
-            <span>→ #notif-linear-tickets-watsi</span>
-          </div>
+    <h2 class="section-title">🌙 Evening Jobs</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🧪</span>
+          <span class="card-title">Daily Dev QA Testing</span>
         </div>
-
+        <span class="card-schedule">6:00 PM PST</span>
+        <span class="tag tag-daily">Daily</span>
+        <p class="card-description">Query Linear for tickets moved to Done today, verify features on watsi.dev, take screenshots, record pass/fail, add comments to Linear tickets.</p>
+        <div class="card-delivery">📍 Slack #0-notif-overview-daily + Linear comments + WhatsApp</div>
       </div>
-    </section>
 
-    <section>
-      <h2 class="section-title">📆 Weekly Jobs</h2>
-      <div class="grid">
-        
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(163, 113, 247, 0.15);">🎲</div>
-            <span class="card-title">Weekly Cron Randomizer</span>
-          </div>
-          <span class="card-schedule">Sundays 6:30 PM PST</span>
-          <p class="card-description">Randomize all [RAND] tagged cron jobs for the coming week. Updates check-in times and blog publish schedules.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-whatsapp">WhatsApp</span>
-            <span>→ Blas (new schedule)</span>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📰</span>
+          <span class="card-title">X Feed Digest (Evening)</span>
         </div>
+        <span class="card-schedule">9:11 PM PST</span>
+        <span class="tag tag-daily">Daily</span>
+        <p class="card-description">Check Blas's X timeline (latest 50 posts), summarize themes, surface top 3 tweets.</p>
+        <div class="card-delivery">📍 WhatsApp to Blas</div>
+      </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-icon" style="background: rgba(88, 166, 255, 0.15);">📝</div>
-            <span class="card-title">Watsi Blog Generation</span>
-          </div>
-          <span class="card-schedule">Sundays 7:00 PM PST</span>
-          <p class="card-description">Research 7 trending topics, generate blog posts (EN + ES + images), save as drafts in Ghost for the week.</p>
-          <div class="card-delivery">
-            <span class="delivery-badge delivery-whatsapp">WhatsApp</span>
-            <span>→ Blas (topics queued)</span>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🧠</span>
+          <span class="card-title">Nora Self-Improvement Session</span>
         </div>
+        <span class="card-schedule">9:00 PM PST</span>
+        <span class="tag tag-daily">Daily</span>
+        <p class="card-description">Search X for AI assistant tips, review bottleneck log, research OpenClaw community for solutions, run openclaw update, report suggestions.</p>
+        <div class="card-delivery">📍 WhatsApp to Blas</div>
+      </div>
+    </div>
 
+    <h2 class="section-title">📅 Weekly Jobs</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎲</span>
+          <span class="card-title">Weekly Cron Randomizer</span>
+        </div>
+        <span class="card-schedule">Sundays 6:30 PM PST</span>
+        <span class="tag tag-weekly">Weekly</span>
+        <p class="card-description">Randomize all [RAND] tagged cron jobs for the coming week.</p>
+        <div class="card-delivery">📍 WhatsApp with new schedule</div>
       </div>
-    </section>
 
-    <section class="timeline">
-      <h2 class="section-title">⏰ Daily Timeline</h2>
-      
-      <div class="timeline-row">
-        <span class="timeline-time">5:00 AM</span>
-        <span class="timeline-event">📊 Nora Dashboard Update</span>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">✍️</span>
+          <span class="card-title">Watsi Blog Generation</span>
+        </div>
+        <span class="card-schedule">Sundays 7:00 PM PST</span>
+        <span class="tag tag-weekly">Weekly</span>
+        <p class="card-description">Research 7 trending topics, generate blog posts (EN + ES + images), save as drafts in Ghost.</p>
+        <div class="card-delivery">📍 WhatsApp with topics queued</div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-time">6:15 AM</span>
-        <span class="timeline-event">📈 PostHog Daily Report</span>
+    </div>
+
+    <div class="timeline">
+      <h2 class="timeline-title">📊 Daily Activity Timeline (PST)</h2>
+      <div class="timeline-grid">
+        <div class="timeline-hour">0</div>
+        <div class="timeline-hour">1</div>
+        <div class="timeline-hour">2</div>
+        <div class="timeline-hour">3</div>
+        <div class="timeline-hour">4</div>
+        <div class="timeline-hour">5</div>
+        <div class="timeline-hour">6</div>
+        <div class="timeline-hour">7</div>
+        <div class="timeline-hour">8</div>
+        <div class="timeline-hour">9</div>
+        <div class="timeline-hour">10</div>
+        <div class="timeline-hour">11</div>
+        <div class="timeline-hour">12</div>
+        <div class="timeline-hour">13</div>
+        <div class="timeline-hour">14</div>
+        <div class="timeline-hour">15</div>
+        <div class="timeline-hour">16</div>
+        <div class="timeline-hour">17</div>
+        <div class="timeline-hour">18</div>
+        <div class="timeline-hour">19</div>
+        <div class="timeline-hour">20</div>
+        <div class="timeline-hour">21</div>
+        <div class="timeline-hour">22</div>
+        <div class="timeline-hour">23</div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-time">7:00 AM</span>
-        <span class="timeline-event">🤖 AI Morning Briefing</span>
+      <div class="timeline-grid">
+        <div class="timeline-bar"></div>
+        <div class="timeline-bar"></div>
+        <div class="timeline-bar"></div>
+        <div class="timeline-bar"></div>
+        <div class="timeline-bar"></div>
+        <div class="timeline-bar active" title="5am: Dashboard Update"></div>
+        <div class="timeline-bar active" title="6am: PostHog Report"></div>
+        <div class="timeline-bar active" title="7am: AI Briefing, X Digest, Check-in Planner"></div>
+        <div class="timeline-bar rand" title="8am: Check-in window"></div>
+        <div class="timeline-bar rand" title="9am: Check-in + Blog publish window"></div>
+        <div class="timeline-bar rand" title="10am: Check-in window end"></div>
+        <div class="timeline-bar"></div>
+        <div class="timeline-bar rand" title="12pm: Check-in window"></div>
+        <div class="timeline-bar rand" title="1pm: Check-in window"></div>
+        <div class="timeline-bar rand" title="2pm: Check-in window"></div>
+        <div class="timeline-bar active" title="3pm: X Digest + Check-in"></div>
+        <div class="timeline-bar rand" title="4pm: Blog publish window"></div>
+        <div class="timeline-bar rand" title="5pm: Check-in window"></div>
+        <div class="timeline-bar active" title="6pm: QA Testing + Check-in"></div>
+        <div class="timeline-bar rand" title="7pm: Check-in window"></div>
+        <div class="timeline-bar rand" title="8pm: Check-in window end"></div>
+        <div class="timeline-bar active" title="9pm: Self-Improvement + X Digest + Check-in"></div>
+        <div class="timeline-bar rand" title="10pm: Check-in window"></div>
+        <div class="timeline-bar rand" title="11pm: Check-in window end"></div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-time">7:03 AM</span>
-        <span class="timeline-event">🐦 X Feed Digest (1/3)</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">7:15 AM</span>
-        <span class="timeline-event">📋 Daily Check-in Planner</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">8-10 AM</span>
-        <span class="timeline-event">💬 Blas Check-in <span class="timeline-badge" style="background: rgba(163, 113, 247, 0.15); color: #a371f7;">🎲 Random</span></span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">9-5 PM</span>
-        <span class="timeline-event">✍️ Blog Publish <span class="timeline-badge" style="background: rgba(163, 113, 247, 0.15); color: #a371f7;">🎲 Random</span></span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">12-3 PM</span>
-        <span class="timeline-event">💬 Blas Check-in <span class="timeline-badge" style="background: rgba(163, 113, 247, 0.15); color: #a371f7;">🎲 Random</span></span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">3:17 PM</span>
-        <span class="timeline-event">🐦 X Feed Digest (2/3)</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">5-8 PM</span>
-        <span class="timeline-event">💬 Blas Check-in <span class="timeline-badge" style="background: rgba(163, 113, 247, 0.15); color: #a371f7;">🎲 Random</span></span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">6:00 PM</span>
-        <span class="timeline-event">🧪 Daily Dev QA Testing</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">9:00 PM</span>
-        <span class="timeline-event">🧠 Nora Self-Improvement Session</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">9:11 PM</span>
-        <span class="timeline-event">🐦 X Feed Digest (3/3)</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">9-11 PM</span>
-        <span class="timeline-event">💬 Blas Check-in <span class="timeline-badge" style="background: rgba(163, 113, 247, 0.15); color: #a371f7;">🎲 Random</span></span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">Every 30m</span>
-        <span class="timeline-event">🎫 Linear Ticket Auto-Implementer</span>
-      </div>
-      
-    </section>
+      <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">
+        <span style="display: inline-block; width: 12px; height: 12px; background: var(--accent); border-radius: 2px; margin-right: 4px;"></span> Fixed schedule
+        <span style="display: inline-block; width: 12px; height: 12px; background: linear-gradient(90deg, var(--pink), var(--purple)); border-radius: 2px; margin-left: 1rem; margin-right: 4px;"></span> Randomized window
+      </p>
+    </div>
 
     <footer>
-      <p>Powered by <a href="https://openclaw.ai">OpenClaw</a> • Built by Nora for Avocado Labs</p>
-      <p style="margin-top: 0.5rem;">Dashboard auto-updates daily at 5:00 AM PST</p>
+      <p>Powered by <a href="https://openclaw.ai">OpenClaw</a> • Built by Nora for <a href="https://watsi.ai">Watsi</a></p>
+      <p style="margin-top: 0.5rem;">Auto-updated daily at 5:00 AM PST</p>
     </footer>
   </div>
 </body>
