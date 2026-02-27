@@ -17,143 +17,151 @@
       --purple: #a371f7;
       --pink: #db61a2;
       --orange: #f0883e;
-      --red: #f85149;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
       padding: 2rem;
+      line-height: 1.5;
     }
     .container { max-width: 1400px; margin: 0 auto; }
     header {
-      text-align: center;
-      margin-bottom: 3rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-    }
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-    .subtitle { color: var(--text-muted); font-size: 1.1rem; }
-    .last-updated {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-    .section {
-      margin-bottom: 3rem;
-    }
-    .section-title {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
     }
+    h1 { font-size: 1.75rem; font-weight: 600; }
+    .updated { color: var(--text-muted); font-size: 0.875rem; }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
       gap: 1.5rem;
     }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: border-color 0.2s;
+      border-radius: 8px;
+      padding: 1.25rem;
     }
-    .card:hover { border-color: var(--accent); }
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-    }
-    .card-title {
-      font-size: 1.1rem;
+    .card h2 {
+      font-size: 1rem;
       font-weight: 600;
-      color: var(--text);
-    }
-    .badge {
-      font-size: 0.7rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 6px;
-      font-weight: 500;
-      text-transform: uppercase;
-    }
-    .badge-daily { background: var(--green); color: #000; }
-    .badge-weekly { background: var(--purple); color: #fff; }
-    .badge-frequent { background: var(--orange); color: #000; }
-    .badge-random { background: var(--pink); color: #fff; }
-    .badge-nightly { background: var(--yellow); color: #000; }
-    .schedule {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--accent);
-      font-size: 0.9rem;
-      margin-bottom: 0.75rem;
-    }
-    .schedule-icon { font-size: 1rem; }
-    .task-desc {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 0.75rem;
-    }
-    .delivery {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--border);
-    }
-    .delivery-channel {
-      background: var(--border);
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-    }
-    .timeline {
-      margin-top: 2rem;
-      padding: 1.5rem;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-    }
-    .timeline-title {
-      font-size: 1.2rem;
       margin-bottom: 1rem;
-    }
-    .timeline-row {
       display: flex;
       align-items: center;
-      padding: 0.5rem 0;
+      gap: 0.5rem;
+    }
+    .card h2 .icon { font-size: 1.25rem; }
+    .job {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
       border-bottom: 1px solid var(--border);
     }
-    .timeline-row:last-child { border-bottom: none; }
-    .timeline-time {
-      width: 100px;
-      font-weight: 600;
+    .job:last-child { border-bottom: none; }
+    .time {
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.8rem;
       color: var(--accent);
+      min-width: 70px;
+      padding-top: 2px;
     }
-    .timeline-job { flex: 1; }
-    footer {
-      text-align: center;
-      padding-top: 2rem;
-      margin-top: 2rem;
-      border-top: 1px solid var(--border);
+    .job-info { flex: 1; }
+    .job-name { font-weight: 500; font-size: 0.9rem; }
+    .job-desc { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem; }
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+      font-weight: 500;
+    }
+    .tag-rand { background: var(--purple); color: white; }
+    .tag-daily { background: var(--green); color: white; }
+    .tag-weekly { background: var(--orange); color: white; }
+    .tag-30m { background: var(--pink); color: white; }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-top: 1rem;
+    }
+    .hour-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hour-label {
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.7rem;
       color: var(--text-muted);
-      font-size: 0.85rem;
+      width: 50px;
+      text-align: right;
+    }
+    .hour-bar {
+      flex: 1;
+      height: 24px;
+      background: rgba(88, 166, 255, 0.1);
+      border-radius: 4px;
+      position: relative;
+      display: flex;
+      gap: 2px;
+      padding: 2px;
+    }
+    .event {
+      height: 20px;
+      border-radius: 3px;
+      font-size: 0.65rem;
+      padding: 0 4px;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: default;
+    }
+    .event:hover { filter: brightness(1.2); }
+    .cat-briefing { background: var(--accent); }
+    .cat-ads { background: var(--orange); }
+    .cat-analytics { background: var(--green); }
+    .cat-content { background: var(--purple); }
+    .cat-dev { background: var(--pink); }
+    .cat-checkin { background: var(--yellow); }
+    .cat-system { background: var(--text-muted); }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+    footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
     }
     footer a { color: var(--accent); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
@@ -162,472 +170,330 @@
 <body>
   <div class="container">
     <header>
-      <h1>🤖 Nora's Schedule Dashboard</h1>
-      <p class="subtitle">AI assistant cron jobs and automated tasks</p>
-      <p class="last-updated">Last updated: Thursday, February 26, 2026 at 5:00 AM PST</p>
+      <h1>🗓️ Nora's Schedule Dashboard</h1>
+      <div class="updated">Last updated: Feb 27, 2026 @ 5:00 AM PST</div>
     </header>
 
-    <!-- Daily Timeline -->
-    <div class="timeline">
-      <h3 class="timeline-title">📅 Daily Schedule (PST)</h3>
-      <div class="timeline-row">
-        <span class="timeline-time">12:05 AM</span>
-        <span class="timeline-job">🧪 E2E Tests: Public Pages</span>
+    <div class="grid">
+      <!-- Daily Timeline -->
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2><span class="icon">📊</span> Daily Timeline (PST)</h2>
+        <div class="timeline">
+          <div class="hour-row">
+            <span class="hour-label">12 AM</span>
+            <div class="hour-bar">
+              <div class="event cat-dev" style="flex: 1;" title="E2E Tests (12:05-1:45 AM)">E2E Tests</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <span class="hour-label">5 AM</span>
+            <div class="hour-bar">
+              <div class="event cat-system" style="flex: 1;" title="Dashboard Update">Dashboard</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <span class="hour-label">6 AM</span>
+            <div class="hour-bar">
+              <div class="event cat-analytics" style="flex: 0.25;" title="PostHog Report (6:15 AM)">PostHog</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <span class="hour-label">7 AM</span>
+            <div class="hour-bar">
+              <div class="event cat-briefing" style="flex: 0.5;" title="AI Morning Briefing (7:00 AM)">AI Briefing</div>
+              <div class="event cat-briefing" style="flex: 0.1;" title="X Feed Digest (7:03 AM)">X</div>
+              <div class="event cat-system" style="flex: 0.25;" title="Check-in Planner (7:15 AM)">Planner</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <span class="hour-label">8 AM</span>
+            <div class="hour-bar">
+              <div class="event cat-ads" style="flex: 1;" title="Meta Ads Report (8:00 AM)">Meta Report</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <span class="hour-label">9 AM</span>
+            <div class="hour-bar">
+              <div class="event cat-ads" style="flex: 0.5;" title="Meta Ads Health Check (9:00 AM)">Ads Health</div>
+              <div class="event cat-checkin" style="flex: 0.5; opacity: 0.6;" title="Check-in Window (8-10 AM)">Check-in?</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <span class="hour-label">12 PM</span>
+            <div class="hour-bar">
+              <div class="event cat-checkin" style="flex: 1; opacity: 0.6;" title="Check-in Window (12-3 PM)">Check-in Window</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <span class="hour-label">2 PM</span>
+            <div class="hour-bar">
+              <div class="event cat-ads" style="flex: 0.5;" title="Meta Ads Midday Check (2:00 PM)">Ads Midday</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <span class="hour-label">3 PM</span>
+            <div class="hour-bar">
+              <div class="event cat-briefing" style="flex: 0.3;" title="X Feed Digest (3:17 PM)">X Feed</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <span class="hour-label">5-8 PM</span>
+            <div class="hour-bar">
+              <div class="event cat-checkin" style="flex: 0.5; opacity: 0.6;" title="Check-in Window (5-8 PM)">Check-in Window</div>
+              <div class="event cat-ads" style="flex: 0.3;" title="Meta Ads Evening Check (6:00 PM)">Ads Eve</div>
+              <div class="event cat-dev" style="flex: 0.3;" title="Daily QA Testing (6:00 PM)">QA</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <span class="hour-label">9 PM</span>
+            <div class="hour-bar">
+              <div class="event cat-briefing" style="flex: 0.2;" title="X Feed Digest (9:11 PM)">X</div>
+              <div class="event cat-system" style="flex: 0.5;" title="Self-Improvement Session (9:00 PM)">Self-Improve</div>
+              <div class="event cat-checkin" style="flex: 0.3; opacity: 0.6;" title="Check-in Window (9-11 PM)">Check-in?</div>
+            </div>
+          </div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot cat-briefing"></div> Briefings/News</div>
+          <div class="legend-item"><div class="legend-dot cat-ads"></div> Ads</div>
+          <div class="legend-item"><div class="legend-dot cat-analytics"></div> Analytics</div>
+          <div class="legend-item"><div class="legend-dot cat-content"></div> Content</div>
+          <div class="legend-item"><div class="legend-dot cat-dev"></div> Dev/QA</div>
+          <div class="legend-item"><div class="legend-dot cat-checkin"></div> Check-ins</div>
+          <div class="legend-item"><div class="legend-dot cat-system"></div> System</div>
+        </div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-time">12:20 AM</span>
-        <span class="timeline-job">🧪 E2E Tests: Auth Pages</span>
+
+      <!-- Morning Jobs -->
+      <div class="card">
+        <h2><span class="icon">🌅</span> Morning (5AM - 12PM)</h2>
+        <div class="job">
+          <span class="time">5:00 AM</span>
+          <div class="job-info">
+            <div class="job-name">Dashboard Update <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Regenerate this cron dashboard → GitHub Pages</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">6:15 AM</span>
+          <div class="job-info">
+            <div class="job-name">PostHog Daily Report <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Pull watsi.ai metrics → WhatsApp</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">7:00 AM</span>
+          <div class="job-info">
+            <div class="job-name">AI Morning Briefing <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Reddit + X top 3 AI news → WhatsApp</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">7:03 AM</span>
+          <div class="job-info">
+            <div class="job-name">X Feed Digest <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Blas's X timeline summary → WhatsApp</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">7:15 AM</span>
+          <div class="job-info">
+            <div class="job-name">Daily Check-in Planner <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Generate 4 random check-in times for today</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">8:00 AM</span>
+          <div class="job-info">
+            <div class="job-name">Meta Ads Daily Report <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Campaign metrics → Slack + WhatsApp</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">8-10 AM</span>
+          <div class="job-info">
+            <div class="job-name">Morning Check-in <span class="tag tag-rand">rand</span></div>
+            <div class="job-desc">Natural friend check-in → WhatsApp</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">9:00 AM</span>
+          <div class="job-info">
+            <div class="job-name">Meta Ads Health Check <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Verify all campaigns running → Slack</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">9-5 PM</span>
+          <div class="job-info">
+            <div class="job-name">Blog Publish <span class="tag tag-rand">rand</span></div>
+            <div class="job-desc">Publish scheduled Ghost post → WhatsApp</div>
+          </div>
+        </div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-time">12:30 AM</span>
-        <span class="timeline-job">🧪 E2E Tests: Dashboard Pages</span>
+
+      <!-- Afternoon Jobs -->
+      <div class="card">
+        <h2><span class="icon">☀️</span> Afternoon (12PM - 6PM)</h2>
+        <div class="job">
+          <span class="time">12-3 PM</span>
+          <div class="job-info">
+            <div class="job-name">Midday Check-in <span class="tag tag-rand">rand</span></div>
+            <div class="job-desc">Natural friend check-in → WhatsApp</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">2:00 PM</span>
+          <div class="job-info">
+            <div class="job-name">Meta Ads Midday Check <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Quick campaign verification → Slack</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">3:17 PM</span>
+          <div class="job-info">
+            <div class="job-name">X Feed Digest <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Blas's X timeline summary → WhatsApp</div>
+          </div>
+        </div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-time">12:50 AM</span>
-        <span class="timeline-job">🧪 E2E Tests: Agent Config</span>
+
+      <!-- Evening Jobs -->
+      <div class="card">
+        <h2><span class="icon">🌆</span> Evening (6PM - 12AM)</h2>
+        <div class="job">
+          <span class="time">5-8 PM</span>
+          <div class="job-info">
+            <div class="job-name">Afternoon Check-in <span class="tag tag-rand">rand</span></div>
+            <div class="job-desc">Natural friend check-in → WhatsApp</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">6:00 PM</span>
+          <div class="job-info">
+            <div class="job-name">Meta Ads Evening Check <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Evening status + spend → Slack</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">6:00 PM</span>
+          <div class="job-info">
+            <div class="job-name">Daily Dev QA Testing <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Test merged tickets on watsi.dev → Slack + Linear</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">9:00 PM</span>
+          <div class="job-info">
+            <div class="job-name">Self-Improvement Session <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Search tips, review bottlenecks, run update → WhatsApp</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">9:11 PM</span>
+          <div class="job-info">
+            <div class="job-name">X Feed Digest <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Blas's X timeline summary → WhatsApp</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">9-11 PM</span>
+          <div class="job-info">
+            <div class="job-name">Night Check-in <span class="tag tag-rand">rand</span></div>
+            <div class="job-desc">Natural friend check-in → WhatsApp</div>
+          </div>
+        </div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-time">1:15 AM</span>
-        <span class="timeline-job">🧪 E2E Tests: Workflows</span>
+
+      <!-- Continuous Jobs -->
+      <div class="card">
+        <h2><span class="icon">🔄</span> Continuous</h2>
+        <div class="job">
+          <span class="time">Every 30m</span>
+          <div class="job-info">
+            <div class="job-name">Linear Ticket Implementer <span class="tag tag-30m">30m</span></div>
+            <div class="job-desc">Auto-implement top ticket from Todo → Slack</div>
+          </div>
+        </div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-time">1:45 AM</span>
-        <span class="timeline-job">🧪 E2E Tests: Morning Report</span>
+
+      <!-- Night Jobs -->
+      <div class="card">
+        <h2><span class="icon">🌙</span> Night (12AM - 5AM)</h2>
+        <div class="job">
+          <span class="time">12:05 AM</span>
+          <div class="job-info">
+            <div class="job-name">E2E: Public Pages <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Test 7 public pages on watsi.dev</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">12:20 AM</span>
+          <div class="job-info">
+            <div class="job-name">E2E: Auth Pages <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Test signin, signup, reset-password</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">12:30 AM</span>
+          <div class="job-info">
+            <div class="job-name">E2E: Dashboard Pages <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Test playground, chats, analytics, integrations</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">12:50 AM</span>
+          <div class="job-info">
+            <div class="job-name">E2E: Agent Config <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Test 10 agent configuration pages</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">1:15 AM</span>
+          <div class="job-info">
+            <div class="job-name">E2E: Workflows <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Test signup flow, chat, language switch</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">1:45 AM</span>
+          <div class="job-info">
+            <div class="job-name">E2E: Morning Report <span class="tag tag-daily">daily</span></div>
+            <div class="job-desc">Compile test results → WhatsApp + Slack</div>
+          </div>
+        </div>
       </div>
-      <div class="timeline-row">
-        <span class="timeline-time">5:00 AM</span>
-        <span class="timeline-job">📊 Nora Dashboard Update</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">6:15 AM</span>
-        <span class="timeline-job">📈 PostHog Daily Report</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">7:00 AM</span>
-        <span class="timeline-job">📰 AI Morning Briefing</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">7:03 AM</span>
-        <span class="timeline-job">🐦 X Feed Digest (#1)</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">7:15 AM</span>
-        <span class="timeline-job">📋 Daily Check-in Planner</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">8:00 AM</span>
-        <span class="timeline-job">📊 Meta Ads Daily Report</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">8-10 AM</span>
-        <span class="timeline-job">💬 Blas Check-in (Morning) [RAND]</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">9:00 AM</span>
-        <span class="timeline-job">🔍 Meta Ads Health Check (Morning)</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">9-5 PM</span>
-        <span class="timeline-job">📝 Watsi Blog Publish [RAND]</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">12-3 PM</span>
-        <span class="timeline-job">💬 Blas Check-in (Midday) [RAND]</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">2:00 PM</span>
-        <span class="timeline-job">🔍 Meta Ads Health Check (Midday)</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">3:17 PM</span>
-        <span class="timeline-job">🐦 X Feed Digest (#2)</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">5-8 PM</span>
-        <span class="timeline-job">💬 Blas Check-in (Afternoon) [RAND]</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">6:00 PM</span>
-        <span class="timeline-job">🔍 Meta Ads Health Check (Evening) + 🧪 Daily Dev QA Testing</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">9:00 PM</span>
-        <span class="timeline-job">🧠 Nora Self-Improvement Session</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">9-11 PM</span>
-        <span class="timeline-job">💬 Blas Check-in (Night) [RAND]</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">9:11 PM</span>
-        <span class="timeline-job">🐦 X Feed Digest (#3)</span>
-      </div>
-      <div class="timeline-row">
-        <span class="timeline-time">Every 30m</span>
-        <span class="timeline-job">⚙️ Linear Ticket Auto-Implementer</span>
+
+      <!-- Weekly Jobs -->
+      <div class="card">
+        <h2><span class="icon">📅</span> Weekly (Sundays)</h2>
+        <div class="job">
+          <span class="time">6:00 PM</span>
+          <div class="job-info">
+            <div class="job-name">Meta Ads Weekly Review <span class="tag tag-weekly">weekly</span></div>
+            <div class="job-desc">Synthesize week's ads data → WhatsApp + Slack</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">6:30 PM</span>
+          <div class="job-info">
+            <div class="job-name">Weekly Cron Randomizer <span class="tag tag-weekly">weekly</span></div>
+            <div class="job-desc">Randomize [RAND] jobs for coming week</div>
+          </div>
+        </div>
+        <div class="job">
+          <span class="time">7:00 PM</span>
+          <div class="job-info">
+            <div class="job-name">Watsi Blog Generation <span class="tag tag-weekly">weekly</span></div>
+            <div class="job-desc">Research 7 topics, create EN+ES drafts in Ghost</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Morning Jobs -->
-    <section class="section">
-      <h2 class="section-title">🌅 Morning Jobs</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">AI Morning Briefing</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>7:00 AM PST</span>
-          </div>
-          <p class="task-desc">Search Reddit (r/MachineLearning, r/LocalLLaMA, r/artificial, r/singularity, r/ChatGPT) and X/Twitter for top 3 AI developments from last 24h</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> to Blas
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Daily Check-in Planner</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>7:15 AM PST</span>
-          </div>
-          <p class="task-desc">Review Blas's calendar, check context file, generate 4 randomized check-in times for the day across morning/midday/afternoon/night windows</p>
-          <div class="delivery">
-            🔒 <span class="delivery-channel">Internal</span> (crons created)
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">PostHog Daily Report</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>6:15 AM PST</span>
-          </div>
-          <p class="task-desc">Pull PostHog metrics for watsi.ai: visitors, pageviews, sessions, top pages, geography, device breakdown, sources, errors, recordings. Compare to previous day.</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> to Blas
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Meta Ads Daily Report</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>8:00 AM PST</span>
-          </div>
-          <p class="task-desc">Pull Meta Ads Manager metrics: Spend, Impressions, Reach, Clicks, CTR, CPC, Conversations, Cost per conversation. Compare to previous day.</p>
-          <div class="delivery">
-            💬 <span class="delivery-channel">Slack</span> #notif-ad-analysis-daily-watsi + 📱 WhatsApp
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Check-ins -->
-    <section class="section">
-      <h2 class="section-title">💬 Blas Check-ins</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Morning Check-in</span>
-            <span class="badge badge-random">Random</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>8:00 AM - 10:00 AM PST window</span>
-          </div>
-          <p class="task-desc">Natural friend check-in about day progress, Watsi blockers, gym, Sora, whatever's relevant. Proactive about Watsi needs.</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> to Blas
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Midday Check-in</span>
-            <span class="badge badge-random">Random</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>12:00 PM - 3:00 PM PST window</span>
-          </div>
-          <p class="task-desc">Natural friend check-in about day progress, Watsi blockers, gym, Sora, whatever's relevant. Proactive about Watsi needs.</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> to Blas
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Afternoon Check-in</span>
-            <span class="badge badge-random">Random</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>5:00 PM - 8:00 PM PST window</span>
-          </div>
-          <p class="task-desc">Natural friend check-in about day progress, Watsi blockers, gym, Sora, whatever's relevant. Proactive about Watsi needs.</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> to Blas
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Night Check-in</span>
-            <span class="badge badge-random">Random</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>9:00 PM - 11:00 PM PST window</span>
-          </div>
-          <p class="task-desc">Natural friend check-in about day progress, Watsi blockers, gym, Sora, whatever's relevant. Proactive about Watsi needs.</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> to Blas
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- X Feed & Social -->
-    <section class="section">
-      <h2 class="section-title">🐦 Social & News</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">X Feed Digest (3x daily)</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>7:03 AM, 3:17 PM, 9:11 PM PST</span>
-          </div>
-          <p class="task-desc">Check Blas's X timeline (latest 50 posts), summarize themes, surface top 3 tweets</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> to Blas
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Meta Ads -->
-    <section class="section">
-      <h2 class="section-title">📊 Meta Ads Monitoring</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Meta Ads Health Check (Morning)</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>9:00 AM PST</span>
-          </div>
-          <p class="task-desc">Full health check: verify all campaigns/ad sets/ads are Active or Learning, check for errors, delivery issues</p>
-          <div class="delivery">
-            💬 <span class="delivery-channel">Slack</span> (issues) / 📱 <span class="delivery-channel">WhatsApp</span> (alerts)
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Meta Ads Health Check (Midday)</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>2:00 PM PST</span>
-          </div>
-          <p class="task-desc">Quick midday verify: ensure ads still running, no new errors</p>
-          <div class="delivery">
-            💬 <span class="delivery-channel">Slack</span> (issues) / 📱 <span class="delivery-channel">WhatsApp</span> (alerts)
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Meta Ads Health Check (Evening)</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>6:00 PM PST</span>
-          </div>
-          <p class="task-desc">Evening status + spend check: verify delivery, review daily spend pace</p>
-          <div class="delivery">
-            💬 <span class="delivery-channel">Slack</span> (issues) / 📱 <span class="delivery-channel">WhatsApp</span> (alerts)
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Meta Ads Weekly Review</span>
-            <span class="badge badge-weekly">Weekly</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>Sundays 6:00 PM PST</span>
-          </div>
-          <p class="task-desc">Synthesize week's daily notes: metrics, wins, losses, learnings. Create weekly summary + recommend 2-3 experiments</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> + 💬 <span class="delivery-channel">Slack</span> #notif-ad-analysis-weekly-watsi
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Engineering -->
-    <section class="section">
-      <h2 class="section-title">⚙️ Engineering & Testing</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Linear Ticket Auto-Implementer</span>
-            <span class="badge badge-frequent">Every 30m</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>Every 30 minutes</span>
-          </div>
-          <p class="task-desc">Check for available tickets, spawn Claude CLI to implement in ~/Documents/dev/watsi/, commit changes, update Linear status</p>
-          <div class="delivery">
-            💬 <span class="delivery-channel">Slack</span> #notif-linear-tickets-watsi
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Daily Dev QA Testing</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>6:00 PM PST</span>
-          </div>
-          <p class="task-desc">Query Linear for tickets moved to Done today, test each feature on watsi.dev, record pass/fail, add Linear comments</p>
-          <div class="delivery">
-            💬 <span class="delivery-channel">Slack</span> #0-notif-overview-daily + 📱 <span class="delivery-channel">WhatsApp</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Nightly E2E Testing Suite</span>
-            <span class="badge badge-nightly">Nightly</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>12:05 AM - 1:45 AM PST</span>
-          </div>
-          <p class="task-desc">Automated browser tests on watsi.dev: Public Pages (00:05), Auth (00:20), Dashboard (00:30), Agent Config (00:50), Workflows (01:15), Report (01:45)</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> + 💬 <span class="delivery-channel">Slack</span> #0-notif-overview-daily
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Nora Dashboard Update</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>5:00 AM PST</span>
-          </div>
-          <p class="task-desc">Regenerate this cron dashboard and push to GitHub Pages</p>
-          <div class="delivery">
-            🌐 <span class="delivery-channel">GitHub Pages</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Content -->
-    <section class="section">
-      <h2 class="section-title">📝 Content & Blog</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Watsi Blog Generation</span>
-            <span class="badge badge-weekly">Weekly</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>Sundays 7:00 PM PST</span>
-          </div>
-          <p class="task-desc">Research 7 trending topics, generate blog posts (EN + ES + images), save as drafts in Ghost</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> to Blas
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Watsi Blog Publish</span>
-            <span class="badge badge-random">Random</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>Daily 9AM-5PM window (randomized)</span>
-          </div>
-          <p class="task-desc">Publish one scheduled blog post, notify Blas. 7 separate jobs, one per day of week.</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> ✅ Published: [Title]
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Self Improvement -->
-    <section class="section">
-      <h2 class="section-title">🧠 Self Improvement</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Nora Self-Improvement Session</span>
-            <span class="badge badge-daily">Daily</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>9:00 PM PST</span>
-          </div>
-          <p class="task-desc">Search X for AI assistant tips, review bottleneck log, research OpenClaw community for solutions, run openclaw update, report suggestions</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> to Blas
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Weekly Cron Randomizer</span>
-            <span class="badge badge-weekly">Weekly</span>
-          </div>
-          <div class="schedule">
-            <span class="schedule-icon">⏰</span>
-            <span>Sundays 6:30 PM PST</span>
-          </div>
-          <p class="task-desc">Randomize all [RAND] tagged cron jobs for the coming week to keep check-in times feeling natural</p>
-          <div class="delivery">
-            📱 <span class="delivery-channel">WhatsApp</span> to Blas with new schedule
-          </div>
-        </div>
-      </div>
-    </section>
-
     <footer>
-      <p>🤖 Nora • AI Assistant for <a href="https://watsi.ai">Watsi</a> • Powered by <a href="https://openclaw.ai">OpenClaw</a></p>
-      <p style="margin-top: 0.5rem;">Dashboard auto-updates daily at 5:00 AM PST</p>
+      <p>Generated by <a href="https://openclaw.ai">OpenClaw</a> • Nora @ Avocado Labs</p>
+      <p style="margin-top: 0.5rem;">Dashboard URL: <a href="https://blasai1739217-cmyk.github.io/nora-schedule/">blasai1739217-cmyk.github.io/nora-schedule</a></p>
     </footer>
   </div>
 </body>
