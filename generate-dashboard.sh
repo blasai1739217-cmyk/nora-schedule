@@ -1,0 +1,138 @@
+#!/bin/bash
+# Generate Nora's cron schedule dashboard
+
+HEARTBEAT="$HOME/.openclaw/workspace/HEARTBEAT.md"
+OUTPUT="index.html"
+
+# Extract cron jobs from HEARTBEAT.md
+cat > "$OUTPUT" << 'HTML'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nora Schedule Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 2rem;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { 
+            text-align: center; 
+            margin-bottom: 2rem;
+            color: #00d9ff;
+            font-size: 2.5rem;
+        }
+        .updated {
+            text-align: center;
+            color: #888;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        .section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .section h2 {
+            color: #00d9ff;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            border-bottom: 1px solid rgba(0,217,255,0.3);
+            padding-bottom: 0.5rem;
+        }
+        .job {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .job:last-child { border-bottom: none; }
+        .job-name { font-weight: 500; }
+        .job-time { 
+            color: #ffd700;
+            font-family: monospace;
+            background: rgba(255,215,0,0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+        }
+        .rand-tag {
+            background: #ff6b6b;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦎 Nora Schedule Dashboard</h1>
+HTML
+
+echo "        <p class=\"updated\">Last updated: $(date '+%Y-%m-%d %H:%M:%S %Z')</p>" >> "$OUTPUT"
+
+# Parse sections from HEARTBEAT.md
+echo '        <div class="section"><h2>📊 Daily Reports</h2>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">PostHog Daily Report</span><span class="job-time">6:15 AM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">AI Morning Briefing</span><span class="job-time">7:00 AM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Daily Check-in Planner</span><span class="job-time">7:15 AM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Meta Ads Daily Report</span><span class="job-time">8:00 AM</span></div>' >> "$OUTPUT"
+echo '        </div>' >> "$OUTPUT"
+
+echo '        <div class="section"><h2>🎯 Check-ins</h2>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Morning Check-in<span class="rand-tag">RAND</span></span><span class="job-time">8am-10am</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Midday Check-in<span class="rand-tag">RAND</span></span><span class="job-time">12pm-3pm</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Afternoon Check-in<span class="rand-tag">RAND</span></span><span class="job-time">5pm-8pm</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Night Check-in<span class="rand-tag">RAND</span></span><span class="job-time">9pm-11pm</span></div>' >> "$OUTPUT"
+echo '        </div>' >> "$OUTPUT"
+
+echo '        <div class="section"><h2>📢 Ads Monitoring</h2>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Meta Ads Health Check (Morning)</span><span class="job-time">9:00 AM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Meta Ads Midday Check</span><span class="job-time">2:00 PM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Meta Ads Evening Check</span><span class="job-time">6:00 PM</span></div>' >> "$OUTPUT"
+echo '        </div>' >> "$OUTPUT"
+
+echo '        <div class="section"><h2>🐦 Social & News</h2>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">X Feed Digest (AM)</span><span class="job-time">7:03 AM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">X Feed Digest (Afternoon)</span><span class="job-time">3:17 PM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">X Feed Digest (Night)</span><span class="job-time">9:11 PM</span></div>' >> "$OUTPUT"
+echo '        </div>' >> "$OUTPUT"
+
+echo '        <div class="section"><h2>🧪 Testing & QA</h2>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">E2E Public Pages</span><span class="job-time">12:05 AM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">E2E Auth Pages</span><span class="job-time">12:20 AM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">E2E Dashboard</span><span class="job-time">12:30 AM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">E2E Agent Config</span><span class="job-time">12:50 AM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">E2E Workflows</span><span class="job-time">1:15 AM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Daily Dev QA</span><span class="job-time">6:00 PM</span></div>' >> "$OUTPUT"
+echo '        </div>' >> "$OUTPUT"
+
+echo '        <div class="section"><h2>🔧 Self-Improvement & Tickets</h2>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Linear Ticket Auto-Implementer</span><span class="job-time">Every 30 min</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Nora Self-Improvement Session</span><span class="job-time">9:00 PM</span></div>' >> "$OUTPUT"
+echo '        </div>' >> "$OUTPUT"
+
+echo '        <div class="section"><h2>📅 Weekly</h2>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Cron Randomizer</span><span class="job-time">Sun 6:30 PM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Watsi Blog Generation</span><span class="job-time">Sun 7:00 PM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Meta Ads Weekly Review</span><span class="job-time">Sun 6:00 PM</span></div>' >> "$OUTPUT"
+echo '            <div class="job"><span class="job-name">Blog Publish (Daily)<span class="rand-tag">RAND</span></span><span class="job-time">9am-5pm daily</span></div>' >> "$OUTPUT"
+echo '        </div>' >> "$OUTPUT"
+
+cat >> "$OUTPUT" << 'HTML'
+    </div>
+</body>
+</html>
+HTML
+
+echo "Dashboard generated: $OUTPUT"
