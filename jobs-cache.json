@@ -1,77 +1,6 @@
 {
   "jobs": [
     {
-      "id": "17a7c84e-666a-4c92-a717-ad745df831ac",
-      "agentId": "main",
-      "name": "Nora Dashboard Update",
-      "enabled": true,
-      "createdAtMs": 1771368310982,
-      "updatedAtMs": 1772370047787,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 5 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "🔄 DASHBOARD UPDATE\n\nRegenerate and deploy the Nora cron dashboard:\n\n1. Navigate to dashboard directory:\n   ```bash\n   cd ~/.openclaw/workspace/nora-dashboard\n   ```\n\n2. Regenerate the dashboard:\n   ```bash\n   node generate.js\n   ```\n\n3. Copy to root and commit:\n   ```bash\n   cp public/index.html .\n   git add .\n   git commit -m \"Update dashboard - $(date '+%Y-%m-%d %H:%M')\" || true\n   git push\n   ```\n\nNo notification needed unless there's an error.",
-        "timeoutSeconds": 120
-      },
-      "delivery": {
-        "mode": "none"
-      },
-      "state": {
-        "nextRunAtMs": 1772456400000,
-        "lastRunAtMs": 1772370038857,
-        "lastStatus": "ok",
-        "lastDurationMs": 8930,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered",
-        "runningAtMs": 1772456510749
-      }
-    },
-    {
-      "id": "860c27d0-5472-4f9a-8d39-e4519bbcaa2a",
-      "agentId": "slack-coding",
-      "name": "Linear Ticket Auto-Implementer",
-      "enabled": true,
-      "notify": true,
-      "createdAtMs": 1771312035777,
-      "updatedAtMs": 1772454714992,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0,30 * * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "## Linear Ticket Auto-Implementation\n\nFollow the linear-worker skill at `~/.openclaw/skills/linear-worker/SKILL.md`.\n\n### Workflow:\n\n1. **Check locks** — Read `~/.openclaw/workspace/locks/linear-worker.lock`. If exists and < 2h old, skip.\n\n2. **Get top ticket FIRST** — Run:\n   ```bash\n   claude -p \"Use Linear Watsi MCP to list issues with state Todo/Backlog, limit 1. Return: TICKET: [id] - [title]\" --allowedTools \"mcp__*\" --dangerously-skip-permissions\n   ```\n\n3. **Post to Slack with ticket ID AND LINK** — Send parent message to `C0AFA5TE7NH`:\n   ```\n   🔄 **<https://linear.app/watsiai/issue/[TICKET-ID]|[TICKET-ID]>: [Title]**\n   Starting implementation...\n   ```\n   **IMPORTANT:** \n   - Include the ticket ID as a clickable link to Linear!\n   - Format: `<https://linear.app/watsiai/issue/WAT-XX|WAT-XX>`\n   - Save the messageId for threading AND for reacting later.\n\n4. **Create lock** — Write `{sessionKey}|{ticketId}|{timestamp}` to lock file.\n\n5. **Implement** — Run Claude CLI with full tools:\n   ```bash\n   cd ~/Documents/dev/watsi && claude -p \"Implement [ticket-id]: [title]. Read CLAUDE.md. Commit as '[ticket-id]: description'. Update Linear status to In Review.\" --allowedTools \"mcp__*,Read,Write,Edit,Bash\" --dangerously-skip-permissions\n   ```\n\n6. **Create PR** — After commit, create a pull request:\n   ```bash\n   cd ~/Documents/dev/watsi && git push -u origin HEAD && gh pr create --title \"[ticket-id]: [brief description]\" --body \"Implements Linear ticket [ticket-id]\\n\\n[summary of changes]\" --head $(git branch --show-current)\n   ```\n   If already on main, create a branch first: `git checkout -b feat/[ticket-id]-[slug]`\n\n7. **Thread updates** — Reply to parent with:\n   - 📋 Files changed\n   - ✅ Commit message\n   - 🔗 PR link (GitHub)\n   - Linear status update\n\n8. **React to parent** — Add ✅ reaction to the original parent message:\n   ```\n   message action:react channel:slack target:C0AFA5TE7NH messageId:[parentMessageId] emoji:white_check_mark\n   ```\n\n9. **Cleanup** — Remove lock file.\n\n**On error:** Post ❌ with error to thread, don't update Linear status, don't react.\n\n**If no tickets:** Post \"📭 No tickets in queue\" and exit.",
-        "timeoutSeconds": 3600
-      },
-      "delivery": {
-        "mode": "none",
-        "channel": "slack",
-        "to": "C0AF3H3QV37"
-      },
-      "state": {
-        "nextRunAtMs": 1772456400000,
-        "lastRunAtMs": 1772454600015,
-        "lastStatus": "ok",
-        "lastDurationMs": 114977,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered",
-        "runningAtMs": 1772456400020
-      }
-    },
-    {
       "id": "ad2f9022-7b7b-4cee-ac8c-996d0b758b4e",
       "agentId": "slack-generic-3",
       "name": "PR Auto-Review & Merge - Watsi",
@@ -140,6 +69,42 @@
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "lastDelivered": true
+      }
+    },
+    {
+      "id": "860c27d0-5472-4f9a-8d39-e4519bbcaa2a",
+      "agentId": "slack-coding",
+      "name": "Linear Ticket Auto-Implementer",
+      "enabled": true,
+      "notify": true,
+      "createdAtMs": 1771312035777,
+      "updatedAtMs": 1772456510749,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0,30 * * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "## Linear Ticket Auto-Implementation\n\nFollow the linear-worker skill at `~/.openclaw/skills/linear-worker/SKILL.md`.\n\n### Workflow:\n\n1. **Check locks** — Read `~/.openclaw/workspace/locks/linear-worker.lock`. If exists and < 2h old, skip.\n\n2. **Get top ticket FIRST** — Run:\n   ```bash\n   claude -p \"Use Linear Watsi MCP to list issues with state Todo/Backlog, limit 1. Return: TICKET: [id] - [title]\" --allowedTools \"mcp__*\" --dangerously-skip-permissions\n   ```\n\n3. **Post to Slack with ticket ID AND LINK** — Send parent message to `C0AFA5TE7NH`:\n   ```\n   🔄 **<https://linear.app/watsiai/issue/[TICKET-ID]|[TICKET-ID]>: [Title]**\n   Starting implementation...\n   ```\n   **IMPORTANT:** \n   - Include the ticket ID as a clickable link to Linear!\n   - Format: `<https://linear.app/watsiai/issue/WAT-XX|WAT-XX>`\n   - Save the messageId for threading AND for reacting later.\n\n4. **Create lock** — Write `{sessionKey}|{ticketId}|{timestamp}` to lock file.\n\n5. **Implement** — Run Claude CLI with full tools:\n   ```bash\n   cd ~/Documents/dev/watsi && claude -p \"Implement [ticket-id]: [title]. Read CLAUDE.md. Commit as '[ticket-id]: description'. Update Linear status to In Review.\" --allowedTools \"mcp__*,Read,Write,Edit,Bash\" --dangerously-skip-permissions\n   ```\n\n6. **Create PR** — After commit, create a pull request:\n   ```bash\n   cd ~/Documents/dev/watsi && git push -u origin HEAD && gh pr create --title \"[ticket-id]: [brief description]\" --body \"Implements Linear ticket [ticket-id]\\n\\n[summary of changes]\" --head $(git branch --show-current)\n   ```\n   If already on main, create a branch first: `git checkout -b feat/[ticket-id]-[slug]`\n\n7. **Thread updates** — Reply to parent with:\n   - 📋 Files changed\n   - ✅ Commit message\n   - 🔗 PR link (GitHub)\n   - Linear status update\n\n8. **React to parent** — Add ✅ reaction to the original parent message:\n   ```\n   message action:react channel:slack target:C0AFA5TE7NH messageId:[parentMessageId] emoji:white_check_mark\n   ```\n\n9. **Cleanup** — Remove lock file.\n\n**On error:** Post ❌ with error to thread, don't update Linear status, don't react.\n\n**If no tickets:** Post \"📭 No tickets in queue\" and exit.",
+        "timeoutSeconds": 3600
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "slack",
+        "to": "C0AF3H3QV37"
+      },
+      "state": {
+        "nextRunAtMs": 1772458200000,
+        "lastRunAtMs": 1772456400020,
+        "lastStatus": "ok",
+        "lastDurationMs": 110729,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered"
       }
     },
     {
@@ -878,6 +843,39 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
         "lastError": "Channel is required when multiple channels are configured: telegram, whatsapp, slack, imessage Set delivery.channel explicitly or use a main session with a previous channel."
+      }
+    },
+    {
+      "id": "17a7c84e-666a-4c92-a717-ad745df831ac",
+      "agentId": "main",
+      "name": "Nora Dashboard Update",
+      "enabled": true,
+      "createdAtMs": 1771368310982,
+      "updatedAtMs": 1772456519535,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 5 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "🔄 DASHBOARD UPDATE\n\nRegenerate and deploy the Nora cron dashboard:\n\n1. Navigate to dashboard directory:\n   ```bash\n   cd ~/.openclaw/workspace/nora-dashboard\n   ```\n\n2. Regenerate the dashboard:\n   ```bash\n   node generate.js\n   ```\n\n3. Copy to root and commit:\n   ```bash\n   cp public/index.html .\n   git add .\n   git commit -m \"Update dashboard - $(date '+%Y-%m-%d %H:%M')\" || true\n   git push\n   ```\n\nNo notification needed unless there's an error.",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1772542800000,
+        "lastRunAtMs": 1772456510749,
+        "lastStatus": "ok",
+        "lastDurationMs": 8786,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered"
       }
     },
     {
