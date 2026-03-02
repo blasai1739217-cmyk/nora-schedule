@@ -6,7 +6,7 @@
       "name": "PR Auto-Review & Merge - Watsi",
       "enabled": true,
       "createdAtMs": 1771317325445,
-      "updatedAtMs": 1772456356062,
+      "updatedAtMs": 1772458155577,
       "schedule": {
         "kind": "every",
         "everyMs": 600000,
@@ -24,10 +24,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1772456948911,
-        "lastRunAtMs": 1772456348911,
+        "nextRunAtMs": 1772458748965,
+        "lastRunAtMs": 1772458148965,
         "lastStatus": "ok",
-        "lastDurationMs": 7151,
+        "lastDurationMs": 6612,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-delivered",
@@ -41,7 +41,7 @@
       "name": "Blog Post Tester",
       "enabled": true,
       "createdAtMs": 1771793966301,
-      "updatedAtMs": 1772455782239,
+      "updatedAtMs": 1772457572536,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -61,10 +61,10 @@
         "to": "C0AF2KMB2G5"
       },
       "state": {
-        "nextRunAtMs": 1772457557579,
-        "lastRunAtMs": 1772455757579,
+        "nextRunAtMs": 1772459357598,
+        "lastRunAtMs": 1772457557598,
         "lastStatus": "ok",
-        "lastDurationMs": 24660,
+        "lastDurationMs": 14938,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
@@ -78,7 +78,7 @@
       "enabled": true,
       "notify": true,
       "createdAtMs": 1771312035777,
-      "updatedAtMs": 1772456510749,
+      "updatedAtMs": 1772458375088,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 * * * *",
@@ -97,10 +97,10 @@
         "to": "C0AF3H3QV37"
       },
       "state": {
-        "nextRunAtMs": 1772458200000,
-        "lastRunAtMs": 1772456400020,
+        "nextRunAtMs": 1772460000000,
+        "lastRunAtMs": 1772458200019,
         "lastStatus": "ok",
-        "lastDurationMs": 110729,
+        "lastDurationMs": 175069,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
