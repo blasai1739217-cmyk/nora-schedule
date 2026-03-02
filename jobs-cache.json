@@ -6,7 +6,7 @@
       "name": "Nora Dashboard Update",
       "enabled": true,
       "createdAtMs": 1771368310982,
-      "updatedAtMs": 1772283670467,
+      "updatedAtMs": 1772370047787,
       "schedule": {
         "kind": "cron",
         "expr": "0 5 * * *",
@@ -23,15 +23,15 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1772370000000,
-        "lastRunAtMs": 1772283661056,
+        "nextRunAtMs": 1772456400000,
+        "lastRunAtMs": 1772370038857,
         "lastStatus": "ok",
-        "lastDurationMs": 9411,
+        "lastDurationMs": 8930,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
-        "runningAtMs": 1772370038857
+        "runningAtMs": 1772456510749
       }
     },
     {
@@ -41,7 +41,7 @@
       "enabled": true,
       "notify": true,
       "createdAtMs": 1771312035777,
-      "updatedAtMs": 1772368227995,
+      "updatedAtMs": 1772454714992,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 * * * *",
@@ -60,15 +60,15 @@
         "to": "C0AF3H3QV37"
       },
       "state": {
-        "nextRunAtMs": 1772370000000,
-        "lastRunAtMs": 1772368200024,
+        "nextRunAtMs": 1772456400000,
+        "lastRunAtMs": 1772454600015,
         "lastStatus": "ok",
-        "lastDurationMs": 27971,
+        "lastDurationMs": 114977,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
-        "runningAtMs": 1772370000028
+        "runningAtMs": 1772456400020
       }
     },
     {
@@ -77,7 +77,7 @@
       "name": "PR Auto-Review & Merge - Watsi",
       "enabled": true,
       "createdAtMs": 1771317325445,
-      "updatedAtMs": 1772369897227,
+      "updatedAtMs": 1772456356062,
       "schedule": {
         "kind": "every",
         "everyMs": 600000,
@@ -95,10 +95,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1772370491291,
-        "lastRunAtMs": 1772369891291,
+        "nextRunAtMs": 1772456948911,
+        "lastRunAtMs": 1772456348911,
         "lastStatus": "ok",
-        "lastDurationMs": 5936,
+        "lastDurationMs": 7151,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-delivered",
@@ -112,7 +112,7 @@
       "name": "Blog Post Tester",
       "enabled": true,
       "createdAtMs": 1771793966301,
-      "updatedAtMs": 1772368769421,
+      "updatedAtMs": 1772455782239,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -132,10 +132,10 @@
         "to": "C0AF2KMB2G5"
       },
       "state": {
-        "nextRunAtMs": 1772370543688,
-        "lastRunAtMs": 1772368743688,
+        "nextRunAtMs": 1772457557579,
+        "lastRunAtMs": 1772455757579,
         "lastStatus": "ok",
-        "lastDurationMs": 25733,
+        "lastDurationMs": 24660,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
@@ -148,7 +148,7 @@
       "name": "Ad Attribution Research - Phase 4: Architecture & Implementation Plan",
       "enabled": true,
       "createdAtMs": 1772176647273,
-      "updatedAtMs": 1772287488715,
+      "updatedAtMs": 1772373854184,
       "schedule": {
         "kind": "cron",
         "expr": "0 6 * * *",
@@ -166,13 +166,13 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1772373600000,
-        "lastRunAtMs": 1772287288136,
+        "nextRunAtMs": 1772460000000,
+        "lastRunAtMs": 1772373631833,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 200579,
+        "lastDurationMs": 222351,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
+        "consecutiveErrors": 3,
         "lastError": "Channel is required when multiple channels are configured: telegram, whatsapp, slack, imessage Set delivery.channel explicitly or use a main session with a previous channel."
       }
     },
@@ -182,7 +182,7 @@
       "name": "PostHog Daily Report - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640426,
-      "updatedAtMs": 1772288447349,
+      "updatedAtMs": 1772374720017,
       "schedule": {
         "kind": "cron",
         "expr": "15 6 * * *",
@@ -203,10 +203,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772374500000,
-        "lastRunAtMs": 1772288100017,
+        "nextRunAtMs": 1772460900000,
+        "lastRunAtMs": 1772374500024,
         "lastStatus": "ok",
-        "lastDurationMs": 347332,
+        "lastDurationMs": 219993,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
@@ -219,7 +219,7 @@
       "name": "Morning Briefing",
       "enabled": true,
       "createdAtMs": 1771292864460,
-      "updatedAtMs": 1772290964316,
+      "updatedAtMs": 1772377353332,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * *",
@@ -240,10 +240,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772377200000,
-        "lastRunAtMs": 1772290855953,
+        "nextRunAtMs": 1772463600000,
+        "lastRunAtMs": 1772377269969,
         "lastStatus": "ok",
-        "lastDurationMs": 108363,
+        "lastDurationMs": 83363,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": true,
@@ -256,7 +256,7 @@
       "name": "Service Status Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268640413,
-      "updatedAtMs": 1772290855953,
+      "updatedAtMs": 1772377269969,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * *",
@@ -277,47 +277,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772377200000,
-        "lastRunAtMs": 1772290800018,
+        "nextRunAtMs": 1772463600000,
+        "lastRunAtMs": 1772377200022,
         "lastStatus": "ok",
-        "lastDurationMs": 55935,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered"
-      }
-    },
-    {
-      "id": "f8d70c29-a1bd-4423-9f59-e0ddd357519c",
-      "agentId": "slack-generic-3",
-      "name": "Features Daily - Watsi",
-      "enabled": true,
-      "createdAtMs": 1771268640420,
-      "updatedAtMs": 1772294443747,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 8 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "💡 DAILY FEATURE IDEAS\n\nGenerate feature ideas based on the last 24 hours of customer feedback:\n\n**Sources to review:**\n1. Read Slack channel C0AERG930MD for recent customer emails\n2. Read Slack channel C0AEQLH7Z0F for recent call summaries\n3. Check any user feedback patterns\n\n**Analysis:**\n- What are users asking for?\n- What pain points keep coming up?\n- What competitors have that users mention?\n- Quick wins vs. strategic features\n\n**Deliverable:**\n🎯 **Daily Feature Report**\n\n**Top 3 Feature Opportunities:**\n1. [Feature] — Why: [user evidence] — Effort: Low/Med/High\n2. [Feature] — Why: [user evidence] — Effort: Low/Med/High\n3. [Feature] — Why: [user evidence] — Effort: Low/Med/High\n\n**Patterns Noticed:**\n- [Recurring themes from feedback]\n\n**Quick Wins:**\n- [Small improvements that came up]\n\nThe report will be automatically delivered to Slack.",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AF72EURM0",
-        "bestEffort": true
-      },
-      "state": {
-        "nextRunAtMs": 1772380800000,
-        "lastRunAtMs": 1772294400018,
-        "lastStatus": "ok",
-        "lastDurationMs": 43729,
+        "lastDurationMs": 69947,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": true,
@@ -329,7 +292,7 @@
       "name": "meta-ads-health-check",
       "enabled": true,
       "createdAtMs": 1772091545283,
-      "updatedAtMs": 1772298353724,
+      "updatedAtMs": 1772384841178,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -348,13 +311,13 @@
         "to": "C0AFCE5M2R3"
       },
       "state": {
-        "nextRunAtMs": 1772384400000,
-        "lastRunAtMs": 1772298155557,
+        "nextRunAtMs": 1772470800000,
+        "lastRunAtMs": 1772384575532,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 198167,
+        "lastDurationMs": 265646,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
+        "consecutiveErrors": 4,
         "lastError": "cron announce delivery failed"
       }
     },
@@ -364,7 +327,7 @@
       "name": "Content Analysis Daily - Watsi",
       "enabled": true,
       "createdAtMs": 1771268369155,
-      "updatedAtMs": 1772298123710,
+      "updatedAtMs": 1772384546135,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -385,592 +348,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772384400000,
-        "lastRunAtMs": 1772298000022,
+        "nextRunAtMs": 1772470800000,
+        "lastRunAtMs": 1772384400019,
         "lastStatus": "ok",
-        "lastDurationMs": 123688,
+        "lastDurationMs": 146116,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered"
-      }
-    },
-    {
-      "id": "48231013-7012-46c4-bf11-ba44a847077b",
-      "name": "meta-ads-midday-check",
-      "enabled": true,
-      "createdAtMs": 1772091878625,
-      "updatedAtMs": 1772316218576,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 14 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Quick check Meta Ads (act=1234964789989711). Verify 'New Traffic Campaign' is Active. Alert to WhatsApp (+16197735958) only if any issues. Brief Slack update to #notif-ad-analysis-daily-watsi.",
-        "timeoutSeconds": 180
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AFCE5M2R3"
-      },
-      "state": {
-        "nextRunAtMs": 1772402400000,
-        "lastRunAtMs": 1772316038558,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 180018,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "lastError": "cron: job execution timed out"
-      }
-    },
-    {
-      "id": "94caa9d4-d44e-4aba-a83f-e9e0475edc89",
-      "agentId": "main",
-      "name": "Watsi Blog Publish - Sunday [RAND]",
-      "enabled": true,
-      "createdAtMs": 1770935377644,
-      "updatedAtMs": 1771813876264,
-      "schedule": {
-        "kind": "cron",
-        "expr": "19 17 * * 0"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post with feature image.\n\n**Steps:**\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or oldest unpublished draft\n3. **Generate feature image if missing:**\n   - Use OpenAI DALL-E 3 API (key in ~/.openclaw/openclaw.json under skills.entries.openai-image-gen.apiKey)\n   - Prompt: \"Professional business illustration showing [POST TOPIC], warm green white WhatsApp colors, modern flat design, soft gradients, clean minimal, no text no words no letters\"\n   - Upload to Ghost and set as feature_image\n4. Publish the EN post (set status to 'published')\n5. Publish the matching ES post\n6. Update `memory/blog-queue.md` to mark as published\n7. **Notify Slack** - Post to channel C0AF2KMB2G5:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n8. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with link\n\n**Ghost Admin Key:** 698ae4d81ba8bd00010a87d9:8ebd5dabfae2535a879a4ebb3ac5b3f691d99dd2f19f055b8f603fdb3214a53b",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1772414340000,
-        "lastRunAtMs": 1771797060019,
-        "lastStatus": "error",
-        "lastDurationMs": 62,
-        "consecutiveErrors": 1,
-        "lastError": "Error: All models failed (2): anthropic/claude-opus-4-5: No available auth profile for anthropic (all in cooldown or unavailable). (rate_limit) | anthropic/claude-sonnet-4-5: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
-      }
-    },
-    {
-      "id": "52f86416-b1f1-44e3-a848-6103491b0eb7",
-      "name": "meta-ads-weekly-review",
-      "enabled": true,
-      "createdAtMs": 1772092060873,
-      "updatedAtMs": 1772092060873,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 18 * * 0",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Weekly Meta Ads Review: 1) Read memory/meta-ads-analysis/daily/*.md for this week. 2) Summarize metrics, wins, losses, learnings. 3) Create memory/meta-ads-analysis/weekly/YYYY-WXX.md with summary + next week recommendations. 4) Send summary to WhatsApp (+16197735958) and Slack #notif-ad-analysis-weekly-watsi.",
-        "timeoutSeconds": 600
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "last"
-      },
-      "state": {
-        "nextRunAtMs": 1772416800000
-      }
-    },
-    {
-      "id": "6d3b2974-0e64-4170-b3b7-555405e97d1d",
-      "name": "meta-ads-evening-check",
-      "enabled": true,
-      "createdAtMs": 1772091884116,
-      "updatedAtMs": 1772330860316,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 18 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Evening check Meta Ads (act=1234964789989711). Verify campaigns running, check spend vs budget. Alert WhatsApp (+16197735958) if issues. Slack #notif-ad-analysis-daily-watsi with brief status.",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AFCE5M2R3"
-      },
-      "state": {
-        "nextRunAtMs": 1772416800000,
-        "lastRunAtMs": 1772330709451,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 150865,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "lastError": "cron announce delivery failed"
-      }
-    },
-    {
-      "id": "98a54e69-879f-4e6f-955f-80bdab136d97",
-      "name": "Daily Dev QA Testing",
-      "description": "Daily QA testing of features deployed to watsi.dev",
-      "enabled": true,
-      "createdAtMs": 1771813503236,
-      "updatedAtMs": 1772330709451,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 18 * * *"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run daily QA testing on watsi.dev for all tickets completed today.\n\nTASK:\n1. Query Linear via Claude MCP for all tickets moved to 'Done' status today\n2. For each ticket:\n   - Open watsi.dev in browser\n   - Navigate to the relevant feature/page based on ticket description\n   - Verify the feature works as described\n   - Record: pass/fail + brief test description (1 sentence)\n3. Compile QA report\n\nREPORT FORMAT (send to Slack #0-nora):\n🧪 Daily QA Report - [DATE]\n\n✅ WAT-XX: [Title] - PASSED\n   Test: [Brief description of how it was tested]\n\n❌ WAT-YY: [Title] - FAILED  \n   Test: [Brief description]\n   Issue: [What went wrong]\n\nSummary: X/Y tests passed\n\nAlso save the report to memory/qa-reports/YYYY-MM-DD.md"
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack"
-      },
-      "state": {
-        "nextRunAtMs": 1772416800000,
-        "lastRunAtMs": 1772330433406,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 276045,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 5,
-        "lastError": "No delivery target resolved for channel \"slack\". Set delivery.to."
-      }
-    },
-    {
-      "id": "97a01960-ff43-4215-9a7e-30c4078ac891",
-      "agentId": "main",
-      "name": "Weekly Cron Randomizer",
-      "enabled": true,
-      "createdAtMs": 1770935590809,
-      "updatedAtMs": 1771813902573,
-      "schedule": {
-        "kind": "cron",
-        "expr": "30 18 * * 0",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🎲 WEEKLY CRON RANDOMIZER\n\nRandomize all [RAND] tagged cron jobs for the coming week. Follow the cron-randomizer skill.\n\n**Steps:**\n\n1. **Load config** from `~/.openclaw/workspace/config/cron-randomizer.json`\n\n2. **List all cron jobs** using the cron tool (action: list)\n\n3. **Filter for [RAND] jobs** - only process jobs with `[RAND]` in their name\n\n4. **For each [RAND] job:**\n   - Parse the current cron expression to get the day-of-week\n   - Find matching pattern in config (check if job name contains any pattern key)\n   - Use pattern bounds if found, otherwise use default bounds\n   - Generate a random hour within minHour-maxHour (excluding avoidHours)\n   - Generate a random minute (0-59, avoiding :00, :15, :30, :45 if avoidRoundNumbers=true)\n   - Apply jitter (±jitterMinutes random offset, clamped to valid range)\n   - Ensure at least minGapMinutes between any two jobs on the same day\n   - Build new cron expression: `{minute} {hour} * * {dayOfWeek}`\n   - Update the job using cron tool (action: update, jobId, patch with new schedule)\n\n5. **Log changes** to `memory/cron-randomizer/{date}.md` with a table showing old vs new times\n\n6. **Report** - send brief summary to Blas on WhatsApp with the new schedule for the week\n\n**Anti-detection tips:**\n- Vary the hour significantly day-to-day (don't cluster around same time)\n- Use odd minutes (13, 27, 41, 53) - humans don't pick round numbers\n- Some days should be morning, some afternoon, some evening\n- Never use the exact same minute twice in the week",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1772418600000,
-        "lastRunAtMs": 1771813800025,
-        "lastStatus": "ok",
-        "lastDurationMs": 102548,
-        "consecutiveErrors": 0
-      }
-    },
-    {
-      "id": "7e610ebd-2d3f-42b1-8a11-8654c97b0097",
-      "agentId": "main",
-      "name": "Watsi Blog Generation (Weekly)",
-      "enabled": true,
-      "createdAtMs": 1770935377447,
-      "updatedAtMs": 1771816500042,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 19 * * 0",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🖊️ WEEKLY BLOG GENERATION\n\nTime to create this week's Watsi blog content. Follow the watsi-blog-writer skill.\n\n1. **Research:** Check trending topics in WhatsApp commerce, AI agents, e-commerce automation, LATAM business. Look at competitor gaps (Vambe, Yavendio). Find 7 unique angles.\n\n2. **Generate 7 blog posts** - one for each day of the week:\n   - Follow the SEO template and brand voice\n   - Write EN version first, then ES translation\n   - Generate feature image for each using VAP API\n   - Upload images to Ghost\n\n3. **Save all as DRAFTS in Ghost** with proper tags (#lang-en, #lang-es, #pair-slug, plus a #scheduled-YYYY-MM-DD tag for the intended publish date)\n\n4. **Log the queue** - save the list of drafts and their scheduled dates to `memory/blog-queue.md`\n\n5. **Confirm completion** - send a brief summary to Blas on WhatsApp with the 7 topics queued.",
-        "timeoutSeconds": 900
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1772420400000,
-        "lastRunAtMs": 1771815600019,
-        "lastStatus": "error",
-        "lastDurationMs": 900023,
-        "consecutiveErrors": 1,
-        "lastError": "Error: cron: job execution timed out"
-      }
-    },
-    {
-      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
-      "agentId": "main",
-      "name": "Nora Self-Improvement Session",
-      "enabled": true,
-      "createdAtMs": 1770614435519,
-      "updatedAtMs": 1771486233160,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 21 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message to +16197735958 with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1772427600000,
-        "lastRunAtMs": 1771479072109,
-        "lastStatus": "ok",
-        "lastDurationMs": 37153,
-        "consecutiveErrors": 0
-      }
-    },
-    {
-      "id": "d5daeb04-1c53-4f5f-8814-7c3e5b066981",
-      "agentId": "slack-generic-3",
-      "name": "Ad Attribution Research - Phase 1: Industry Best Practices",
-      "enabled": true,
-      "createdAtMs": 1772176623687,
-      "updatedAtMs": 1772352227135,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 0 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Research ad attribution best practices for WAT-34. \n\n1. Search web for 'multi-touch attribution best practices 2026'\n2. Research how leading e-commerce companies handle attribution\n3. Document findings in memory/wat-34-attribution/phase1-industry.md\n4. Focus on: UTM standards, cookie-based vs server-side, attribution windows\n\nWhen done, update Linear ticket WAT-34 with a comment summarizing Phase 1 findings.\n\nLog: memory/wat-34-attribution/phase1-industry.md\nNotify: Slack #0-nora",
-        "timeoutSeconds": 1800
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "last"
-      },
-      "state": {
-        "nextRunAtMs": 1772438400000,
-        "lastRunAtMs": 1772352040146,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 186989,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "lastError": "Channel is required when multiple channels are configured: telegram, whatsapp, slack, imessage Set delivery.channel explicitly or use a main session with a previous channel."
-      }
-    },
-    {
-      "id": "57451da1-ed58-4803-9004-e2df1ba8305e",
-      "agentId": "slack-generic-3",
-      "name": "E2E Test: Public Pages",
-      "enabled": true,
-      "createdAtMs": 1772089486018,
-      "updatedAtMs": 1772352410617,
-      "schedule": {
-        "kind": "cron",
-        "expr": "5 0 * * *",
-        "tz": "America/Los_Angeles",
-        "staggerMs": 0
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run E2E tests on watsi.dev PUBLIC PAGES. Use the browser tool (profile=openclaw) to test each page loads correctly:\n\n1. Homepage (https://watsi.dev) - Check hero section, CTA buttons\n2. Homepage Spanish (https://watsi.dev/es) - Check Spanish content renders\n3. Pricing (https://watsi.dev/pricing) - Check pricing cards load\n4. Blog (https://watsi.dev/blog) - Check blog posts list\n5. Privacy Policy (https://watsi.dev/privacy-policy) - Check content loads\n6. Terms of Service (https://watsi.dev/terms-of-service) - Check content loads\n7. Apply for Demo (https://watsi.dev/apply-for-demo) - Check form renders\n\nFor each page: navigate, take snapshot, record load time, note any errors.\nSave results to memory/e2e-tests/public-pages-$(date +%Y-%m-%d).md\nReport any failures immediately to Slack #0-notif-overview-daily",
-        "timeoutSeconds": 900
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AF5BELRR8"
-      },
-      "state": {
-        "nextRunAtMs": 1772438700000,
-        "lastRunAtMs": 1772352300023,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 110594,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 2,
-        "lastDelivered": true,
-        "lastError": "⚠️ ✉️ Message failed"
-      }
-    },
-    {
-      "id": "e618c59e-b795-47d7-9429-3486945bd04d",
-      "agentId": "slack-generic-3",
-      "name": "E2E Test: Auth Pages",
-      "enabled": true,
-      "createdAtMs": 1772089492591,
-      "updatedAtMs": 1772353276017,
-      "schedule": {
-        "kind": "cron",
-        "expr": "20 0 * * *",
-        "tz": "America/Los_Angeles",
-        "staggerMs": 0
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run E2E tests on watsi.dev AUTH PAGES. Use browser (profile=openclaw):\n\n1. Sign In (https://watsi.dev/auth/signin) - Check form fields render (email, password, Google/Apple buttons)\n2. Sign Up (https://watsi.dev/signup) - Check registration form renders\n3. Reset Password (https://watsi.dev/reset-password) - Check reset form renders\n\nFor each page: navigate, snapshot, verify all form elements present.\nSave results to memory/e2e-tests/auth-pages-$(date +%Y-%m-%d).md",
-        "timeoutSeconds": 600
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AF5BELRR8"
-      },
-      "state": {
-        "nextRunAtMs": 1772439600000,
-        "lastRunAtMs": 1772353200024,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 75993,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true
-      }
-    },
-    {
-      "id": "01fa00b3-16b4-4c08-80f6-1614848ae7f6",
-      "agentId": "slack-generic-3",
-      "name": "E2E Test: Dashboard (Auth Required)",
-      "enabled": true,
-      "createdAtMs": 1772089499393,
-      "updatedAtMs": 1772353926827,
-      "schedule": {
-        "kind": "cron",
-        "expr": "30 0 * * *",
-        "tz": "America/Los_Angeles",
-        "staggerMs": 0
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run E2E tests on watsi.dev DASHBOARD PAGES. These require authentication.\n\nUse browser (profile=openclaw). First sign in:\n1. Go to https://watsi.dev/auth/signin\n2. Sign in with Google using blasai1739217@gmail.com\n\nThen test each dashboard page:\n1. Playground (https://watsi.dev/playground) - Check chat interface loads\n2. Chats (https://watsi.dev/chats) - Check chats list renders\n3. Analytics (https://watsi.dev/analytics) - Check analytics dashboard loads\n4. Integrations (https://watsi.dev/integrations) - Check integrations list\n\nFor each: navigate, snapshot, check for console errors.\nSave results to memory/e2e-tests/dashboard-pages-$(date +%Y-%m-%d).md",
-        "timeoutSeconds": 1200
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AF5BELRR8"
-      },
-      "state": {
-        "nextRunAtMs": 1772440200000,
-        "lastRunAtMs": 1772353830098,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 96729,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true
-      }
-    },
-    {
-      "id": "50ef5c00-ccbe-4a98-99ae-d0afd1b230f6",
-      "agentId": "slack-generic-3",
-      "name": "E2E Test: Agent Config Pages",
-      "enabled": true,
-      "createdAtMs": 1772089507335,
-      "updatedAtMs": 1772355150718,
-      "schedule": {
-        "kind": "cron",
-        "expr": "50 0 * * *",
-        "tz": "America/Los_Angeles",
-        "staggerMs": 0
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run E2E tests on watsi.dev AGENT CONFIG PAGES. Requires auth.\n\nUse browser (profile=openclaw). Sign in with Google (blasai1739217@gmail.com) if needed.\n\nTest each agent config page:\n1. Products (https://watsi.dev/agent/products) - Product catalog form\n2. Sales (https://watsi.dev/agent/sales) - Sales settings\n3. Brand (https://watsi.dev/agent/brand) - Brand configuration\n4. Website (https://watsi.dev/agent/website) - Website settings\n5. QA (https://watsi.dev/agent/qa) - Q&A pairs list\n6. Voice (https://watsi.dev/agent/voice) - Voice settings\n7. AI (https://watsi.dev/agent/ai) - AI configuration\n8. Files (https://watsi.dev/agent/files) - Files list\n9. Campaigns (https://watsi.dev/agent/campaigns) - Campaigns list\n10. Text (https://watsi.dev/agent/text) - Text settings\n\nFor each: navigate, snapshot, verify forms/lists render correctly.\nSave results to memory/e2e-tests/agent-config-pages-$(date +%Y-%m-%d).md",
-        "timeoutSeconds": 1500
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AF5BELRR8"
-      },
-      "state": {
-        "nextRunAtMs": 1772441400000,
-        "lastRunAtMs": 1772355000028,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 150690,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true
-      }
-    },
-    {
-      "id": "89864435-58ad-4cc9-9c1c-958cab323b78",
-      "agentId": "slack-generic-3",
-      "name": "E2E Test: Workflows",
-      "enabled": true,
-      "createdAtMs": 1772089518765,
-      "updatedAtMs": 1772356690588,
-      "schedule": {
-        "kind": "cron",
-        "expr": "15 1 * * *",
-        "tz": "America/Los_Angeles",
-        "staggerMs": 0
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run E2E WORKFLOW tests on watsi.dev. Use browser (profile=openclaw).\n\nWORKFLOW 1: Homepage to Sign Up\n1. Load https://watsi.dev\n2. Find and click 'Get Started' or main CTA button\n3. Verify redirect to /signup\n4. Check form renders\n\nWORKFLOW 2: Sign In Flow\n1. Go to https://watsi.dev/auth/signin\n2. Click 'Sign in with Google'\n3. Complete Google OAuth with blasai1739217@gmail.com\n4. Verify redirect to dashboard/playground\n\nWORKFLOW 3: Playground Chat Test\n1. After auth, go to https://watsi.dev/playground\n2. Type a test message: 'Hello, this is an automated test'\n3. Click send\n4. Wait for AI response (up to 30s)\n5. Verify response appears\n\nWORKFLOW 4: Blog Navigation\n1. Load https://watsi.dev/blog\n2. Click on the first blog post\n3. Verify post content loads\n4. Test back navigation\n\nWORKFLOW 5: Language Switching\n1. Load https://watsi.dev\n2. Find language switcher\n3. Switch to Spanish\n4. Verify URL changes to /es\n5. Verify page content is in Spanish\n\nFor each workflow: record pass/fail, timing, and any errors.\nSave results to memory/e2e-tests/workflows-$(date +%Y-%m-%d).md",
-        "timeoutSeconds": 1800
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "C0AF5BELRR8"
-      },
-      "state": {
-        "nextRunAtMs": 1772442900000,
-        "lastRunAtMs": 1772356500028,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 190560,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true
-      }
-    },
-    {
-      "id": "4372146d-783d-4104-a138-6962e1a88e4f",
-      "agentId": "slack-generic-3",
-      "name": "E2E Test: Morning Report",
-      "enabled": true,
-      "createdAtMs": 1772089529306,
-      "updatedAtMs": 1772358387258,
-      "schedule": {
-        "kind": "cron",
-        "expr": "45 1 * * *",
-        "tz": "America/Los_Angeles",
-        "staggerMs": 0
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Generate the E2E TEST REPORT for watsi.dev.\n\nRead all test results from memory/e2e-tests/ for today's date:\n- public-pages-$(date +%Y-%m-%d).md\n- auth-pages-$(date +%Y-%m-%d).md  \n- dashboard-pages-$(date +%Y-%m-%d).md\n- agent-config-pages-$(date +%Y-%m-%d).md\n- workflows-$(date +%Y-%m-%d).md\n\nCompile into a single report:\n\n🧪 Watsi E2E Test Report - [DATE]\n\n## Summary\n- Total Tests: X\n- Passed: ✅ Y\n- Failed: ❌ Z\n\n## Results by Category\n[List each category with pass/fail counts]\n\n## Failures (if any)\n[Detailed list of what failed and why]\n\n## Recommendations\n[Any fixes needed]\n\nSend this report via WhatsApp to Blas (+16197735958).\nAlso post to Slack #0-notif-overview-daily (C0AF5BELRR8).",
-        "timeoutSeconds": 600
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958"
-      },
-      "state": {
-        "nextRunAtMs": 1772444700000,
-        "lastRunAtMs": 1772358300024,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 87234,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true
-      }
-    },
-    {
-      "id": "f36c0ace-f3c3-4ed9-9118-7a6a0e75e080",
-      "agentId": "slack-generic-3",
-      "name": "Ad Attribution Research - Phase 2: PostHog Integration",
-      "enabled": true,
-      "createdAtMs": 1772176631913,
-      "updatedAtMs": 1772359512353,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 2 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Continue ad attribution research for WAT-34 - Phase 2: PostHog Integration.\n\n1. Read memory/wat-34-attribution/phase1-industry.md for context\n2. Research PostHog's attribution capabilities (property tracking, UTM handling, funnel attribution)\n3. Check Watsi's current PostHog implementation in apps/webapp\n4. Document how to leverage existing PostHog setup for multi-source attribution\n5. Identify gaps and what additional tracking is needed\n\nDocument findings in memory/wat-34-attribution/phase2-posthog.md\nUpdate Linear ticket WAT-34 with Phase 2 progress comment.\nNotify: Slack #0-nora",
-        "timeoutSeconds": 1800
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "last"
-      },
-      "state": {
-        "nextRunAtMs": 1772445600000,
-        "lastRunAtMs": 1772359238611,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 273742,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "lastError": "Channel is required when multiple channels are configured: telegram, whatsapp, slack, imessage Set delivery.channel explicitly or use a main session with a previous channel."
-      }
-    },
-    {
-      "id": "723ef55d-b5df-4b8e-be77-49e4023e6811",
-      "agentId": "slack-generic-3",
-      "name": "Ad Attribution Research - Phase 3: Influencer Tracking",
-      "enabled": true,
-      "createdAtMs": 1772176638737,
-      "updatedAtMs": 1772366478467,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 4 * * *",
-        "tz": "America/Los_Angeles"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Continue ad attribution research for WAT-34 - Phase 3: Influencer/Affiliate Tracking.\n\n1. Read previous phases from memory/wat-34-attribution/\n2. Research influencer/affiliate tracking best practices:\n   - Unique discount codes per influencer\n   - Vanity URLs (watsi.ai/creator-name)\n   - Referral link systems\n   - UTM parameters for influencer campaigns\n3. Research how to track influencer performance in PostHog\n4. Design a scalable system for managing 10-100+ influencers\n\nDocument findings in memory/wat-34-attribution/phase3-influencer.md\nUpdate Linear ticket WAT-34 with Phase 3 progress comment.\nNotify: Slack #0-nora",
-        "timeoutSeconds": 1800
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "last"
-      },
-      "state": {
-        "nextRunAtMs": 1772452800000,
-        "lastRunAtMs": 1772366437716,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 40751,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "lastError": "Channel is required when multiple channels are configured: telegram, whatsapp, slack, imessage Set delivery.channel explicitly or use a main session with a previous channel."
       }
     },
     {
@@ -1015,10 +400,11 @@
       "name": "Watsi Blog Publish - Monday [RAND]",
       "enabled": true,
       "createdAtMs": 1770935377481,
-      "updatedAtMs": 1771872429326,
+      "updatedAtMs": 1772418780420,
       "schedule": {
         "kind": "cron",
-        "expr": "44 10 * * 1"
+        "expr": "46 11 * * 1",
+        "staggerMs": 0
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
@@ -1034,7 +420,7 @@
         "to": "+16197735958"
       },
       "state": {
-        "nextRunAtMs": 1772477040000,
+        "nextRunAtMs": 1772480760000,
         "lastRunAtMs": 1771872240014,
         "lastStatus": "ok",
         "lastDurationMs": 189312,
@@ -1045,15 +431,466 @@
       }
     },
     {
+      "id": "48231013-7012-46c4-bf11-ba44a847077b",
+      "name": "meta-ads-midday-check",
+      "enabled": true,
+      "createdAtMs": 1772091878625,
+      "updatedAtMs": 1772402648798,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 14 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Quick check Meta Ads (act=1234964789989711). Verify 'New Traffic Campaign' is Active. Alert to WhatsApp (+16197735958) only if any issues. Brief Slack update to #notif-ad-analysis-daily-watsi.",
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "C0AFCE5M2R3"
+      },
+      "state": {
+        "nextRunAtMs": 1772488800000,
+        "lastRunAtMs": 1772402468775,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 180023,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 3,
+        "lastError": "cron: job execution timed out"
+      }
+    },
+    {
+      "id": "6d3b2974-0e64-4170-b3b7-555405e97d1d",
+      "name": "meta-ads-evening-check",
+      "enabled": true,
+      "createdAtMs": 1772091884116,
+      "updatedAtMs": 1772330860316,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 18 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Evening check Meta Ads (act=1234964789989711). Verify campaigns running, check spend vs budget. Alert WhatsApp (+16197735958) if issues. Slack #notif-ad-analysis-daily-watsi with brief status.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "C0AFCE5M2R3"
+      },
+      "state": {
+        "nextRunAtMs": 1772503200000,
+        "lastRunAtMs": 1772330709451,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 150865,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 2
+      }
+    },
+    {
+      "id": "98a54e69-879f-4e6f-955f-80bdab136d97",
+      "name": "Daily Dev QA Testing",
+      "description": "Daily QA testing of features deployed to watsi.dev",
+      "enabled": true,
+      "createdAtMs": 1771813503236,
+      "updatedAtMs": 1772330709451,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 18 * * *"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run daily QA testing on watsi.dev for all tickets completed today.\n\nTASK:\n1. Query Linear via Claude MCP for all tickets moved to 'Done' status today\n2. For each ticket:\n   - Open watsi.dev in browser\n   - Navigate to the relevant feature/page based on ticket description\n   - Verify the feature works as described\n   - Record: pass/fail + brief test description (1 sentence)\n3. Compile QA report\n\nREPORT FORMAT (send to Slack #0-nora):\n🧪 Daily QA Report - [DATE]\n\n✅ WAT-XX: [Title] - PASSED\n   Test: [Brief description of how it was tested]\n\n❌ WAT-YY: [Title] - FAILED  \n   Test: [Brief description]\n   Issue: [What went wrong]\n\nSummary: X/Y tests passed\n\nAlso save the report to memory/qa-reports/YYYY-MM-DD.md"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack"
+      },
+      "state": {
+        "nextRunAtMs": 1772503200000,
+        "lastRunAtMs": 1772330433406,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 276045,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 5
+      }
+    },
+    {
+      "id": "e9eb0d09-90a6-42f0-b7ba-fbc33e63b9b1",
+      "agentId": "main",
+      "name": "Nora Self-Improvement Session",
+      "enabled": true,
+      "createdAtMs": 1770614435519,
+      "updatedAtMs": 1771486233160,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 21 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🔧 SELF-IMPROVEMENT SESSION\n\nThis is your daily 9pm self-improvement time. Do the following:\n\n1. **X Research**: Search X/Twitter for discussions about AI assistants, personal AI agents, Claude, OpenClaw improvements from the last 24h. Look for tips, workflows, and capabilities others are using.\n\n2. **Review Bottleneck Log**: Read today's log at `memory/self-improvement/YYYY-MM-DD.md` (use current date). If no file exists for today, create it.\n\n3. **OpenClaw Community Research**: Search for OpenClaw discussions, GitHub issues, or Discord threads that might address logged bottlenecks.\n\n4. **Run OpenClaw Update**: Execute `openclaw update` to get latest improvements.\n\n5. **Report to Blas**: Send a concise WhatsApp message to +16197735958 with:\n   - Top 2-3 relevant self-improvement suggestions from X research\n   - Any solutions found for logged bottlenecks\n   - Update status\n   - Keep it actionable and brief\n\n6. **Update files**:\n   - Add solutions to today's log file\n   - Add recurring patterns to `memory/self-improvement/patterns.md`\n\n7. **Archive old logs**: Move any log files older than 3 days from `memory/self-improvement/` to `archive/self-improvement/` (keeps memory clean)",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1772514000000,
+        "lastRunAtMs": 1771479072109,
+        "lastStatus": "ok",
+        "lastDurationMs": 37153,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "d5daeb04-1c53-4f5f-8814-7c3e5b066981",
+      "agentId": "slack-generic-3",
+      "name": "Ad Attribution Research - Phase 1: Industry Best Practices",
+      "enabled": true,
+      "createdAtMs": 1772176623687,
+      "updatedAtMs": 1772438598849,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 0 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Research ad attribution best practices for WAT-34. \n\n1. Search web for 'multi-touch attribution best practices 2026'\n2. Research how leading e-commerce companies handle attribution\n3. Document findings in memory/wat-34-attribution/phase1-industry.md\n4. Focus on: UTM standards, cookie-based vs server-side, attribution windows\n\nWhen done, update Linear ticket WAT-34 with a comment summarizing Phase 1 findings.\n\nLog: memory/wat-34-attribution/phase1-industry.md\nNotify: Slack #0-nora",
+        "timeoutSeconds": 1800
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1772524800000,
+        "lastRunAtMs": 1772438430498,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 168351,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 4,
+        "lastError": "Channel is required when multiple channels are configured: telegram, whatsapp, slack, imessage Set delivery.channel explicitly or use a main session with a previous channel."
+      }
+    },
+    {
+      "id": "57451da1-ed58-4803-9004-e2df1ba8305e",
+      "agentId": "slack-generic-3",
+      "name": "E2E Test: Public Pages",
+      "enabled": true,
+      "createdAtMs": 1772089486018,
+      "updatedAtMs": 1772438780804,
+      "schedule": {
+        "kind": "cron",
+        "expr": "5 0 * * *",
+        "tz": "America/Los_Angeles",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run E2E tests on watsi.dev PUBLIC PAGES. Use the browser tool (profile=openclaw) to test each page loads correctly:\n\n1. Homepage (https://watsi.dev) - Check hero section, CTA buttons\n2. Homepage Spanish (https://watsi.dev/es) - Check Spanish content renders\n3. Pricing (https://watsi.dev/pricing) - Check pricing cards load\n4. Blog (https://watsi.dev/blog) - Check blog posts list\n5. Privacy Policy (https://watsi.dev/privacy-policy) - Check content loads\n6. Terms of Service (https://watsi.dev/terms-of-service) - Check content loads\n7. Apply for Demo (https://watsi.dev/apply-for-demo) - Check form renders\n\nFor each page: navigate, take snapshot, record load time, note any errors.\nSave results to memory/e2e-tests/public-pages-$(date +%Y-%m-%d).md\nReport any failures immediately to Slack #0-notif-overview-daily",
+        "timeoutSeconds": 900
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "C0AF5BELRR8"
+      },
+      "state": {
+        "nextRunAtMs": 1772525100000,
+        "lastRunAtMs": 1772438700021,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 80783,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 3,
+        "lastDelivered": true,
+        "lastError": "⚠️ ✉️ Message failed"
+      }
+    },
+    {
+      "id": "e618c59e-b795-47d7-9429-3486945bd04d",
+      "agentId": "slack-generic-3",
+      "name": "E2E Test: Auth Pages",
+      "enabled": true,
+      "createdAtMs": 1772089492591,
+      "updatedAtMs": 1772439653429,
+      "schedule": {
+        "kind": "cron",
+        "expr": "20 0 * * *",
+        "tz": "America/Los_Angeles",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run E2E tests on watsi.dev AUTH PAGES. Use browser (profile=openclaw):\n\n1. Sign In (https://watsi.dev/auth/signin) - Check form fields render (email, password, Google/Apple buttons)\n2. Sign Up (https://watsi.dev/signup) - Check registration form renders\n3. Reset Password (https://watsi.dev/reset-password) - Check reset form renders\n\nFor each page: navigate, snapshot, verify all form elements present.\nSave results to memory/e2e-tests/auth-pages-$(date +%Y-%m-%d).md",
+        "timeoutSeconds": 600
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "C0AF5BELRR8"
+      },
+      "state": {
+        "nextRunAtMs": 1772526000000,
+        "lastRunAtMs": 1772439600028,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 53401,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
+      }
+    },
+    {
+      "id": "01fa00b3-16b4-4c08-80f6-1614848ae7f6",
+      "agentId": "slack-generic-3",
+      "name": "E2E Test: Dashboard (Auth Required)",
+      "enabled": true,
+      "createdAtMs": 1772089499393,
+      "updatedAtMs": 1772440318403,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 0 * * *",
+        "tz": "America/Los_Angeles",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run E2E tests on watsi.dev DASHBOARD PAGES. These require authentication.\n\nUse browser (profile=openclaw). First sign in:\n1. Go to https://watsi.dev/auth/signin\n2. Sign in with Google using blasai1739217@gmail.com\n\nThen test each dashboard page:\n1. Playground (https://watsi.dev/playground) - Check chat interface loads\n2. Chats (https://watsi.dev/chats) - Check chats list renders\n3. Analytics (https://watsi.dev/analytics) - Check analytics dashboard loads\n4. Integrations (https://watsi.dev/integrations) - Check integrations list\n\nFor each: navigate, snapshot, check for console errors.\nSave results to memory/e2e-tests/dashboard-pages-$(date +%Y-%m-%d).md",
+        "timeoutSeconds": 1200
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "C0AF5BELRR8"
+      },
+      "state": {
+        "nextRunAtMs": 1772526600000,
+        "lastRunAtMs": 1772440241683,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 76720,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
+      }
+    },
+    {
+      "id": "50ef5c00-ccbe-4a98-99ae-d0afd1b230f6",
+      "agentId": "slack-generic-3",
+      "name": "E2E Test: Agent Config Pages",
+      "enabled": true,
+      "createdAtMs": 1772089507335,
+      "updatedAtMs": 1772441587719,
+      "schedule": {
+        "kind": "cron",
+        "expr": "50 0 * * *",
+        "tz": "America/Los_Angeles",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run E2E tests on watsi.dev AGENT CONFIG PAGES. Requires auth.\n\nUse browser (profile=openclaw). Sign in with Google (blasai1739217@gmail.com) if needed.\n\nTest each agent config page:\n1. Products (https://watsi.dev/agent/products) - Product catalog form\n2. Sales (https://watsi.dev/agent/sales) - Sales settings\n3. Brand (https://watsi.dev/agent/brand) - Brand configuration\n4. Website (https://watsi.dev/agent/website) - Website settings\n5. QA (https://watsi.dev/agent/qa) - Q&A pairs list\n6. Voice (https://watsi.dev/agent/voice) - Voice settings\n7. AI (https://watsi.dev/agent/ai) - AI configuration\n8. Files (https://watsi.dev/agent/files) - Files list\n9. Campaigns (https://watsi.dev/agent/campaigns) - Campaigns list\n10. Text (https://watsi.dev/agent/text) - Text settings\n\nFor each: navigate, snapshot, verify forms/lists render correctly.\nSave results to memory/e2e-tests/agent-config-pages-$(date +%Y-%m-%d).md",
+        "timeoutSeconds": 1500
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "C0AF5BELRR8"
+      },
+      "state": {
+        "nextRunAtMs": 1772527800000,
+        "lastRunAtMs": 1772441400030,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 187689,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
+      }
+    },
+    {
+      "id": "89864435-58ad-4cc9-9c1c-958cab323b78",
+      "agentId": "slack-generic-3",
+      "name": "E2E Test: Workflows",
+      "enabled": true,
+      "createdAtMs": 1772089518765,
+      "updatedAtMs": 1772443146468,
+      "schedule": {
+        "kind": "cron",
+        "expr": "15 1 * * *",
+        "tz": "America/Los_Angeles",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run E2E WORKFLOW tests on watsi.dev. Use browser (profile=openclaw).\n\nWORKFLOW 1: Homepage to Sign Up\n1. Load https://watsi.dev\n2. Find and click 'Get Started' or main CTA button\n3. Verify redirect to /signup\n4. Check form renders\n\nWORKFLOW 2: Sign In Flow\n1. Go to https://watsi.dev/auth/signin\n2. Click 'Sign in with Google'\n3. Complete Google OAuth with blasai1739217@gmail.com\n4. Verify redirect to dashboard/playground\n\nWORKFLOW 3: Playground Chat Test\n1. After auth, go to https://watsi.dev/playground\n2. Type a test message: 'Hello, this is an automated test'\n3. Click send\n4. Wait for AI response (up to 30s)\n5. Verify response appears\n\nWORKFLOW 4: Blog Navigation\n1. Load https://watsi.dev/blog\n2. Click on the first blog post\n3. Verify post content loads\n4. Test back navigation\n\nWORKFLOW 5: Language Switching\n1. Load https://watsi.dev\n2. Find language switcher\n3. Switch to Spanish\n4. Verify URL changes to /es\n5. Verify page content is in Spanish\n\nFor each workflow: record pass/fail, timing, and any errors.\nSave results to memory/e2e-tests/workflows-$(date +%Y-%m-%d).md",
+        "timeoutSeconds": 1800
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "C0AF5BELRR8"
+      },
+      "state": {
+        "nextRunAtMs": 1772529300000,
+        "lastRunAtMs": 1772442900021,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 246447,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
+      }
+    },
+    {
+      "id": "4372146d-783d-4104-a138-6962e1a88e4f",
+      "agentId": "slack-generic-3",
+      "name": "E2E Test: Morning Report",
+      "enabled": true,
+      "createdAtMs": 1772089529306,
+      "updatedAtMs": 1772444727935,
+      "schedule": {
+        "kind": "cron",
+        "expr": "45 1 * * *",
+        "tz": "America/Los_Angeles",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Generate the E2E TEST REPORT for watsi.dev.\n\nRead all test results from memory/e2e-tests/ for today's date:\n- public-pages-$(date +%Y-%m-%d).md\n- auth-pages-$(date +%Y-%m-%d).md  \n- dashboard-pages-$(date +%Y-%m-%d).md\n- agent-config-pages-$(date +%Y-%m-%d).md\n- workflows-$(date +%Y-%m-%d).md\n\nCompile into a single report:\n\n🧪 Watsi E2E Test Report - [DATE]\n\n## Summary\n- Total Tests: X\n- Passed: ✅ Y\n- Failed: ❌ Z\n\n## Results by Category\n[List each category with pass/fail counts]\n\n## Failures (if any)\n[Detailed list of what failed and why]\n\n## Recommendations\n[Any fixes needed]\n\nSend this report via WhatsApp to Blas (+16197735958).\nAlso post to Slack #0-notif-overview-daily (C0AF5BELRR8).",
+        "timeoutSeconds": 600
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1772531100000,
+        "lastRunAtMs": 1772444700017,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 27918,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
+      }
+    },
+    {
+      "id": "f36c0ace-f3c3-4ed9-9118-7a6a0e75e080",
+      "agentId": "slack-generic-3",
+      "name": "Ad Attribution Research - Phase 2: PostHog Integration",
+      "enabled": true,
+      "createdAtMs": 1772176631913,
+      "updatedAtMs": 1772445909837,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 2 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Continue ad attribution research for WAT-34 - Phase 2: PostHog Integration.\n\n1. Read memory/wat-34-attribution/phase1-industry.md for context\n2. Research PostHog's attribution capabilities (property tracking, UTM handling, funnel attribution)\n3. Check Watsi's current PostHog implementation in apps/webapp\n4. Document how to leverage existing PostHog setup for multi-source attribution\n5. Identify gaps and what additional tracking is needed\n\nDocument findings in memory/wat-34-attribution/phase2-posthog.md\nUpdate Linear ticket WAT-34 with Phase 2 progress comment.\nNotify: Slack #0-nora",
+        "timeoutSeconds": 1800
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1772532000000,
+        "lastRunAtMs": 1772445628913,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 280924,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 4,
+        "lastError": "Channel is required when multiple channels are configured: telegram, whatsapp, slack, imessage Set delivery.channel explicitly or use a main session with a previous channel."
+      }
+    },
+    {
+      "id": "723ef55d-b5df-4b8e-be77-49e4023e6811",
+      "agentId": "slack-generic-3",
+      "name": "Ad Attribution Research - Phase 3: Influencer Tracking",
+      "enabled": true,
+      "createdAtMs": 1772176638737,
+      "updatedAtMs": 1772453103097,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 4 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Continue ad attribution research for WAT-34 - Phase 3: Influencer/Affiliate Tracking.\n\n1. Read previous phases from memory/wat-34-attribution/\n2. Research influencer/affiliate tracking best practices:\n   - Unique discount codes per influencer\n   - Vanity URLs (watsi.ai/creator-name)\n   - Referral link systems\n   - UTM parameters for influencer campaigns\n3. Research how to track influencer performance in PostHog\n4. Design a scalable system for managing 10-100+ influencers\n\nDocument findings in memory/wat-34-attribution/phase3-influencer.md\nUpdate Linear ticket WAT-34 with Phase 3 progress comment.\nNotify: Slack #0-nora",
+        "timeoutSeconds": 1800
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1772539200000,
+        "lastRunAtMs": 1772453056831,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 46266,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 4,
+        "lastError": "Channel is required when multiple channels are configured: telegram, whatsapp, slack, imessage Set delivery.channel explicitly or use a main session with a previous channel."
+      }
+    },
+    {
       "id": "7eb8ff7f-23ad-43d6-94b2-8254dcba196e",
       "agentId": "main",
       "name": "Watsi Blog Publish - Tuesday [RAND]",
       "enabled": true,
       "createdAtMs": 1770935377514,
-      "updatedAtMs": 1771971106225,
+      "updatedAtMs": 1772418781049,
       "schedule": {
         "kind": "cron",
-        "expr": "11 14 * * 2"
+        "expr": "42 15 * * 2",
+        "staggerMs": 0
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
@@ -1069,46 +906,10 @@
         "to": "+16197735958"
       },
       "state": {
-        "nextRunAtMs": 1772575860000,
+        "nextRunAtMs": 1772581320000,
         "lastRunAtMs": 1771971060013,
         "lastStatus": "ok",
         "lastDurationMs": 46212,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered"
-      }
-    },
-    {
-      "id": "70b94bff-194d-4846-a901-d9582545dfe0",
-      "agentId": "main",
-      "name": "Watsi Blog Publish - Wednesday [RAND]",
-      "enabled": true,
-      "createdAtMs": 1770935377555,
-      "updatedAtMs": 1772041191580,
-      "schedule": {
-        "kind": "cron",
-        "expr": "38 9 * * 3"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "model": "anthropic/claude-opus-4-5",
-        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post with feature image.\n\n**Steps:**\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or oldest unpublished draft\n3. **Generate feature image if missing:**\n   - Use OpenAI DALL-E 3 API (key in ~/.openclaw/openclaw.json under skills.entries.openai-image-gen.apiKey)\n   - Prompt: \"Professional business illustration showing [POST TOPIC], warm green white WhatsApp colors, modern flat design, soft gradients, clean minimal, no text no words no letters\"\n   - Upload to Ghost and set as feature_image\n4. Publish the EN post (set status to 'published')\n5. Publish the matching ES post\n6. Update `memory/blog-queue.md` to mark as published\n7. **Notify Slack** - Post to channel C0AF2KMB2G5:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n8. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with link\n\n**Ghost Admin Key:** 698ae4d81ba8bd00010a87d9:8ebd5dabfae2535a879a4ebb3ac5b3f691d99dd2f19f055b8f603fdb3214a53b",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "whatsapp",
-        "to": "+16197735958",
-        "bestEffort": true
-      },
-      "state": {
-        "nextRunAtMs": 1772645880000,
-        "lastRunAtMs": 1772041080025,
-        "lastStatus": "ok",
-        "lastDurationMs": 111555,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": true,
@@ -1153,15 +954,53 @@
       }
     },
     {
+      "id": "70b94bff-194d-4846-a901-d9582545dfe0",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Wednesday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377555,
+      "updatedAtMs": 1772418781681,
+      "schedule": {
+        "kind": "cron",
+        "expr": "11 14 * * 3",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post with feature image.\n\n**Steps:**\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or oldest unpublished draft\n3. **Generate feature image if missing:**\n   - Use OpenAI DALL-E 3 API (key in ~/.openclaw/openclaw.json under skills.entries.openai-image-gen.apiKey)\n   - Prompt: \"Professional business illustration showing [POST TOPIC], warm green white WhatsApp colors, modern flat design, soft gradients, clean minimal, no text no words no letters\"\n   - Upload to Ghost and set as feature_image\n4. Publish the EN post (set status to 'published')\n5. Publish the matching ES post\n6. Update `memory/blog-queue.md` to mark as published\n7. **Notify Slack** - Post to channel C0AF2KMB2G5:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n8. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with link\n\n**Ghost Admin Key:** 698ae4d81ba8bd00010a87d9:8ebd5dabfae2535a879a4ebb3ac5b3f691d99dd2f19f055b8f603fdb3214a53b",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1772662260000,
+        "lastRunAtMs": 1772041080025,
+        "lastStatus": "ok",
+        "lastDurationMs": 111555,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
+      }
+    },
+    {
       "id": "3c686514-8995-4b22-b112-846b02f11872",
       "agentId": "main",
       "name": "Watsi Blog Publish - Thursday [RAND]",
       "enabled": true,
       "createdAtMs": 1770935377580,
-      "updatedAtMs": 1772128275435,
+      "updatedAtMs": 1772418782341,
       "schedule": {
         "kind": "cron",
-        "expr": "49 9 * * 4"
+        "expr": "11 17 * * 4",
+        "staggerMs": 0
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
@@ -1177,7 +1016,7 @@
         "to": "+16197735958"
       },
       "state": {
-        "nextRunAtMs": 1772732940000,
+        "nextRunAtMs": 1772759460000,
         "lastRunAtMs": 1772128204284,
         "lastStatus": "ok",
         "lastDurationMs": 71151,
@@ -1193,10 +1032,11 @@
       "name": "Watsi Blog Publish - Friday [RAND]",
       "enabled": true,
       "createdAtMs": 1770935377600,
-      "updatedAtMs": 1772216681075,
+      "updatedAtMs": 1772418783016,
       "schedule": {
         "kind": "cron",
-        "expr": "24 10 * * 5"
+        "expr": "39 13 * * 5",
+        "staggerMs": 0
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
@@ -1213,7 +1053,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772821440000,
+        "nextRunAtMs": 1772833140000,
         "lastRunAtMs": 1772216640019,
         "lastStatus": "ok",
         "lastDurationMs": 41056,
@@ -1229,10 +1069,11 @@
       "name": "Watsi Blog Publish - Saturday [RAND]",
       "enabled": true,
       "createdAtMs": 1770935377621,
-      "updatedAtMs": 1772326322808,
+      "updatedAtMs": 1772418783673,
       "schedule": {
         "kind": "cron",
-        "expr": "51 16 * * 6"
+        "expr": "55 11 * * 6",
+        "staggerMs": 0
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
@@ -1249,7 +1090,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772931060000,
+        "nextRunAtMs": 1772913300000,
         "lastRunAtMs": 1772326260025,
         "lastStatus": "ok",
         "lastDurationMs": 62783,
@@ -1257,6 +1098,140 @@
         "lastRunStatus": "ok",
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered"
+      }
+    },
+    {
+      "id": "94caa9d4-d44e-4aba-a83f-e9e0475edc89",
+      "agentId": "main",
+      "name": "Watsi Blog Publish - Sunday [RAND]",
+      "enabled": true,
+      "createdAtMs": 1770935377644,
+      "updatedAtMs": 1772418784335,
+      "schedule": {
+        "kind": "cron",
+        "expr": "29 16 * * 0",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "📰 DAILY BLOG PUBLISH\n\nPublish today's scheduled Watsi blog post with feature image.\n\n**Steps:**\n\n1. Check `memory/blog-queue.md` for today's scheduled post\n2. If no queue exists or is empty, check Ghost drafts for posts tagged #scheduled-today or oldest unpublished draft\n3. **Generate feature image if missing:**\n   - Use OpenAI DALL-E 3 API (key in ~/.openclaw/openclaw.json under skills.entries.openai-image-gen.apiKey)\n   - Prompt: \"Professional business illustration showing [POST TOPIC], warm green white WhatsApp colors, modern flat design, soft gradients, clean minimal, no text no words no letters\"\n   - Upload to Ghost and set as feature_image\n4. Publish the EN post (set status to 'published')\n5. Publish the matching ES post\n6. Update `memory/blog-queue.md` to mark as published\n7. **Notify Slack** - Post to channel C0AF2KMB2G5:\n   📝 **Blog Published**\n   🇺🇸 [EN Title](https://watsi.ai/blog/{POST_ID})\n   🇪🇸 [ES Title](https://watsi.ai/blog/{POST_ID})\n8. Send Blas a WhatsApp message: \"✅ Published: [Title]\" with link\n\n**Ghost Admin Key:** 698ae4d81ba8bd00010a87d9:8ebd5dabfae2535a879a4ebb3ac5b3f691d99dd2f19f055b8f603fdb3214a53b",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1773012540000,
+        "lastRunAtMs": 1772414340019,
+        "lastStatus": "ok",
+        "lastDurationMs": 116484,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
+      }
+    },
+    {
+      "id": "52f86416-b1f1-44e3-a848-6103491b0eb7",
+      "name": "meta-ads-weekly-review",
+      "enabled": true,
+      "createdAtMs": 1772092060873,
+      "updatedAtMs": 1772092060873,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 18 * * 0",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Weekly Meta Ads Review: 1) Read memory/meta-ads-analysis/daily/*.md for this week. 2) Summarize metrics, wins, losses, learnings. 3) Create memory/meta-ads-analysis/weekly/YYYY-WXX.md with summary + next week recommendations. 4) Send summary to WhatsApp (+16197735958) and Slack #notif-ad-analysis-weekly-watsi.",
+        "timeoutSeconds": 600
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1773018000000
+      }
+    },
+    {
+      "id": "97a01960-ff43-4215-9a7e-30c4078ac891",
+      "agentId": "main",
+      "name": "Weekly Cron Randomizer",
+      "enabled": true,
+      "createdAtMs": 1770935590809,
+      "updatedAtMs": 1772418700481,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 18 * * 0",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🎲 WEEKLY CRON RANDOMIZER\n\nRandomize all [RAND] tagged cron jobs for the coming week. Follow the cron-randomizer skill.\n\n**Steps:**\n\n1. **Load config** from `~/.openclaw/workspace/config/cron-randomizer.json`\n\n2. **List all cron jobs** using the cron tool (action: list)\n\n3. **Filter for [RAND] jobs** - only process jobs with `[RAND]` in their name\n\n4. **For each [RAND] job:**\n   - Parse the current cron expression to get the day-of-week\n   - Find matching pattern in config (check if job name contains any pattern key)\n   - Use pattern bounds if found, otherwise use default bounds\n   - Generate a random hour within minHour-maxHour (excluding avoidHours)\n   - Generate a random minute (0-59, avoiding :00, :15, :30, :45 if avoidRoundNumbers=true)\n   - Apply jitter (±jitterMinutes random offset, clamped to valid range)\n   - Ensure at least minGapMinutes between any two jobs on the same day\n   - Build new cron expression: `{minute} {hour} * * {dayOfWeek}`\n   - Update the job using cron tool (action: update, jobId, patch with new schedule)\n\n5. **Log changes** to `memory/cron-randomizer/{date}.md` with a table showing old vs new times\n\n6. **Report** - send brief summary to Blas on WhatsApp with the new schedule for the week\n\n**Anti-detection tips:**\n- Vary the hour significantly day-to-day (don't cluster around same time)\n- Use odd minutes (13, 27, 41, 53) - humans don't pick round numbers\n- Some days should be morning, some afternoon, some evening\n- Never use the exact same minute twice in the week",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1773019800000,
+        "lastRunAtMs": 1772418600033,
+        "lastStatus": "ok",
+        "lastDurationMs": 100448,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
+      }
+    },
+    {
+      "id": "7e610ebd-2d3f-42b1-8a11-8654c97b0097",
+      "agentId": "main",
+      "name": "Watsi Blog Generation (Weekly)",
+      "enabled": true,
+      "createdAtMs": 1770935377447,
+      "updatedAtMs": 1772421300058,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 19 * * 0",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "model": "anthropic/claude-opus-4-5",
+        "message": "🖊️ WEEKLY BLOG GENERATION\n\nTime to create this week's Watsi blog content. Follow the watsi-blog-writer skill.\n\n1. **Research:** Check trending topics in WhatsApp commerce, AI agents, e-commerce automation, LATAM business. Look at competitor gaps (Vambe, Yavendio). Find 7 unique angles.\n\n2. **Generate 7 blog posts** - one for each day of the week:\n   - Follow the SEO template and brand voice\n   - Write EN version first, then ES translation\n   - Generate feature image for each using VAP API\n   - Upload images to Ghost\n\n3. **Save all as DRAFTS in Ghost** with proper tags (#lang-en, #lang-es, #pair-slug, plus a #scheduled-YYYY-MM-DD tag for the intended publish date)\n\n4. **Log the queue** - save the list of drafts and their scheduled dates to `memory/blog-queue.md`\n\n5. **Confirm completion** - send a brief summary to Blas on WhatsApp with the 7 topics queued.",
+        "timeoutSeconds": 900
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "whatsapp",
+        "to": "+16197735958"
+      },
+      "state": {
+        "nextRunAtMs": 1773021600000,
+        "lastRunAtMs": 1772420400027,
+        "lastStatus": "error",
+        "lastDurationMs": 900031,
+        "consecutiveErrors": 2,
+        "lastRunStatus": "error",
+        "lastError": "cron: job execution timed out",
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
